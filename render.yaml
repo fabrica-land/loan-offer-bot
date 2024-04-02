@@ -1,0 +1,168 @@
+envVarGroups:
+  - name: fabrica-loan-offer-bot
+    envVars:
+      # No code should directly reference this, except for reporting purposes (e.g. logging) and cache keys
+      #  (since every release stage shares a cache, and sometimes you want to cache things separately per
+      #  release stage, e.g. to track if an email was sent). Instead, env vars should be created for each
+      #  separate configurable option, so they can be changed independent of the environment
+      - key: NODE_ENV
+        value: production
+      - key: API_CLIENT_BEARER_TOKEN
+        generateValue: true
+      - key: PROOF_WEBHOOK_BEARER_TOKEN
+        generateValue: true
+      - key: VALIDATION_BEARER_TOKEN
+        generateValue: true
+  # Staging Environment
+  - name: fabrica-staging
+    envVars:
+      # No code should directly reference this, except for reporting purposes (e.g. logging) and cache keys
+      #  (since every release stage shares a cache, and sometimes you want to cache things separately per
+      #  release stage, e.g. to track if an email was sent). Instead, env vars should be created for each
+      #  separate configurable option, so they can be changed independent of the environment
+      - key: NODE_ENV
+        value: staging
+      - key: API_CLIENT_BEARER_TOKEN
+        generateValue: true
+      - key: PROOF_WEBHOOK_BEARER_TOKEN
+        generateValue: true
+      - key: VALIDATION_BEARER_TOKEN
+        generateValue: true
+
+services:
+  # Production Services
+  - type: redis
+    name: bullmq-production
+    plan: standard
+    region: oregon
+    maxmemoryPolicy: noeviction
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+  - type: web
+    name: fabrica-v3
+    env: node
+    plan: standard
+    region: oregon
+    domains:
+      - media3.fabrica.land
+      - metadata.fabrica.land
+    repo: https://github.com/fabrica-land/fabrica-v3-api
+    branch: prod
+    healthCheckPath: /
+    buildCommand: 'yarn ci'
+    startCommand: 'yarn start'
+    autoDeploy: true
+    envVars:
+      - key: APP_CACHE_URL
+        fromService:
+          type: redis
+          name: redis-starter
+          property: connectionString
+      - key: DB_CONN_STRING
+        fromDatabase:
+          name: fabrica-db
+          property: connectionString
+      - key: QUEUE_URL
+        fromService:
+          type: redis
+          name: bullmq-production
+          property: connectionString
+      - fromGroup: fabrica
+      - fromGroup: fabrica-secrets-production
+  - type: worker
+    name: worker-production
+    env: node
+    region: oregon
+    repo: https://github.com/fabrica-land/fabrica-v3-api
+    branch: prod
+    buildCommand: 'yarn ci'
+    startCommand: 'yarn worker'
+    autoDeploy: true
+    envVars:
+      - key: APP_CACHE_URL
+        fromService:
+          type: redis
+          name: redis-starter
+          property: connectionString
+      - key: DB_CONN_STRING
+        fromDatabase:
+          name: fabrica-db
+          property: connectionString
+      - key: IS_WORKER
+        value: true
+      - key: QUEUE_URL
+        fromService:
+          type: redis
+          name: bullmq-production
+          property: connectionString
+      - fromGroup: fabrica
+      - fromGroup: fabrica-secrets-production
+  # Staging Services
+  - type: redis
+    name: bullmq-staging
+    plan: standard
+    region: oregon
+    maxmemoryPolicy: noeviction
+    ipAllowList:
+      - source: 0.0.0.0/0
+        description: everywhere
+  - type: web
+    name: fabrica-v3-staging
+    env: node
+    plan: standard
+    region: oregon
+    domains:
+      - media-staging.fabrica.land
+      - metadata-staging.fabrica.land
+    repo: https://github.com/fabrica-land/fabrica-v3-api
+    branch: main
+    healthCheckPath: /
+    buildCommand: 'yarn ci'
+    startCommand: 'yarn start'
+    autoDeploy: true
+    envVars:
+      - key: APP_CACHE_URL
+        fromService:
+          type: redis
+          name: redis-starter
+          property: connectionString
+      - key: DB_CONN_STRING
+        fromDatabase:
+          name: fabrica-db-staging
+          property: connectionString
+      - key: QUEUE_URL
+        fromService:
+          type: redis
+          name: bullmq-staging
+          property: connectionString
+      - fromGroup: fabrica-staging
+      - fromGroup: fabrica-secrets-staging
+  - type: worker
+    name: worker-staging
+    env: node
+    region: oregon
+    repo: https://github.com/fabrica-land/fabrica-v3-api
+    branch: main
+    buildCommand: 'yarn ci'
+    startCommand: 'yarn worker'
+    autoDeploy: true
+    envVars:
+      - key: APP_CACHE_URL
+        fromService:
+          type: redis
+          name: redis-starter
+          property: connectionString
+      - key: DB_CONN_STRING
+        fromDatabase:
+          name: fabrica-db-staging
+          property: connectionString
+      - key: QUEUE_URL
+        fromService:
+          type: redis
+          name: bullmq-staging
+          property: connectionString
+      - key: IS_WORKER
+        value: true
+      - fromGroup: fabrica-staging
+      - fromGroup: fabrica-secrets-staging
