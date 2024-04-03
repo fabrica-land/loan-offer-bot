@@ -9,3 +9,5 @@ export const EthereumAddress = z
     `Must be a valid Ethereum address, matching the RegEx pattern ${PATTERN_ETHEREUM_ADDRESS}`,
   )
 export type EthereumAddress = z.infer<typeof EthereumAddress>
+
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'

@@ -1,9 +1,6 @@
 import * as parallel from 'async-parallel'
 import { Readable } from 'node:stream'
-
-export type PlainObject = { [member: string]: unknown }
-export const isPlainObject = (value: unknown): value is PlainObject =>
-  value != null && typeof value === 'object' && !Array.isArray(value)
+import { isPlainObject } from './types/plain-object'
 
 export const asyncSleep = parallel.sleep
 
