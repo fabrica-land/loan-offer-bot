@@ -13,7 +13,7 @@ services:
     name: loan-offer-bot
     runtime: node
     region: oregon
-    repo: https://github.com/fabrica-land/fabrica-v3-api
+    repo: https://github.com/fabrica-land/loan-offer-bot
     branch: prod
     buildCommand: 'yarn && yarn build'
     startCommand: 'yarn start'
