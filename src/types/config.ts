@@ -1,6 +1,5 @@
 import SecureJson from 'secure-json-parse'
 import * as fs from 'node:fs'
-import * as asyncFs from 'node:fs/promises'
 import { z } from 'zod'
 import { NetworkConfig } from './network.config'
 import { SerializableObject } from './serializable'
@@ -29,7 +28,7 @@ export const Config = z.object({
 })
 export type Config = z.infer<typeof Config>
 
-export const loadFile = async (fileName: NonEmptyString, required = false): Promise<SerializableObject> => {
+export const loadFile = (fileName: NonEmptyString, required = false): SerializableObject => {
   let fullPath = path.resolve(__dirname, '..', '..', 'config', fileName)
   if (!fs.existsSync(fullPath)) {
     fullPath = path.resolve(__dirname, '..', '..', fileName)
@@ -42,7 +41,7 @@ export const loadFile = async (fileName: NonEmptyString, required = false): Prom
     }
   }
   try {
-    const content = await asyncFs.readFile(fullPath, { encoding: 'utf-8' })
+    const content = fs.readFileSync(fullPath, { encoding: 'utf-8' })
     const json = SecureJson.parse(content)
     return SerializableObject.parse(json)
   } catch (err) {
@@ -56,15 +55,15 @@ export const loadFile = async (fileName: NonEmptyString, required = false): Prom
   }
 }
 
-export const getConfig = async (): Promise<Config> => {
+export const getConfig = (): Config => {
   const localEnvConfig: Partial<Config> = {
     nodeEnv: process.env.NODE_ENV || `local:{${os.hostname()}}`,
   }
   const nodeEnv = process.env.NODE_ENV || DEVELOP_ENV
-  const nodeEnvConfig = await loadFile(`${nodeEnv}.config.json`, true)
-  const nodeEnvSecrets = await loadFile(`${nodeEnv}.secrets.json`, true)
-  const localConfig = await loadFile('local.config.json', nodeEnv === DEVELOP_ENV)
-  const localSecrets = await loadFile('local.secrets.json', nodeEnv === DEVELOP_ENV)
+  const nodeEnvConfig = loadFile(`${nodeEnv}.config.json`, true)
+  const nodeEnvSecrets = loadFile(`${nodeEnv}.secrets.json`, true)
+  const localConfig = loadFile('local.config.json', nodeEnv === DEVELOP_ENV)
+  const localSecrets = loadFile('local.secrets.json', nodeEnv === DEVELOP_ENV)
   const config = merge(
     {},
     localEnvConfig,

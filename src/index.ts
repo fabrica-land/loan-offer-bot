@@ -21,17 +21,17 @@ import { BigNumber } from 'ethers'
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
 
 class FabricaLoanBot {
-  private blockchain: Blockchain
-  private config: Config
-  private fabrica: Fabrica
-  private nftfi: Nftfi
+  private readonly blockchain: Blockchain
+  private readonly config: Config
+  private readonly fabrica: Fabrica
+  private readonly nftfi: Nftfi
 
-  public readonly start = async () => {
-    this.config = await getConfig()
+  constructor(config: Config) {
+    this.config = config
     this.blockchain = new Blockchain(this.config)
     this.fabrica = new Fabrica(this.blockchain, this.config)
-    this.fabrica.addMintListener(this.processMint)
     this.nftfi = new Nftfi(this.blockchain, this.config)
+    this.fabrica.addMintListener(this.processMint)
   }
 
   private readonly processMint = async (
@@ -142,5 +142,4 @@ class FabricaLoanBot {
     Math.ceil(DateTime.utc().plus(duration).diffNow().as('seconds'))
 }
 
-const bot = new FabricaLoanBot()
-void bot.start()
+const bot = new FabricaLoanBot(getConfig())

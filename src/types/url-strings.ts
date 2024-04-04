@@ -26,13 +26,15 @@ export const buildUrl = (
     ? queryParams
     : queryParams &&
       Object.entries(queryParams).reduce(
+        // @ts-ignore
         (soFar, [key, value]) => [...soFar, [key, value]],
-        [],
+        [] as Array<[string, SerializableLiteral]>,
       )
   const queryParamsAsArrayOfStringToString:
     | Array<[string, string]>
     | undefined =
     queryParamsAsArrayOfArrays &&
+    // @ts-ignore
     queryParamsAsArrayOfArrays.map((item) => [String(item[0]), String(item[1])])
   const url = new URL(path, baseUrl)
   if (queryParamsAsArrayOfArrays) {

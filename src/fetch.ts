@@ -1,7 +1,7 @@
 import { StatusCodes } from 'http-status-codes'
 import stringify from 'json-stringify-safe'
 
-import { ErrorLike } from './types/error-like'
+import { asErrorLike, ErrorLike } from './types/error-like'
 import { ErrorWithCause } from './types/error-with-cause'
 
 const DEFAULT_TIMEOUT_MILLIS = 60_000
@@ -62,7 +62,7 @@ export const fetchOrThrow = async (
         responseBody: undefined,
       },
     )
-    throw new FetchError(message, url, 0, statusText, undefined, error)
+    throw new FetchError(message, url, 0, statusText, undefined, asErrorLike(error))
   } finally {
     clearTimeout(timeout)
   }
@@ -84,13 +84,14 @@ export const fetchOrThrow = async (
       'Error processing result of fetch request',
       { err, options, url, responseType, response, body: response.body },
     )
+    const error = asErrorLike(err)
     throw new FetchError(
-      err.message,
+      error.message,
       url,
       response.status,
       response.statusText,
       response.body,
-      err,
+      error,
     )
   }
   if (

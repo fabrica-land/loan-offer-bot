@@ -1,15 +1,15 @@
 {
+  "extends": "@tsconfig/node20",
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./src/",
     "declaration": true,
-    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": false,
     "incremental": true,
     "lib": ["ES2022"],
     "module": "CommonJS",
+    "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": false,
     "noImplicitAny": true,
     "outDir": "./dist/",

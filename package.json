@@ -14,7 +14,7 @@
   },
   "scripts": {
     "clean": "del dist",
-    "build": "tsc .",
+    "build": "tsc --project ./",
     "rebuild": "yarn clean && yarn build",
     "start": "yarn start",
     "start:dev": "NODE_OPTIONS='--trace-warnings --require tsconfig-paths/register' nodemon src/index.ts | pjl"
@@ -38,6 +38,7 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
+    "@tsconfig/node20": "^20.1.4",
     "@types/json-stringify-safe": "^5.0.3",
     "@types/luxon": "^3.4.2",
     "del-cli": "^5.1.0",
