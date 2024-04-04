@@ -43,6 +43,7 @@ coverage/
 .local.env
 config/local.*.json
 config/*.secrets.json
+!config/develop.secrets.json
 !config/example.*
 
 # Yarn

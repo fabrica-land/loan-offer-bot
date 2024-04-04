@@ -1,0 +1,48 @@
+{
+  "networks": {
+    "ethereum": {
+      "lending": {
+        "enabled": false,
+        "lendingWalletAddress": "[Use your own wallet]",
+        "offerRules": [
+          {
+            "filter": "property.state === 'TX'",
+            "loanPrincipal": "Math.min(property.value * 0.5, wallet.balances.usdc * 0.3)",
+            "loanApr": "0.15",
+            "loanDurationDays": 20,
+            "offerExpirationDays": 7
+          }
+        ]
+      },
+      "transactions": {
+        "gasLimit": 1000000,
+        "maxFeePerGasInGwei": 20,
+        "maxPriorityFeePerGasInGwei": 5,
+        "maxWriteTransactionsPerBlock": 10,
+        "privateTransact": true
+      }
+    },
+    "sepolia": {
+      "lending": {
+        "enabled": false,
+        "lendingWalletAddress": "[Use your own wallet]",
+        "offerRules": [
+          {
+            "filter": "attributes.State === 'California'",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
+            "loanApr": "0.15",
+            "loanDurationDays": 20,
+            "offerExpirationDays": 7
+          }
+        ]
+      },
+      "transactions": {
+        "gasLimit": 1000000,
+        "maxFeePerGasInGwei": 20,
+        "maxPriorityFeePerGasInGwei": 5,
+        "maxWriteTransactionsPerBlock": 10,
+        "privateTransact": false
+      }
+    }
+  }
+}
