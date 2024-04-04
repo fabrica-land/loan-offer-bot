@@ -16,7 +16,7 @@
     "clean": "del dist",
     "build": "tsc --project ./",
     "rebuild": "yarn clean && yarn build",
-    "start": "yarn start",
+    "start": "node ./dist/index.js",
     "start:dev": "NODE_OPTIONS='--trace-warnings --require tsconfig-paths/register' nodemon src/index.ts | pjl"
   },
   "dependencies": {
