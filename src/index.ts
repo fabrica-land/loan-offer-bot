@@ -2,7 +2,7 @@ import * as vm from 'node:vm'
 import Decimal from 'decimal.js'
 import { DateTime, DurationLike } from 'luxon'
 
-import { asyncSleep } from './async'
+import { asyncEachSerial, asyncSleep } from './async'
 import { Fabrica } from './fabrica'
 import { Nftfi } from './nftfi'
 import { Config, getConfig } from './types/config'
@@ -95,31 +95,36 @@ class FabricaLoanBot {
       },
     })
     console.log(context)
-    const principal = new Decimal(vm.runInContext(
-      network.lending.offerRules[0].loanPrincipal,
-      context,
-    ))
-    const apr = new Decimal(vm.runInContext(network.lending.offerRules[0].loanApr, context))
-    const durationDays = network.lending.offerRules[0].loanDurationDays
-    const interest = apr.times(durationDays).div(365)
-    const repayment = principal.times(interest.plus(1))
-    const terms: LoanTerms = {
-      currency: nftfi.config.erc20.usdc.address,
-      duration: this.getTermInSeconds({
-        days: durationDays,
-      }),
-      expiry: this.getTermInSeconds({
-        days: network.lending.offerRules[0].offerExpirationDays,
-      }),
-      principal: principal.times(Decimal.pow(10, usdc.scale)).toFixed(0),
-      repayment: repayment.times(Decimal.pow(10, usdc.scale)).toFixed(0),
-    }
-    console.log('Loan terms', { terms })
-    try {
-      await this.nftfi.createOffer(tokenIdentity, terms, network.lending.lendingWalletPrivateKey)
-    } catch (err) {
-      console.error('Error creating NFTfi offer...', err)
-    }
+    await asyncEachSerial(network.lending.offerRules, async (rule) => {
+      if (!vm.runInContext(rule.filter, context)) {
+        return
+      }
+      const principal = new Decimal(vm.runInContext(
+        rule.loanPrincipal,
+        context,
+      ))
+      const apr = new Decimal(vm.runInContext(rule.loanApr, context))
+      const durationDays = rule.loanDurationDays
+      const interest = apr.times(durationDays).div(365)
+      const repayment = principal.times(interest.plus(1))
+      const terms: LoanTerms = {
+        currency: nftfi.config.erc20.usdc.address,
+        duration: this.getTermInSeconds({
+          days: durationDays,
+        }),
+        expiry: this.getTermInSeconds({
+          days: rule.offerExpirationDays,
+        }),
+        principal: principal.times(Decimal.pow(10, usdc.scale)).toFixed(0),
+        repayment: repayment.times(Decimal.pow(10, usdc.scale)).toFixed(0),
+      }
+      console.log('Loan terms', { terms })
+      try {
+        await this.nftfi.createOffer(tokenIdentity, terms, network.lending.lendingWalletPrivateKey)
+      } catch (err) {
+        console.error('Error creating NFTfi offer...', err)
+      }
+    })
   }
 
   private readonly getMetadataValue = (metadata: NftMetadata, traitType: NonEmptyString): string | number | null => {
