@@ -40,7 +40,7 @@ export class Blockchain {
     }
     let result: unknown
     const txOptions: TransactionRequest = {
-      gasLimit: network.alchemy.gasLimit,
+      gasLimit: network.transactions.gasLimit,
     }
     try {
       result = await contract[methodName](...args, txOptions)

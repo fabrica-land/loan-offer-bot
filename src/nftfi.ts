@@ -22,6 +22,7 @@ export class Nftfi {
 
   public readonly getNftfiClient = async (
     networkName: NetworkName,
+    walletPrivateKey: NonEmptyString,
   ): Promise<NftfiSdk> => {
     const network = this.config.networks[networkName]
     const provider = await this.blockchain
@@ -41,7 +42,7 @@ export class Nftfi {
       },
       ethereum: {
         account: {
-          privateKey: `0x${network.nftfi.lendingWalletPrivateKey}`,
+          privateKey: `0x${walletPrivateKey}`,
         },
         provider: { url: provider.connection.url },
       },
@@ -51,9 +52,10 @@ export class Nftfi {
   public readonly createOffer = async (
     tokenIdentity: TokenIdentity,
     terms: LoanTerms,
+    walletPrivateKey: NonEmptyString,
     borrowerAddress: EthereumAddress = ZERO_ADDRESS,
   ): Promise<NftfiOffer> => {
-    const nftfi = await this.getNftfiClient(tokenIdentity.network)
+    const nftfi = await this.getNftfiClient(tokenIdentity.network, walletPrivateKey)
     // Make sure the lender wallet has enough coin
     const lenderBalance = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },

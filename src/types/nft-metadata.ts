@@ -13,7 +13,7 @@ export const NftAttribute = z.object({
   display_type: z.nativeEnum(MetadataAttributeDisplayType).nullable().optional(),
   max_value: NonEmptyString.nullable().optional(),
   trait_type: NonEmptyString.optional(),
-  value: z.union([NonEmptyString, z.number()]),
+  value: z.union([z.string(), z.number()]),
 })
 export type NftAttribute = z.infer<typeof NftAttribute>
 

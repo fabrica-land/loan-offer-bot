@@ -1,3 +1,4 @@
+import * as vm from 'node:vm'
 import Decimal from 'decimal.js'
 import { DateTime, DurationLike } from 'luxon'
 
@@ -13,6 +14,9 @@ import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
 import { TokenIdentity } from './types/token-identity'
 import { Blockchain } from './blockchain'
+import { NonEmptyString } from './types/non-empty-string'
+import { NftMetadata } from './types/nft-metadata'
+import { BigNumber } from 'ethers'
 
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
 
@@ -48,63 +52,85 @@ class FabricaLoanBot {
     })
     await asyncSleep(WAIT_FOR_ESTIMATED_VALUE_SECONDS * 1_000)
     const metadata = await this.fabrica.getMetadata(tokenIdentity)
+    const attributes: Record<string, string | number> =
+      metadata.attributes?.reduce(
+        (soFar, attr) => ({ ...soFar, [attr.trait_type ?? '']: attr.value }),
+        {},
+      ) ?? {}
     console.log(metadata)
-    const valueResult = metadata.attributes?.find((attr) =>
-      attr.trait_type === 'Estimated value in USD',
-    )
+    console.log(attributes)
+    const valueResult = attributes['Estimated value in USD']
     if (!valueResult) {
-      console.error('No estimated value found')
+      console.error('No estimated value found in NFT metadata')
       return
     }
-    const value = new Decimal(valueResult.value).toDecimalPlaces(2)
+    const value = new Decimal(valueResult).toDecimalPlaces(2)
     console.log(`Value is $${value}`)
+    if (!attributes.State) {
+      console.error('No state value found in NFT metadata')
+      return
+    }
+    const state = String(attributes.State)
     const network = this.config.networks[tokenIdentity.network]
-    const durationDays = Math.floor(
-      Math.random() *
-      (network.nftfi.loans.durationDaysMax -
-        network.nftfi.loans.durationDaysMin) +
-      network.nftfi.loans.durationDaysMin,
-    )
-    const principal = value.times(
-      network.nftfi.loans.principalScale,
-    )
-    const apr =
-      Math.ceil(
-        (Math.random() *
-          (network.nftfi.loans.aprMax -
-            network.nftfi.loans.aprMin) +
-          network.nftfi.loans.aprMin) *
-        10_000,
-      ) / 10_000
-    const interest = Math.ceil(((apr * durationDays) / 365) * 10_000) / 10_000
-    const repayment = principal.times(1 + interest)
-    const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network)
+    // TODO: Get NFTfi wallet without private key
+    const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network, network.lending.lendingWalletPrivateKey)
+    const usdc = Object.values(network.currencies).find((currency) =>
+      currency.symbol.toLocaleLowerCase() === 'usdc')
+    if (!usdc) {
+      throw new Error('USDC currency not defined for network')
+    }
+    const lenderBalanceResult = await nftfi.erc20.balanceOf({
+      account: { address: nftfi.account.getAddress() },
+      token: { address: usdc.address },
+    })
+    console.log({ lenderBalanceResult })
+    const lenderBalance = new Decimal(lenderBalanceResult.toString()).div(Decimal.pow(10, usdc.scale)).toNumber()
+    const context = vm.createContext({
+      Math,
+      attributes,
+      wallet: {
+        balances: {
+          usdc: lenderBalance,
+        },
+      },
+    })
+    console.log(context)
+    const principal = new Decimal(vm.runInContext(
+      network.lending.offerRules[0].loanPrincipal,
+      context,
+    ))
+    const apr = new Decimal(vm.runInContext(network.lending.offerRules[0].loanApr, context))
+    const durationDays = network.lending.offerRules[0].loanDurationDays
+    const interest = apr.times(durationDays).div(365)
+    const repayment = principal.times(interest.plus(1))
     const terms: LoanTerms = {
       currency: nftfi.config.erc20.usdc.address,
       duration: this.getTermInSeconds({
         days: durationDays,
       }),
       expiry: this.getTermInSeconds({
-        days: network.nftfi.loans.offerExpirationDays,
+        days: network.lending.offerRules[0].offerExpirationDays,
       }),
-      principal: this.decimalToUsdcScale(network, principal),
-      repayment: this.decimalToUsdcScale(network, repayment),
+      principal: principal.times(Decimal.pow(10, usdc.scale)).toFixed(0),
+      repayment: repayment.times(Decimal.pow(10, usdc.scale)).toFixed(0),
     }
     console.log('Loan terms', { terms })
     try {
-      await this.nftfi.createOffer(tokenIdentity, terms)
+      await this.nftfi.createOffer(tokenIdentity, terms, network.lending.lendingWalletPrivateKey)
     } catch (err) {
       console.error('Error creating NFTfi offer...', err)
     }
   }
 
-  private readonly decimalToUsdcScale = (network: NetworkConfig, num: Decimal): string => {
-    const usdc = Object.values(network.alchemy.currencies).find((currency) =>
-      currency.symbol.toLocaleLowerCase() === 'usdc')
-    if (!usdc) {
-      throw new Error('USDC currency not defined for network')
+  private readonly getMetadataValue = (metadata: NftMetadata, traitType: NonEmptyString): string | number | null => {
+    const attribute = metadata.attributes?.find((attr) =>
+      attr.trait_type === traitType
+    )
+    if (!attribute) {
+      console.error('No estimated value found')
+      return null
     }
-    return num.times(usdc?.scale).toFixed(0)
+    return attribute.value
   }
 
   private readonly getTermInSeconds = (duration: DurationLike): PositiveInteger =>
