@@ -1,5 +1,5 @@
 envVarGroups:
-  - name: fabrica-loan-offer-bot
+  - name: loan-offer-bot
     envVars:
       # No code should directly reference this, except for reporting purposes (e.g. logging) and cache keys
       #  (since every release stage shares a cache, and sometimes you want to cache things separately per
@@ -11,7 +11,7 @@ envVarGroups:
 services:
   - type: worker
     name: loan-offer-bot
-    env: node
+    runtime: node
     region: oregon
     repo: https://github.com/fabrica-land/fabrica-v3-api
     branch: prod
@@ -19,89 +19,4 @@ services:
     startCommand: 'yarn start'
     autoDeploy: true
     envVars:
-      - key: APP_CACHE_URL
-        fromService:
-          type: redis
-          name: redis-starter
-          property: connectionString
-      - key: DB_CONN_STRING
-        fromDatabase:
-          name: fabrica-db
-          property: connectionString
-      - key: IS_WORKER
-        value: true
-      - key: QUEUE_URL
-        fromService:
-          type: redis
-          name: bullmq-production
-          property: connectionString
-      - fromGroup: fabrica
-      - fromGroup: fabrica-secrets-production
-  # Staging Services
-  - type: redis
-    name: bullmq-staging
-    plan: standard
-    region: oregon
-    maxmemoryPolicy: noeviction
-    ipAllowList:
-      - source: 0.0.0.0/0
-        description: everywhere
-  - type: web
-    name: fabrica-v3-staging
-    env: node
-    plan: standard
-    region: oregon
-    domains:
-      - media-staging.fabrica.land
-      - metadata-staging.fabrica.land
-    repo: https://github.com/fabrica-land/fabrica-v3-api
-    branch: main
-    healthCheckPath: /
-    buildCommand: 'yarn ci'
-    startCommand: 'yarn start'
-    autoDeploy: true
-    envVars:
-      - key: APP_CACHE_URL
-        fromService:
-          type: redis
-          name: redis-starter
-          property: connectionString
-      - key: DB_CONN_STRING
-        fromDatabase:
-          name: fabrica-db-staging
-          property: connectionString
-      - key: QUEUE_URL
-        fromService:
-          type: redis
-          name: bullmq-staging
-          property: connectionString
-      - fromGroup: fabrica-staging
-      - fromGroup: fabrica-secrets-staging
-  - type: worker
-    name: worker-staging
-    env: node
-    region: oregon
-    repo: https://github.com/fabrica-land/fabrica-v3-api
-    branch: main
-    buildCommand: 'yarn ci'
-    startCommand: 'yarn worker'
-    autoDeploy: true
-    envVars:
-      - key: APP_CACHE_URL
-        fromService:
-          type: redis
-          name: redis-starter
-          property: connectionString
-      - key: DB_CONN_STRING
-        fromDatabase:
-          name: fabrica-db-staging
-          property: connectionString
-      - key: QUEUE_URL
-        fromService:
-          type: redis
-          name: bullmq-staging
-          property: connectionString
-      - key: IS_WORKER
-        value: true
-      - fromGroup: fabrica-staging
-      - fromGroup: fabrica-secrets-staging
+      - fromGroup: loan-offer-bot
