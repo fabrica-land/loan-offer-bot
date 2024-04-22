@@ -110,8 +110,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: nftfi.utils.formatUnits(principal.toString(), nftfi.erc20.usdc.unit),
-        repayment: nftfi.utils.formatUnits(repayment.toString(), nftfi.erc20.usdc.unit),
+        principal: nftfi.utils.formatWei(principal.toString(), nftfi.erc20.usdc.unit),
+        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.erc20.usdc.unit),
       }
       console.log('Loan terms', { terms })
       try {
