@@ -15,6 +15,7 @@ import { TokenIdentity } from './types/token-identity'
 import { Blockchain } from './blockchain'
 import { NonEmptyString } from './types/non-empty-string'
 import { NftMetadata } from './types/nft-metadata'
+import { BigNumber } from 'ethers'
 
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
 
@@ -73,7 +74,10 @@ class FabricaLoanBot {
       account: { address: nftfi.account.getAddress() },
       token: { address: nftfi.config.erc20.usdc.address },
     })
-    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult.toString(), nftfi.config.erc20.usdc.scale)
+    const lenderBalance = nftfi.utils.formatUnits(
+      BigNumber.from(lenderBalanceResult).toString(),
+      nftfi.config.erc20.usdc.scale,
+    )
     console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
       Math,
