@@ -55,7 +55,6 @@ class FabricaLoanBot {
         (soFar, attr) => ({ ...soFar, [attr.trait_type ?? '']: attr.value }),
         {},
       ) ?? {}
-    console.log(metadata)
     console.log(attributes)
     const valueResult = attributes['Estimated value in USD']
     if (!valueResult) {
@@ -74,7 +73,7 @@ class FabricaLoanBot {
       account: { address: nftfi.account.getAddress() },
       token: { address: nftfi.config.erc20.usdc.address },
     })
-    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.config.erc20.usdc.scale)
+    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult.toString(), nftfi.config.erc20.usdc.scale)
     console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
       Math,
@@ -94,13 +93,18 @@ class FabricaLoanBot {
         rule.loanPrincipal,
         context,
       ))
+      console.log({ principal })
       if (principal.lt(0)) {
 
       }
       const apr = new Decimal(vm.runInContext(rule.loanApr, context))
+      console.log({ apr })
       const durationDays = rule.loanDurationDays
+      console.log({ durationDays })
       const interest = apr.times(durationDays).div(365)
+      console.log({ interest })
       const repayment = principal.times(interest.plus(1))
+      console.log({ repayment })
       const terms: LoanTerms = {
         currency: nftfi.config.erc20.usdc.address,
         duration: this.getTermInSeconds({
@@ -112,7 +116,7 @@ class FabricaLoanBot {
         principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit).toString(),
         repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit).toString(),
       }
-      console.log('Loan terms', { terms })
+      console.log('Loan terms', terms)
       try {
         await this.nftfi.createOffer(tokenIdentity, terms, network.lending.lendingWalletPrivateKey)
       } catch (err) {
