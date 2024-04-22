@@ -73,9 +73,9 @@ class FabricaLoanBot {
     const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network, network.lending.lendingWalletPrivateKey)
     const lenderBalanceResult = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },
-      token: { address: nftfi.erc20.usdc.address },
+      token: { address: nftfi.config.erc20.usdc.address },
     })
-    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.erc20.usdc.scale)
+    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.config.erc20.usdc.scale)
     console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
       Math,
@@ -110,8 +110,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: nftfi.utils.formatWei(principal.toString(), nftfi.erc20.usdc.unit),
-        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.erc20.usdc.unit),
+        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit),
+        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit),
       }
       console.log('Loan terms', { terms })
       try {
