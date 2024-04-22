@@ -15,7 +15,6 @@ import { TokenIdentity } from './types/token-identity'
 import { Blockchain } from './blockchain'
 import { NonEmptyString } from './types/non-empty-string'
 import { NftMetadata } from './types/nft-metadata'
-import { BigNumber } from 'ethers'
 
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
 
@@ -110,8 +109,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit),
-        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit),
+        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit).toString(),
+        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit).toString(),
       }
       console.log('Loan terms', { terms })
       try {

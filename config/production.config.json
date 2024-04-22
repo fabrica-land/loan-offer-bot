@@ -46,7 +46,7 @@
       },
       "lending": {
         "enabled": false,
-        "lendingWalletAddress": "0xBA8743288B46DC192Fcf204ef2E8969972ef733f",
+        "lendingWalletAddress": "0xBD43d28CE84b7549B2afC8D4C9e9c15Ad492Cdb4",
         "offerRules": [
           {
             "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",

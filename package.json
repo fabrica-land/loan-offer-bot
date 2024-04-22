@@ -17,7 +17,8 @@
     "build": "tsc --project ./",
     "rebuild": "yarn clean && yarn build",
     "start": "node ./dist/index.js",
-    "start:dev": "NODE_OPTIONS='--trace-warnings --require tsconfig-paths/register' nodemon src/index.ts | pjl"
+    "start:dev": "NODE_OPTIONS='--trace-warnings --require tsconfig-paths/register' nodemon src/index.ts | pjl",
+    "test": "find src -name '*.spec.ts' | xargs node --import tsx --test"
   },
   "dependencies": {
     "@nftfi/js": "NFTfi-Genesis/nftfi.js#v0.5.3",
@@ -57,6 +58,7 @@
     "source-map-support": "^0.5.20",
     "ts-loader": "^9.5.1",
     "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.7.2",
     "typescript": "^5.3.2"
   }
 }
