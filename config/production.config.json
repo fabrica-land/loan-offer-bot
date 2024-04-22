@@ -6,23 +6,6 @@
       "alchemy": {
         "networkName": "eth-mainnet"
       },
-      "currencies": {
-        "0x6b175474e89094c44da98b954eedeac495271d0f": {
-          "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
-          "symbol": "DAI",
-          "scale": 6
-        },
-        "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48": {
-          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-          "symbol": "USDC",
-          "scale": 6
-        },
-        "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2": {
-          "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
-          "symbol": "WETH",
-          "scale": 18
-        }
-      },
       "fabrica": {
         "tokenContractAddress": "0x5cbeb7a0df7ed85d82a472fd56d81ed550f3ea95"
       },
@@ -57,23 +40,6 @@
       "chainId": 11155111,
       "alchemy": {
         "networkName": "eth-sepolia"
-      },
-      "currencies": {
-        "0x68194a729c2450ad26072b3d33adacbcef39d574": {
-          "address": "0x3e622317f8C93f7328350cF0B56d9eD4C620C5d6",
-          "symbol": "DAI",
-          "scale": 6
-        },
-        "0x1c7d4b196cb0c7b01d743fbc6116a902379c7238": {
-          "address": "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
-          "symbol": "USDC",
-          "scale": 6
-        },
-        "0x7b79995e5f793a07bc00c21412e50ecae098e7f9": {
-          "address": "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
-          "symbol": "WETH",
-          "scale": 18
-        }
       },
       "fabrica": {
         "tokenContractAddress": "0xb52ED2Dc8EBD49877De57De3f454Fd71b75bc1fD"

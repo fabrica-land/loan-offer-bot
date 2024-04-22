@@ -9,7 +9,6 @@ import { Config, getConfig } from './types/config'
 import { EthereumAddress } from './types/ethereum-address'
 import { PrefixedHexString } from './types/hex-string'
 import { LoanTerms } from './types/loan-terms'
-import { NetworkConfig } from './types/network.config'
 import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
 import { TokenIdentity } from './types/token-identity'
@@ -65,26 +64,19 @@ class FabricaLoanBot {
       return
     }
     const value = new Decimal(valueResult).toDecimalPlaces(2)
-    console.log(`Value is $${value}`)
+    console.log(`Value is $${value.toFixed(2)}`)
     if (!attributes.State) {
       console.error('No state value found in NFT metadata')
       return
     }
-    const state = String(attributes.State)
     const network = this.config.networks[tokenIdentity.network]
-    // TODO: Get NFTfi wallet without private key
     const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network, network.lending.lendingWalletPrivateKey)
-    const usdc = Object.values(network.currencies).find((currency) =>
-      currency.symbol.toLocaleLowerCase() === 'usdc')
-    if (!usdc) {
-      throw new Error('USDC currency not defined for network')
-    }
     const lenderBalanceResult = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },
-      token: { address: usdc.address },
+      token: { address: nftfi.erc20.usdc.address },
     })
-    console.log({ lenderBalanceResult })
-    const lenderBalance = new Decimal(lenderBalanceResult.toString()).div(Decimal.pow(10, usdc.scale)).toNumber()
+    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.erc20.usdc.scale).toString()
+    console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
       Math,
       attributes,
@@ -103,6 +95,9 @@ class FabricaLoanBot {
         rule.loanPrincipal,
         context,
       ))
+      if (principal.lt(0)) {
+
+      }
       const apr = new Decimal(vm.runInContext(rule.loanApr, context))
       const durationDays = rule.loanDurationDays
       const interest = apr.times(durationDays).div(365)
@@ -115,8 +110,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: principal.times(Decimal.pow(10, usdc.scale)).toFixed(0),
-        repayment: repayment.times(Decimal.pow(10, usdc.scale)).toFixed(0),
+        principal: nftfi.utils.formatUnits(principal.toString(), nftfi.erc20.usdc.unit),
+        repayment: nftfi.utils.formatUnits(repayment.toString(), nftfi.erc20.usdc.unit),
       }
       console.log('Loan terms', { terms })
       try {
