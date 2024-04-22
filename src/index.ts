@@ -98,9 +98,6 @@ class FabricaLoanBot {
         context,
       ))
       console.log({ principal })
-      if (principal.lt(0)) {
-
-      }
       const apr = new Decimal(vm.runInContext(rule.loanApr, context))
       console.log({ apr })
       const durationDays = rule.loanDurationDays
@@ -117,8 +114,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit).toString(),
-        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit).toString(),
+        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit).toBigInt().toString(),
+        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit).toBigInt().toString(),
       }
       console.log('Loan terms', terms)
       try {
