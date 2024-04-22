@@ -88,7 +88,7 @@ class FabricaLoanBot {
     })
     console.log(context)
     await asyncEachSerial(network.lending.offerRules, async (rule) => {
-      if (!vm.runInContext(rule.filter, context)) {
+      if (rule.filter && !vm.runInContext(rule.filter, context)) {
         return
       }
       const principal = new Decimal(vm.runInContext(

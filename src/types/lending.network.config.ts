@@ -11,7 +11,7 @@ export const LendingNetworkConfig = z.object({
   lendingWalletPrivateKey: HexString,
   offerRules: z.array(
     z.object({
-      filter: NonEmptyString,
+      filter: NonEmptyString.optional(),
       loanPrincipal: NonEmptyString,
       loanApr: PositiveFloatString,
       loanDurationDays: PositiveInteger,
