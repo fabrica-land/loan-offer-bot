@@ -13,8 +13,6 @@ import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
 import { TokenIdentity } from './types/token-identity'
 import { Blockchain } from './blockchain'
-import { NonEmptyString } from './types/non-empty-string'
-import { NftMetadata } from './types/nft-metadata'
 import { BigNumber } from 'ethers'
 
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
@@ -114,8 +112,8 @@ class FabricaLoanBot {
         expiry: this.getTermInSeconds({
           days: rule.offerExpirationDays,
         }),
-        principal: nftfi.utils.formatWei(principal.toString(), nftfi.config.erc20.usdc.unit).toBigInt().toString(),
-        repayment: nftfi.utils.formatWei(repayment.toString(), nftfi.config.erc20.usdc.unit).toBigInt().toString(),
+        principal: this.decimalToUsdcScaleString(nftfi, principal),
+        repayment: this.decimalToUsdcScaleString(nftfi, repayment),
       }
       console.log('Loan terms', terms)
       try {
@@ -126,19 +124,11 @@ class FabricaLoanBot {
     })
   }
 
-  private readonly getMetadataValue = (metadata: NftMetadata, traitType: NonEmptyString): string | number | null => {
-    const attribute = metadata.attributes?.find((attr) =>
-      attr.trait_type === traitType
-    )
-    if (!attribute) {
-      console.error('No estimated value found')
-      return null
-    }
-    return attribute.value
-  }
-
   private readonly getTermInSeconds = (duration: DurationLike): PositiveInteger =>
     Math.ceil(DateTime.utc().plus(duration).diffNow().as('seconds'))
+
+  private readonly decimalToUsdcScaleString = (nftfi: any, value: Decimal): PositiveIntegerString =>
+    nftfi.utils.formatWei(value.toFixed(5), nftfi.config.erc20.usdc.unit).toBigInt().toString()
 }
 
-const bot = new FabricaLoanBot(getConfig())
+new FabricaLoanBot(getConfig())
