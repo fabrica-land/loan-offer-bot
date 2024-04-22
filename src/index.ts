@@ -74,7 +74,7 @@ class FabricaLoanBot {
     })
     const lenderBalance = nftfi.utils.formatUnits(
       BigNumber.from(lenderBalanceResult).toString(),
-      nftfi.config.erc20.usdc.scale,
+      nftfi.config.erc20.usdc.unit,
     )
     console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
