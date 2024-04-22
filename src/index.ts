@@ -75,7 +75,7 @@ class FabricaLoanBot {
       account: { address: nftfi.account.getAddress() },
       token: { address: nftfi.erc20.usdc.address },
     })
-    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.erc20.usdc.scale).toString()
+    const lenderBalance = nftfi.utils.formatUnits(lenderBalanceResult, nftfi.erc20.usdc.scale)
     console.log({ lenderBalanceResult, lenderBalance })
     const context = vm.createContext({
       Math,
