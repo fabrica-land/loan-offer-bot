@@ -15,7 +15,7 @@ import { TokenIdentity } from './types/token-identity'
 import { Blockchain } from './blockchain'
 import { BigNumber } from 'ethers'
 
-const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 10
+const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 30
 
 class FabricaLoanBot {
   private readonly blockchain: Blockchain
