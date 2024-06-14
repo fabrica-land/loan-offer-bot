@@ -14,7 +14,7 @@
         "lendingWalletAddress": "0xB53f8A9db5eaD2148402BE181968d2ff10f02cB0",
         "offerRules": [
           {
-            "filter": "property.state === 'TX'",
+            "filter": "attributes.State === 'TX'",
             "loanPrincipal": "Math.min(property.value * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,

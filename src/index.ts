@@ -51,21 +51,10 @@ class FabricaLoanBot {
     const metadata = await this.fabrica.getMetadata(tokenIdentity)
     const attributes: Record<string, string | number> =
       metadata.attributes?.reduce(
-        (soFar, attr) => ({ ...soFar, [attr.trait_type ?? '']: attr.value }),
+        (soFar, attr) => ({ ...soFar, [attr.trait_type]: attr.value }),
         {},
       ) ?? {}
     console.log(attributes)
-    const valueResult = attributes['Estimated value in USD']
-    if (!valueResult) {
-      console.error('No estimated value found in NFT metadata')
-      return
-    }
-    const value = new Decimal(valueResult).toDecimalPlaces(2)
-    console.log(`Value is $${value.toFixed(2)}`)
-    if (!attributes.State) {
-      console.error('No state value found in NFT metadata')
-      return
-    }
     const network = this.config.networks[tokenIdentity.network]
     const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network, network.lending.lendingWalletPrivateKey)
     const lenderBalanceResult = await nftfi.erc20.balanceOf({
