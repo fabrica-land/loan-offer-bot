@@ -18,7 +18,7 @@
             "loanPrincipal": "Math.min(property.value * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
-            "offerExpirationDays": 7
+            "offerExpirationDays": 180
           }
         ]
       },
@@ -52,7 +52,7 @@
             "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
-            "offerExpirationDays": 7
+            "offerExpirationDays": 180
           }
         ]
       },
