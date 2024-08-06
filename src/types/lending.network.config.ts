@@ -16,6 +16,7 @@ export const LendingNetworkConfig = z.object({
       loanApr: PositiveFloatString,
       loanDurationDays: PositiveInteger,
       offerExpirationDays: PositiveInteger,
+      percentChanceToLend: PositiveInteger.min(1).max(100).optional(),
     })
   ),
 })
