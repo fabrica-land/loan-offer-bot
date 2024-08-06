@@ -77,6 +77,9 @@ class FabricaLoanBot {
     })
     console.log(context)
     await asyncEachSerial(network.lending.offerRules, async (rule) => {
+      if (rule.percentChanceToLend && Math.floor(Math.random() * 100) > rule.percentChanceToLend) {
+        return
+      }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
         return
       }
