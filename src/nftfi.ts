@@ -71,9 +71,34 @@ export class Nftfi {
       console.warn(message, { lenderBalance, principal: terms.principal })
       throw new Error(message)
     }
-    // Approve the lender spend
+    // Allow NFTfi to spend up to the total of all outstanding offers, including this one
+    // 1. Check current allowance
+    const currentAllowance = BigInt(nftfi.erc20.allowance({
+      account: { address: nftfi.account.getAddress() },
+      token: { address: terms.currency },
+      nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
+    }))
+    // 2. Sum up the principals of the lender's outstanding NFTfi offers
+    const offers = await nftfi.offers.get({
+      filters: {
+        lender: { address: { eq: nftfi.account.getAddress() } },
+        nftfi: { contract: nftfi.config.loan.fixed.v2_3.name },
+      }
+    })
+    const sumOfOutstandingOffers = offers.reduce(
+      (
+        sum: bigint,
+        offer: { terms: { loan: { principal: number | string } } },
+      ) => sum + BigInt(offer.terms.loan.principal),
+      0n,
+    )
+    // 3. Using the minimum of these two values as a basis, increase the allowance; this
+    //    way, if NFTfi is honest, we lower the allowance as old offers expire, and if
+    //    they are not, we only increase the allowance by this offer's principal
+    const minimumBasis = currentAllowance < sumOfOutstandingOffers ? currentAllowance : sumOfOutstandingOffers
+    const amountToApprove = minimumBasis + BigInt(terms.principal)
     await nftfi.erc20.approve({
-      amount: terms.principal,
+      amount: amountToApprove.toString(),
       token: { address: terms.currency },
       nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
     })
