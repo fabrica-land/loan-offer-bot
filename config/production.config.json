@@ -56,28 +56,28 @@
             "percentChanceToLend": 100
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.2)",
             "loanApr": "0.25",
             "loanDurationDays": 120,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.2, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.2, wallet.balances.usdc * 0.25)",
             "loanApr": "0.10",
             "loanDurationDays": 60,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.25, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.25, wallet.balances.usdc * 0.4)",
             "loanApr": "0.18",
             "loanDurationDays": 180,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.8, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.8, wallet.balances.usdc * 0.15)",
             "loanApr": "0.30",
             "loanDurationDays": 365,
             "offerExpirationDays": 20,
