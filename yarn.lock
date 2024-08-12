@@ -243,7 +243,7 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@envelop/core@^5.0.0":
+"@envelop/core@^5.0.0", "@envelop/core@^5.0.1":
   version "5.0.1"
   resolved "https://registry.npmjs.org/@envelop/core/-/core-5.0.1.tgz"
   integrity sha512-wxA8EyE1fPnlbP0nC/SFI7uU8wSNf4YjxZhAPu0P63QbgIvqHtHsH4L3/u+rsTruzhk3OvNRgQyLsMfaR9uzAQ==
@@ -806,6 +806,14 @@
   dependencies:
     fast-deep-equal "^3.1.3"
 
+"@graphprotocol/client-auto-pagination@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@graphprotocol/client-auto-pagination/-/client-auto-pagination-2.0.5.tgz#99a9d7d9de982ba56f41c546b2c7b346e6b8fce1"
+  integrity sha512-K1BbjqqtncgtTF8VMOreWVpTW0oppGtaES/dEMY+PjobegRIazn1PwZbaffRDE5LQvxKRfENMSzsUGbFT8nZBg==
+  dependencies:
+    lodash "^4.17.21"
+    tslib "^2.4.0"
+
 "@graphql-inspector/core@6.1.0":
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/@graphql-inspector/core/-/core-6.1.0.tgz#b96931af25b103c15145453aa148d3fb49418965"
@@ -864,6 +872,14 @@
     "@graphql-tools/federation" "^2.2.5"
     "@graphql-tools/url-loader" "^8.0.0"
     lodash.get "^4.4.2"
+
+"@graphql-mesh/http@^0.101.0":
+  version "0.101.0"
+  resolved "https://registry.yarnpkg.com/@graphql-mesh/http/-/http-0.101.0.tgz#7c2d657715601bd624a30d53341997edfac4bdf8"
+  integrity sha512-znw36LnMH64rsTeWE93trOHSV2Jtj75vBqQDSeKdpwLaGNACWAdKech19jPfVXZz5yJiQsXhoSSCPV2MPX6+sg==
+  dependencies:
+    "@whatwg-node/server" "^0.9.46"
+    graphql-yoga "^5.6.0"
 
 "@graphql-mesh/merger-bare@^0.100.0":
   version "0.100.0"
@@ -1036,7 +1052,7 @@
     tslib "^2.4.0"
     ws "^8.17.1"
 
-"@graphql-tools/executor@^1.2.8", "@graphql-tools/executor@^1.3.1":
+"@graphql-tools/executor@^1.2.8", "@graphql-tools/executor@^1.3.0", "@graphql-tools/executor@^1.3.1":
   version "1.3.1"
   resolved "https://registry.npmjs.org/@graphql-tools/executor/-/executor-1.3.1.tgz"
   integrity sha512-tgJDdGf9SCAm64ofEMZdv925u6/J+eTmv36TGNLxgP2DpCJsZ6gnJ4A+0D28EazDXqJIvMiPd+3d+o3cCRCAnQ==
@@ -1205,10 +1221,35 @@
   resolved "https://registry.npmjs.org/@graphql-typed-document-node/core/-/core-3.2.0.tgz"
   integrity sha512-mB9oAsNCm9aM3/SOv4YtBMqZbYj10R7dkq8byBqxGY/ncFwhf2oQzMV+LCRlWoDSEBJ3COiR1yeDvMtsoOsuFQ==
 
+"@graphql-yoga/logger@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@graphql-yoga/logger/-/logger-2.0.0.tgz#51c91cf07fc42b0d100d887315a20a4c9cac342e"
+  integrity sha512-Mg8psdkAp+YTG1OGmvU+xa6xpsAmSir0hhr3yFYPyLNwzUj95DdIwsMpKadDj9xDpYgJcH3Hp/4JMal9DhQimA==
+  dependencies:
+    tslib "^2.5.2"
+
 "@graphql-yoga/plugin-persisted-operations@^3.0.0":
   version "3.6.3"
   resolved "https://registry.npmjs.org/@graphql-yoga/plugin-persisted-operations/-/plugin-persisted-operations-3.6.3.tgz"
   integrity sha512-Ks/7TmqRMaOc8KKEGMXfR4qzNySanLQAthj8PA+oye+1GXykaFKYvn3parYWO/1dsHowegE2CdTQ+GANkkqFww==
+
+"@graphql-yoga/subscription@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@graphql-yoga/subscription/-/subscription-5.0.1.tgz#affe9b4bca4303300cc9492d30dfbe9f089fe0e8"
+  integrity sha512-1wCB1DfAnaLzS+IdoOzELGGnx1ODEg9nzQXFh4u2j02vAnne6d+v4A7HIH9EqzVdPLoAaMKXCZUUdKs+j3z1fg==
+  dependencies:
+    "@graphql-yoga/typed-event-target" "^3.0.0"
+    "@repeaterjs/repeater" "^3.0.4"
+    "@whatwg-node/events" "^0.1.0"
+    tslib "^2.5.2"
+
+"@graphql-yoga/typed-event-target@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@graphql-yoga/typed-event-target/-/typed-event-target-3.0.0.tgz#57dc42e052d8294555d26ee61854d72a0236fee0"
+  integrity sha512-w+liuBySifrstuHbFrHoHAEyVnDFVib+073q8AeAJ/qqJfvFvAwUPLLtNohR/WDVRgSasfXtl3dcNuVJWN+rjg==
+  dependencies:
+    "@repeaterjs/repeater" "^3.0.4"
+    tslib "^2.5.2"
 
 "@humanwhocodes/config-array@^0.11.14":
   version "0.11.14"
@@ -1687,7 +1728,14 @@
   dependencies:
     tslib "^2.6.3"
 
-"@whatwg-node/fetch@^0.9.0", "@whatwg-node/fetch@^0.9.13", "@whatwg-node/fetch@^0.9.17":
+"@whatwg-node/events@^0.1.0":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@whatwg-node/events/-/events-0.1.2.tgz#23f7c7ad887d7fd448e9ce3261eac9ef319ddd7c"
+  integrity sha512-ApcWxkrs1WmEMS2CaLLFUEem/49erT3sxIVjpzU5f6zmVcnijtDSrhoK2zVobOIikZJdH63jdAXOrvjf6eOUNQ==
+  dependencies:
+    tslib "^2.6.3"
+
+"@whatwg-node/fetch@^0.9.0", "@whatwg-node/fetch@^0.9.13", "@whatwg-node/fetch@^0.9.17", "@whatwg-node/fetch@^0.9.18", "@whatwg-node/fetch@^0.9.19":
   version "0.9.19"
   resolved "https://registry.npmjs.org/@whatwg-node/fetch/-/fetch-0.9.19.tgz"
   integrity sha512-J+zopRcUVOhkiQYlHpxOEZuOgZtqW9xMaNQFDjESm9vRcyATms+E2/p2mZiVQGllPqWflkA3SzoJC1MxV4Pf9g==
@@ -1703,6 +1751,14 @@
     "@kamilkisiela/fast-url-parser" "^1.1.4"
     busboy "^1.6.0"
     fast-querystring "^1.1.1"
+    tslib "^2.6.3"
+
+"@whatwg-node/server@^0.9.41", "@whatwg-node/server@^0.9.46":
+  version "0.9.46"
+  resolved "https://registry.yarnpkg.com/@whatwg-node/server/-/server-0.9.46.tgz#8502faff05b8d1388430eeff7f1f039133974c7f"
+  integrity sha512-vUKCMPP6f2BLtOxnK2c98QmK0rb24RlmXb2enbEg8nXttQLvlKfMOfaY7uNAtaMXejjR2ku/ww9EEeiWXV3Q9A==
+  dependencies:
+    "@whatwg-node/fetch" "^0.9.19"
     tslib "^2.6.3"
 
 "@wry/caches@^1.0.0":
@@ -2757,7 +2813,7 @@ dot-case@^3.0.4:
     no-case "^3.0.4"
     tslib "^2.0.3"
 
-dset@^3.1.2:
+dset@^3.1.1, dset@^3.1.2:
   version "3.1.3"
   resolved "https://registry.npmjs.org/dset/-/dset-3.1.3.tgz"
   integrity sha512-20TuZZHCEZ2O71q9/+8BwKwZ0QtD9D8ObhrihJPr+vLLYlSuAU3/zL4cSlgbfeoGHTjCSJBa7NGcrF9/Bx/WJQ==
@@ -3857,6 +3913,23 @@ graphql-ws@^5.14.0:
   resolved "https://registry.npmjs.org/graphql-ws/-/graphql-ws-5.16.0.tgz"
   integrity sha512-Ju2RCU2dQMgSKtArPbEtsK5gNLnsQyTNIo/T7cZNp96niC1x0KdJNZV0TIoilceBPQwfb5itrGl8pkFeOUMl4A==
 
+graphql-yoga@^5.6.0:
+  version "5.6.3"
+  resolved "https://registry.yarnpkg.com/graphql-yoga/-/graphql-yoga-5.6.3.tgz#6f50c11b81294ef89824cec91606b4e6709687a7"
+  integrity sha512-JtZ3r/QdkGpdi+8XfPuG+6Nb+V5wNMg2LYChSIATes5LhcIx3pbOkm/nWoGT/SA5LqlRyp+e0sxmVNEz8qN5TQ==
+  dependencies:
+    "@envelop/core" "^5.0.1"
+    "@graphql-tools/executor" "^1.3.0"
+    "@graphql-tools/schema" "^10.0.4"
+    "@graphql-tools/utils" "^10.3.2"
+    "@graphql-yoga/logger" "^2.0.0"
+    "@graphql-yoga/subscription" "^5.0.1"
+    "@whatwg-node/fetch" "^0.9.18"
+    "@whatwg-node/server" "^0.9.41"
+    dset "^3.1.1"
+    lru-cache "^10.0.0"
+    tslib "^2.5.2"
+
 graphql@^16.9.0:
   version "16.9.0"
   resolved "https://registry.npmjs.org/graphql/-/graphql-16.9.0.tgz"
@@ -4513,6 +4586,11 @@ lodash.topath@^4.5.2:
   resolved "https://registry.npmjs.org/lodash.topath/-/lodash.topath-4.5.2.tgz"
   integrity sha512-1/W4dM+35DwvE/iEd1M9ekewOSTlpFekhw9mhAtrwjVqUr83/ilQiyAvmg4tVX7Unkcfl1KC+i9WdaT4B6aQcg==
 
+lodash@^4.17.21:
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
+  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+
 loose-envify@^1.4.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz"
@@ -4536,6 +4614,11 @@ lowercase-keys@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/lowercase-keys/-/lowercase-keys-3.0.0.tgz"
   integrity sha512-ozCC6gdQ+glXOQsveKD0YsDy8DSQFjDTz4zyzEHNV5+JP5D62LmfDZ6o1cycFx9ouG940M5dE8C8CTewdj2YWQ==
+
+lru-cache@^10.0.0:
+  version "10.4.3"
+  resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.4.3.tgz#410fc8a17b70e598013df257c2446b7f3383f119"
+  integrity sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==
 
 lru-cache@^5.1.1:
   version "5.1.1"
@@ -6066,7 +6149,7 @@ tslib@2.6.2, tslib@^2.6.2:
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.2.tgz"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
 
-tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.6.3:
+tslib@^2.0.3, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.5.2, tslib@^2.6.3:
   version "2.6.3"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.6.3.tgz"
   integrity sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==
