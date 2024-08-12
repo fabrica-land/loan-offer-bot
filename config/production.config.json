@@ -45,7 +45,7 @@
         "tokenContractAddress": "0xb52ED2Dc8EBD49877De57De3f454Fd71b75bc1fD"
       },
       "lending": {
-        "enabled": false,
+        "enabled": true,
         "lendingWalletAddress": "0xBD43d28CE84b7549B2afC8D4C9e9c15Ad492Cdb4",
         "offerRules": [
           {
