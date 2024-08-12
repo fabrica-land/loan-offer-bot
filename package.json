@@ -43,7 +43,6 @@
     "lodash.merge": "^4.6.2",
     "luxon": "^3.5.0",
     "node-cron": "^3.0.3",
-    "promise-queue": "^2.2.5",
     "secure-json-parse": "^2.7.0",
     "ts-cron-validator": "^1.1.5",
     "ts-node": "^10.9.2",
