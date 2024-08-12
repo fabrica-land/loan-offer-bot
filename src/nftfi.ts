@@ -73,7 +73,7 @@ export class Nftfi {
     }
     // Allow NFTfi to spend up to the total of all outstanding offers, including this one
     // 1. Check current allowance
-    const currentAllowance = BigInt(nftfi.erc20.allowance({
+    const currentAllowance = BigInt(await nftfi.erc20.allowance({
       account: { address: nftfi.account.getAddress() },
       token: { address: terms.currency },
       nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
