@@ -1,0 +1,4694 @@
+schema {
+  query: Query
+  subscription: Subscription
+}
+
+"""
+Marks the GraphQL type as indexable entity.  Each type that should be an entity is required to be annotated with this directive.
+"""
+directive @entity on OBJECT
+
+"""Defined a Subgraph ID for an object type"""
+directive @subgraphId(id: String!) on OBJECT
+
+"""
+creates a virtual field on the entity that may be queried but cannot be set manually through the mappings API.
+"""
+directive @derivedFrom(field: String!) on FIELD_DEFINITION
+
+enum Aggregation_interval {
+  hour
+  day
+}
+
+type Balance {
+  id: Bytes!
+  token: Token!
+  owner: User!
+  holder: User!
+  balance: BigInt!
+}
+
+input Balance_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  owner: String
+  owner_not: String
+  owner_gt: String
+  owner_lt: String
+  owner_gte: String
+  owner_lte: String
+  owner_in: [String!]
+  owner_not_in: [String!]
+  owner_contains: String
+  owner_contains_nocase: String
+  owner_not_contains: String
+  owner_not_contains_nocase: String
+  owner_starts_with: String
+  owner_starts_with_nocase: String
+  owner_not_starts_with: String
+  owner_not_starts_with_nocase: String
+  owner_ends_with: String
+  owner_ends_with_nocase: String
+  owner_not_ends_with: String
+  owner_not_ends_with_nocase: String
+  owner_: User_filter
+  holder: String
+  holder_not: String
+  holder_gt: String
+  holder_lt: String
+  holder_gte: String
+  holder_lte: String
+  holder_in: [String!]
+  holder_not_in: [String!]
+  holder_contains: String
+  holder_contains_nocase: String
+  holder_not_contains: String
+  holder_not_contains_nocase: String
+  holder_starts_with: String
+  holder_starts_with_nocase: String
+  holder_not_starts_with: String
+  holder_not_starts_with_nocase: String
+  holder_ends_with: String
+  holder_ends_with_nocase: String
+  holder_not_ends_with: String
+  holder_not_ends_with_nocase: String
+  holder_: User_filter
+  balance: BigInt
+  balance_not: BigInt
+  balance_gt: BigInt
+  balance_lt: BigInt
+  balance_gte: BigInt
+  balance_lte: BigInt
+  balance_in: [BigInt!]
+  balance_not_in: [BigInt!]
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [Balance_filter]
+  or: [Balance_filter]
+}
+
+enum Balance_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  owner
+  owner__id
+  owner__address
+  owner__tokenCount
+  holder
+  holder__id
+  holder__address
+  holder__tokenCount
+  balance
+}
+
+scalar BigDecimal
+
+scalar BigInt
+
+input BlockChangedFilter {
+  number_gte: Int!
+}
+
+input Block_height {
+  hash: Bytes
+  number: Int
+  number_gte: Int
+}
+
+scalar Bytes
+
+type ConfigurationUpdate {
+  id: Bytes!
+  token: Token!
+  newValue: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input ConfigurationUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  newValue: String
+  newValue_not: String
+  newValue_gt: String
+  newValue_lt: String
+  newValue_gte: String
+  newValue_lte: String
+  newValue_in: [String!]
+  newValue_not_in: [String!]
+  newValue_contains: String
+  newValue_contains_nocase: String
+  newValue_not_contains: String
+  newValue_not_contains_nocase: String
+  newValue_starts_with: String
+  newValue_starts_with_nocase: String
+  newValue_not_starts_with: String
+  newValue_not_starts_with_nocase: String
+  newValue_ends_with: String
+  newValue_ends_with_nocase: String
+  newValue_not_ends_with: String
+  newValue_not_ends_with_nocase: String
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [ConfigurationUpdate_filter]
+  or: [ConfigurationUpdate_filter]
+}
+
+enum ConfigurationUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+"""
+8 bytes signed integer
+
+"""
+scalar Int8
+
+type Loan {
+  id: Bytes!
+  loanContract: Bytes!
+  loanId: BigInt!
+  loanStatus: LoanStatus!
+  borrower: User!
+  lender: User
+  loanPrincipalAmount: BigInt!
+  maximumRepaymentAmount: BigInt!
+  nftCollateralId: BigInt!
+  loanERC20Denomination: Bytes!
+  loanDuration: BigInt!
+  loanInterestRateForDurationInBasisPoints: Int!
+  loanAdminFeeInBasisPoints: Int!
+  nftCollateralWrapper: Bytes!
+  loanStartTime: BigInt!
+  nftCollateralContract: Bytes!
+  revenueSharePartner: Bytes!
+  revenueShareInBasisPoints: Int!
+  referralFeeInBasisPoints: Int!
+  loanMaturityDate: BigInt
+  loanLiquidationDate: BigInt
+  totalRenegotiationFeesPaid: BigInt!
+  totalRenegotiationAdminFeesPaid: BigInt!
+  amountPaidToLender: BigInt
+  adminFeePaid: BigInt
+  revenueSharePaid: BigInt
+  obligationReceipt: ObligationReceipt
+  promissoryNotes(skip: Int = 0, first: Int = 100, orderBy: PromissoryNote_orderBy, orderDirection: OrderDirection, where: PromissoryNote_filter): [PromissoryNote!]
+}
+
+type LoanLiquidatedEvent {
+  id: Bytes!
+  loan: Loan!
+  borrower: User!
+  lender: User!
+  loanPrincipalAmount: BigInt!
+  nftCollateralId: BigInt!
+  loanMaturityDate: BigInt!
+  loanLiquidationDate: BigInt!
+  nftCollateralContract: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input LoanLiquidatedEvent_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  borrower: String
+  borrower_not: String
+  borrower_gt: String
+  borrower_lt: String
+  borrower_gte: String
+  borrower_lte: String
+  borrower_in: [String!]
+  borrower_not_in: [String!]
+  borrower_contains: String
+  borrower_contains_nocase: String
+  borrower_not_contains: String
+  borrower_not_contains_nocase: String
+  borrower_starts_with: String
+  borrower_starts_with_nocase: String
+  borrower_not_starts_with: String
+  borrower_not_starts_with_nocase: String
+  borrower_ends_with: String
+  borrower_ends_with_nocase: String
+  borrower_not_ends_with: String
+  borrower_not_ends_with_nocase: String
+  borrower_: User_filter
+  lender: String
+  lender_not: String
+  lender_gt: String
+  lender_lt: String
+  lender_gte: String
+  lender_lte: String
+  lender_in: [String!]
+  lender_not_in: [String!]
+  lender_contains: String
+  lender_contains_nocase: String
+  lender_not_contains: String
+  lender_not_contains_nocase: String
+  lender_starts_with: String
+  lender_starts_with_nocase: String
+  lender_not_starts_with: String
+  lender_not_starts_with_nocase: String
+  lender_ends_with: String
+  lender_ends_with_nocase: String
+  lender_not_ends_with: String
+  lender_not_ends_with_nocase: String
+  lender_: User_filter
+  loanPrincipalAmount: BigInt
+  loanPrincipalAmount_not: BigInt
+  loanPrincipalAmount_gt: BigInt
+  loanPrincipalAmount_lt: BigInt
+  loanPrincipalAmount_gte: BigInt
+  loanPrincipalAmount_lte: BigInt
+  loanPrincipalAmount_in: [BigInt!]
+  loanPrincipalAmount_not_in: [BigInt!]
+  nftCollateralId: BigInt
+  nftCollateralId_not: BigInt
+  nftCollateralId_gt: BigInt
+  nftCollateralId_lt: BigInt
+  nftCollateralId_gte: BigInt
+  nftCollateralId_lte: BigInt
+  nftCollateralId_in: [BigInt!]
+  nftCollateralId_not_in: [BigInt!]
+  loanMaturityDate: BigInt
+  loanMaturityDate_not: BigInt
+  loanMaturityDate_gt: BigInt
+  loanMaturityDate_lt: BigInt
+  loanMaturityDate_gte: BigInt
+  loanMaturityDate_lte: BigInt
+  loanMaturityDate_in: [BigInt!]
+  loanMaturityDate_not_in: [BigInt!]
+  loanLiquidationDate: BigInt
+  loanLiquidationDate_not: BigInt
+  loanLiquidationDate_gt: BigInt
+  loanLiquidationDate_lt: BigInt
+  loanLiquidationDate_gte: BigInt
+  loanLiquidationDate_lte: BigInt
+  loanLiquidationDate_in: [BigInt!]
+  loanLiquidationDate_not_in: [BigInt!]
+  nftCollateralContract: Bytes
+  nftCollateralContract_not: Bytes
+  nftCollateralContract_gt: Bytes
+  nftCollateralContract_lt: Bytes
+  nftCollateralContract_gte: Bytes
+  nftCollateralContract_lte: Bytes
+  nftCollateralContract_in: [Bytes!]
+  nftCollateralContract_not_in: [Bytes!]
+  nftCollateralContract_contains: Bytes
+  nftCollateralContract_not_contains: Bytes
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [LoanLiquidatedEvent_filter]
+  or: [LoanLiquidatedEvent_filter]
+}
+
+enum LoanLiquidatedEvent_orderBy {
+  id
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  borrower
+  borrower__id
+  borrower__address
+  borrower__tokenCount
+  lender
+  lender__id
+  lender__address
+  lender__tokenCount
+  loanPrincipalAmount
+  nftCollateralId
+  loanMaturityDate
+  loanLiquidationDate
+  nftCollateralContract
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+type LoanRenegotiatedEvent {
+  id: Bytes!
+  loan: Loan!
+  borrower: User!
+  lender: User!
+  newLoanDuration: BigInt!
+  newMaximumRepaymentAmount: BigInt!
+  renegotiationFee: BigInt!
+  renegotiationAdminFee: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input LoanRenegotiatedEvent_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  borrower: String
+  borrower_not: String
+  borrower_gt: String
+  borrower_lt: String
+  borrower_gte: String
+  borrower_lte: String
+  borrower_in: [String!]
+  borrower_not_in: [String!]
+  borrower_contains: String
+  borrower_contains_nocase: String
+  borrower_not_contains: String
+  borrower_not_contains_nocase: String
+  borrower_starts_with: String
+  borrower_starts_with_nocase: String
+  borrower_not_starts_with: String
+  borrower_not_starts_with_nocase: String
+  borrower_ends_with: String
+  borrower_ends_with_nocase: String
+  borrower_not_ends_with: String
+  borrower_not_ends_with_nocase: String
+  borrower_: User_filter
+  lender: String
+  lender_not: String
+  lender_gt: String
+  lender_lt: String
+  lender_gte: String
+  lender_lte: String
+  lender_in: [String!]
+  lender_not_in: [String!]
+  lender_contains: String
+  lender_contains_nocase: String
+  lender_not_contains: String
+  lender_not_contains_nocase: String
+  lender_starts_with: String
+  lender_starts_with_nocase: String
+  lender_not_starts_with: String
+  lender_not_starts_with_nocase: String
+  lender_ends_with: String
+  lender_ends_with_nocase: String
+  lender_not_ends_with: String
+  lender_not_ends_with_nocase: String
+  lender_: User_filter
+  newLoanDuration: BigInt
+  newLoanDuration_not: BigInt
+  newLoanDuration_gt: BigInt
+  newLoanDuration_lt: BigInt
+  newLoanDuration_gte: BigInt
+  newLoanDuration_lte: BigInt
+  newLoanDuration_in: [BigInt!]
+  newLoanDuration_not_in: [BigInt!]
+  newMaximumRepaymentAmount: BigInt
+  newMaximumRepaymentAmount_not: BigInt
+  newMaximumRepaymentAmount_gt: BigInt
+  newMaximumRepaymentAmount_lt: BigInt
+  newMaximumRepaymentAmount_gte: BigInt
+  newMaximumRepaymentAmount_lte: BigInt
+  newMaximumRepaymentAmount_in: [BigInt!]
+  newMaximumRepaymentAmount_not_in: [BigInt!]
+  renegotiationFee: BigInt
+  renegotiationFee_not: BigInt
+  renegotiationFee_gt: BigInt
+  renegotiationFee_lt: BigInt
+  renegotiationFee_gte: BigInt
+  renegotiationFee_lte: BigInt
+  renegotiationFee_in: [BigInt!]
+  renegotiationFee_not_in: [BigInt!]
+  renegotiationAdminFee: BigInt
+  renegotiationAdminFee_not: BigInt
+  renegotiationAdminFee_gt: BigInt
+  renegotiationAdminFee_lt: BigInt
+  renegotiationAdminFee_gte: BigInt
+  renegotiationAdminFee_lte: BigInt
+  renegotiationAdminFee_in: [BigInt!]
+  renegotiationAdminFee_not_in: [BigInt!]
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [LoanRenegotiatedEvent_filter]
+  or: [LoanRenegotiatedEvent_filter]
+}
+
+enum LoanRenegotiatedEvent_orderBy {
+  id
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  borrower
+  borrower__id
+  borrower__address
+  borrower__tokenCount
+  lender
+  lender__id
+  lender__address
+  lender__tokenCount
+  newLoanDuration
+  newMaximumRepaymentAmount
+  renegotiationFee
+  renegotiationAdminFee
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+type LoanRepaidEvent {
+  id: Bytes!
+  loan: Loan!
+  borrower: User!
+  lender: User!
+  loanPrincipalAmount: BigInt!
+  nftCollateralId: BigInt!
+  amountPaidToLender: BigInt!
+  adminFee: BigInt!
+  revenueShare: BigInt!
+  revenueSharePartner: Bytes!
+  nftCollateralContract: Bytes!
+  loanERC20Denomination: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input LoanRepaidEvent_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  borrower: String
+  borrower_not: String
+  borrower_gt: String
+  borrower_lt: String
+  borrower_gte: String
+  borrower_lte: String
+  borrower_in: [String!]
+  borrower_not_in: [String!]
+  borrower_contains: String
+  borrower_contains_nocase: String
+  borrower_not_contains: String
+  borrower_not_contains_nocase: String
+  borrower_starts_with: String
+  borrower_starts_with_nocase: String
+  borrower_not_starts_with: String
+  borrower_not_starts_with_nocase: String
+  borrower_ends_with: String
+  borrower_ends_with_nocase: String
+  borrower_not_ends_with: String
+  borrower_not_ends_with_nocase: String
+  borrower_: User_filter
+  lender: String
+  lender_not: String
+  lender_gt: String
+  lender_lt: String
+  lender_gte: String
+  lender_lte: String
+  lender_in: [String!]
+  lender_not_in: [String!]
+  lender_contains: String
+  lender_contains_nocase: String
+  lender_not_contains: String
+  lender_not_contains_nocase: String
+  lender_starts_with: String
+  lender_starts_with_nocase: String
+  lender_not_starts_with: String
+  lender_not_starts_with_nocase: String
+  lender_ends_with: String
+  lender_ends_with_nocase: String
+  lender_not_ends_with: String
+  lender_not_ends_with_nocase: String
+  lender_: User_filter
+  loanPrincipalAmount: BigInt
+  loanPrincipalAmount_not: BigInt
+  loanPrincipalAmount_gt: BigInt
+  loanPrincipalAmount_lt: BigInt
+  loanPrincipalAmount_gte: BigInt
+  loanPrincipalAmount_lte: BigInt
+  loanPrincipalAmount_in: [BigInt!]
+  loanPrincipalAmount_not_in: [BigInt!]
+  nftCollateralId: BigInt
+  nftCollateralId_not: BigInt
+  nftCollateralId_gt: BigInt
+  nftCollateralId_lt: BigInt
+  nftCollateralId_gte: BigInt
+  nftCollateralId_lte: BigInt
+  nftCollateralId_in: [BigInt!]
+  nftCollateralId_not_in: [BigInt!]
+  amountPaidToLender: BigInt
+  amountPaidToLender_not: BigInt
+  amountPaidToLender_gt: BigInt
+  amountPaidToLender_lt: BigInt
+  amountPaidToLender_gte: BigInt
+  amountPaidToLender_lte: BigInt
+  amountPaidToLender_in: [BigInt!]
+  amountPaidToLender_not_in: [BigInt!]
+  adminFee: BigInt
+  adminFee_not: BigInt
+  adminFee_gt: BigInt
+  adminFee_lt: BigInt
+  adminFee_gte: BigInt
+  adminFee_lte: BigInt
+  adminFee_in: [BigInt!]
+  adminFee_not_in: [BigInt!]
+  revenueShare: BigInt
+  revenueShare_not: BigInt
+  revenueShare_gt: BigInt
+  revenueShare_lt: BigInt
+  revenueShare_gte: BigInt
+  revenueShare_lte: BigInt
+  revenueShare_in: [BigInt!]
+  revenueShare_not_in: [BigInt!]
+  revenueSharePartner: Bytes
+  revenueSharePartner_not: Bytes
+  revenueSharePartner_gt: Bytes
+  revenueSharePartner_lt: Bytes
+  revenueSharePartner_gte: Bytes
+  revenueSharePartner_lte: Bytes
+  revenueSharePartner_in: [Bytes!]
+  revenueSharePartner_not_in: [Bytes!]
+  revenueSharePartner_contains: Bytes
+  revenueSharePartner_not_contains: Bytes
+  nftCollateralContract: Bytes
+  nftCollateralContract_not: Bytes
+  nftCollateralContract_gt: Bytes
+  nftCollateralContract_lt: Bytes
+  nftCollateralContract_gte: Bytes
+  nftCollateralContract_lte: Bytes
+  nftCollateralContract_in: [Bytes!]
+  nftCollateralContract_not_in: [Bytes!]
+  nftCollateralContract_contains: Bytes
+  nftCollateralContract_not_contains: Bytes
+  loanERC20Denomination: Bytes
+  loanERC20Denomination_not: Bytes
+  loanERC20Denomination_gt: Bytes
+  loanERC20Denomination_lt: Bytes
+  loanERC20Denomination_gte: Bytes
+  loanERC20Denomination_lte: Bytes
+  loanERC20Denomination_in: [Bytes!]
+  loanERC20Denomination_not_in: [Bytes!]
+  loanERC20Denomination_contains: Bytes
+  loanERC20Denomination_not_contains: Bytes
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [LoanRepaidEvent_filter]
+  or: [LoanRepaidEvent_filter]
+}
+
+enum LoanRepaidEvent_orderBy {
+  id
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  borrower
+  borrower__id
+  borrower__address
+  borrower__tokenCount
+  lender
+  lender__id
+  lender__address
+  lender__tokenCount
+  loanPrincipalAmount
+  nftCollateralId
+  amountPaidToLender
+  adminFee
+  revenueShare
+  revenueSharePartner
+  nftCollateralContract
+  loanERC20Denomination
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+type LoanStartedEvent {
+  id: Bytes!
+  loan: Loan!
+  borrower: User!
+  lender: User!
+  loanPrincipalAmount: BigInt!
+  maximumRepaymentAmount: BigInt!
+  nftCollateralId: BigInt!
+  loanERC20Denomination: Bytes!
+  loanDuration: BigInt!
+  loanInterestRateForDurationInBasisPoints: Int!
+  loanAdminFeeInBasisPoints: Int!
+  nftCollateralWrapper: Bytes!
+  loanStartTime: BigInt!
+  nftCollateralContract: Bytes!
+  revenueSharePartner: Bytes!
+  revenueShareInBasisPoints: Int!
+  referralFeeInBasisPoints: Int!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input LoanStartedEvent_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  borrower: String
+  borrower_not: String
+  borrower_gt: String
+  borrower_lt: String
+  borrower_gte: String
+  borrower_lte: String
+  borrower_in: [String!]
+  borrower_not_in: [String!]
+  borrower_contains: String
+  borrower_contains_nocase: String
+  borrower_not_contains: String
+  borrower_not_contains_nocase: String
+  borrower_starts_with: String
+  borrower_starts_with_nocase: String
+  borrower_not_starts_with: String
+  borrower_not_starts_with_nocase: String
+  borrower_ends_with: String
+  borrower_ends_with_nocase: String
+  borrower_not_ends_with: String
+  borrower_not_ends_with_nocase: String
+  borrower_: User_filter
+  lender: String
+  lender_not: String
+  lender_gt: String
+  lender_lt: String
+  lender_gte: String
+  lender_lte: String
+  lender_in: [String!]
+  lender_not_in: [String!]
+  lender_contains: String
+  lender_contains_nocase: String
+  lender_not_contains: String
+  lender_not_contains_nocase: String
+  lender_starts_with: String
+  lender_starts_with_nocase: String
+  lender_not_starts_with: String
+  lender_not_starts_with_nocase: String
+  lender_ends_with: String
+  lender_ends_with_nocase: String
+  lender_not_ends_with: String
+  lender_not_ends_with_nocase: String
+  lender_: User_filter
+  loanPrincipalAmount: BigInt
+  loanPrincipalAmount_not: BigInt
+  loanPrincipalAmount_gt: BigInt
+  loanPrincipalAmount_lt: BigInt
+  loanPrincipalAmount_gte: BigInt
+  loanPrincipalAmount_lte: BigInt
+  loanPrincipalAmount_in: [BigInt!]
+  loanPrincipalAmount_not_in: [BigInt!]
+  maximumRepaymentAmount: BigInt
+  maximumRepaymentAmount_not: BigInt
+  maximumRepaymentAmount_gt: BigInt
+  maximumRepaymentAmount_lt: BigInt
+  maximumRepaymentAmount_gte: BigInt
+  maximumRepaymentAmount_lte: BigInt
+  maximumRepaymentAmount_in: [BigInt!]
+  maximumRepaymentAmount_not_in: [BigInt!]
+  nftCollateralId: BigInt
+  nftCollateralId_not: BigInt
+  nftCollateralId_gt: BigInt
+  nftCollateralId_lt: BigInt
+  nftCollateralId_gte: BigInt
+  nftCollateralId_lte: BigInt
+  nftCollateralId_in: [BigInt!]
+  nftCollateralId_not_in: [BigInt!]
+  loanERC20Denomination: Bytes
+  loanERC20Denomination_not: Bytes
+  loanERC20Denomination_gt: Bytes
+  loanERC20Denomination_lt: Bytes
+  loanERC20Denomination_gte: Bytes
+  loanERC20Denomination_lte: Bytes
+  loanERC20Denomination_in: [Bytes!]
+  loanERC20Denomination_not_in: [Bytes!]
+  loanERC20Denomination_contains: Bytes
+  loanERC20Denomination_not_contains: Bytes
+  loanDuration: BigInt
+  loanDuration_not: BigInt
+  loanDuration_gt: BigInt
+  loanDuration_lt: BigInt
+  loanDuration_gte: BigInt
+  loanDuration_lte: BigInt
+  loanDuration_in: [BigInt!]
+  loanDuration_not_in: [BigInt!]
+  loanInterestRateForDurationInBasisPoints: Int
+  loanInterestRateForDurationInBasisPoints_not: Int
+  loanInterestRateForDurationInBasisPoints_gt: Int
+  loanInterestRateForDurationInBasisPoints_lt: Int
+  loanInterestRateForDurationInBasisPoints_gte: Int
+  loanInterestRateForDurationInBasisPoints_lte: Int
+  loanInterestRateForDurationInBasisPoints_in: [Int!]
+  loanInterestRateForDurationInBasisPoints_not_in: [Int!]
+  loanAdminFeeInBasisPoints: Int
+  loanAdminFeeInBasisPoints_not: Int
+  loanAdminFeeInBasisPoints_gt: Int
+  loanAdminFeeInBasisPoints_lt: Int
+  loanAdminFeeInBasisPoints_gte: Int
+  loanAdminFeeInBasisPoints_lte: Int
+  loanAdminFeeInBasisPoints_in: [Int!]
+  loanAdminFeeInBasisPoints_not_in: [Int!]
+  nftCollateralWrapper: Bytes
+  nftCollateralWrapper_not: Bytes
+  nftCollateralWrapper_gt: Bytes
+  nftCollateralWrapper_lt: Bytes
+  nftCollateralWrapper_gte: Bytes
+  nftCollateralWrapper_lte: Bytes
+  nftCollateralWrapper_in: [Bytes!]
+  nftCollateralWrapper_not_in: [Bytes!]
+  nftCollateralWrapper_contains: Bytes
+  nftCollateralWrapper_not_contains: Bytes
+  loanStartTime: BigInt
+  loanStartTime_not: BigInt
+  loanStartTime_gt: BigInt
+  loanStartTime_lt: BigInt
+  loanStartTime_gte: BigInt
+  loanStartTime_lte: BigInt
+  loanStartTime_in: [BigInt!]
+  loanStartTime_not_in: [BigInt!]
+  nftCollateralContract: Bytes
+  nftCollateralContract_not: Bytes
+  nftCollateralContract_gt: Bytes
+  nftCollateralContract_lt: Bytes
+  nftCollateralContract_gte: Bytes
+  nftCollateralContract_lte: Bytes
+  nftCollateralContract_in: [Bytes!]
+  nftCollateralContract_not_in: [Bytes!]
+  nftCollateralContract_contains: Bytes
+  nftCollateralContract_not_contains: Bytes
+  revenueSharePartner: Bytes
+  revenueSharePartner_not: Bytes
+  revenueSharePartner_gt: Bytes
+  revenueSharePartner_lt: Bytes
+  revenueSharePartner_gte: Bytes
+  revenueSharePartner_lte: Bytes
+  revenueSharePartner_in: [Bytes!]
+  revenueSharePartner_not_in: [Bytes!]
+  revenueSharePartner_contains: Bytes
+  revenueSharePartner_not_contains: Bytes
+  revenueShareInBasisPoints: Int
+  revenueShareInBasisPoints_not: Int
+  revenueShareInBasisPoints_gt: Int
+  revenueShareInBasisPoints_lt: Int
+  revenueShareInBasisPoints_gte: Int
+  revenueShareInBasisPoints_lte: Int
+  revenueShareInBasisPoints_in: [Int!]
+  revenueShareInBasisPoints_not_in: [Int!]
+  referralFeeInBasisPoints: Int
+  referralFeeInBasisPoints_not: Int
+  referralFeeInBasisPoints_gt: Int
+  referralFeeInBasisPoints_lt: Int
+  referralFeeInBasisPoints_gte: Int
+  referralFeeInBasisPoints_lte: Int
+  referralFeeInBasisPoints_in: [Int!]
+  referralFeeInBasisPoints_not_in: [Int!]
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [LoanStartedEvent_filter]
+  or: [LoanStartedEvent_filter]
+}
+
+enum LoanStartedEvent_orderBy {
+  id
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  borrower
+  borrower__id
+  borrower__address
+  borrower__tokenCount
+  lender
+  lender__id
+  lender__address
+  lender__tokenCount
+  loanPrincipalAmount
+  maximumRepaymentAmount
+  nftCollateralId
+  loanERC20Denomination
+  loanDuration
+  loanInterestRateForDurationInBasisPoints
+  loanAdminFeeInBasisPoints
+  nftCollateralWrapper
+  loanStartTime
+  nftCollateralContract
+  revenueSharePartner
+  revenueShareInBasisPoints
+  referralFeeInBasisPoints
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+enum LoanStatus {
+  ActiveOrDefault
+  Liquidated
+  Repaid
+}
+
+input Loan_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  loanContract: Bytes
+  loanContract_not: Bytes
+  loanContract_gt: Bytes
+  loanContract_lt: Bytes
+  loanContract_gte: Bytes
+  loanContract_lte: Bytes
+  loanContract_in: [Bytes!]
+  loanContract_not_in: [Bytes!]
+  loanContract_contains: Bytes
+  loanContract_not_contains: Bytes
+  loanId: BigInt
+  loanId_not: BigInt
+  loanId_gt: BigInt
+  loanId_lt: BigInt
+  loanId_gte: BigInt
+  loanId_lte: BigInt
+  loanId_in: [BigInt!]
+  loanId_not_in: [BigInt!]
+  loanStatus: LoanStatus
+  loanStatus_not: LoanStatus
+  loanStatus_in: [LoanStatus!]
+  loanStatus_not_in: [LoanStatus!]
+  borrower: String
+  borrower_not: String
+  borrower_gt: String
+  borrower_lt: String
+  borrower_gte: String
+  borrower_lte: String
+  borrower_in: [String!]
+  borrower_not_in: [String!]
+  borrower_contains: String
+  borrower_contains_nocase: String
+  borrower_not_contains: String
+  borrower_not_contains_nocase: String
+  borrower_starts_with: String
+  borrower_starts_with_nocase: String
+  borrower_not_starts_with: String
+  borrower_not_starts_with_nocase: String
+  borrower_ends_with: String
+  borrower_ends_with_nocase: String
+  borrower_not_ends_with: String
+  borrower_not_ends_with_nocase: String
+  borrower_: User_filter
+  lender: String
+  lender_not: String
+  lender_gt: String
+  lender_lt: String
+  lender_gte: String
+  lender_lte: String
+  lender_in: [String!]
+  lender_not_in: [String!]
+  lender_contains: String
+  lender_contains_nocase: String
+  lender_not_contains: String
+  lender_not_contains_nocase: String
+  lender_starts_with: String
+  lender_starts_with_nocase: String
+  lender_not_starts_with: String
+  lender_not_starts_with_nocase: String
+  lender_ends_with: String
+  lender_ends_with_nocase: String
+  lender_not_ends_with: String
+  lender_not_ends_with_nocase: String
+  lender_: User_filter
+  loanPrincipalAmount: BigInt
+  loanPrincipalAmount_not: BigInt
+  loanPrincipalAmount_gt: BigInt
+  loanPrincipalAmount_lt: BigInt
+  loanPrincipalAmount_gte: BigInt
+  loanPrincipalAmount_lte: BigInt
+  loanPrincipalAmount_in: [BigInt!]
+  loanPrincipalAmount_not_in: [BigInt!]
+  maximumRepaymentAmount: BigInt
+  maximumRepaymentAmount_not: BigInt
+  maximumRepaymentAmount_gt: BigInt
+  maximumRepaymentAmount_lt: BigInt
+  maximumRepaymentAmount_gte: BigInt
+  maximumRepaymentAmount_lte: BigInt
+  maximumRepaymentAmount_in: [BigInt!]
+  maximumRepaymentAmount_not_in: [BigInt!]
+  nftCollateralId: BigInt
+  nftCollateralId_not: BigInt
+  nftCollateralId_gt: BigInt
+  nftCollateralId_lt: BigInt
+  nftCollateralId_gte: BigInt
+  nftCollateralId_lte: BigInt
+  nftCollateralId_in: [BigInt!]
+  nftCollateralId_not_in: [BigInt!]
+  loanERC20Denomination: Bytes
+  loanERC20Denomination_not: Bytes
+  loanERC20Denomination_gt: Bytes
+  loanERC20Denomination_lt: Bytes
+  loanERC20Denomination_gte: Bytes
+  loanERC20Denomination_lte: Bytes
+  loanERC20Denomination_in: [Bytes!]
+  loanERC20Denomination_not_in: [Bytes!]
+  loanERC20Denomination_contains: Bytes
+  loanERC20Denomination_not_contains: Bytes
+  loanDuration: BigInt
+  loanDuration_not: BigInt
+  loanDuration_gt: BigInt
+  loanDuration_lt: BigInt
+  loanDuration_gte: BigInt
+  loanDuration_lte: BigInt
+  loanDuration_in: [BigInt!]
+  loanDuration_not_in: [BigInt!]
+  loanInterestRateForDurationInBasisPoints: Int
+  loanInterestRateForDurationInBasisPoints_not: Int
+  loanInterestRateForDurationInBasisPoints_gt: Int
+  loanInterestRateForDurationInBasisPoints_lt: Int
+  loanInterestRateForDurationInBasisPoints_gte: Int
+  loanInterestRateForDurationInBasisPoints_lte: Int
+  loanInterestRateForDurationInBasisPoints_in: [Int!]
+  loanInterestRateForDurationInBasisPoints_not_in: [Int!]
+  loanAdminFeeInBasisPoints: Int
+  loanAdminFeeInBasisPoints_not: Int
+  loanAdminFeeInBasisPoints_gt: Int
+  loanAdminFeeInBasisPoints_lt: Int
+  loanAdminFeeInBasisPoints_gte: Int
+  loanAdminFeeInBasisPoints_lte: Int
+  loanAdminFeeInBasisPoints_in: [Int!]
+  loanAdminFeeInBasisPoints_not_in: [Int!]
+  nftCollateralWrapper: Bytes
+  nftCollateralWrapper_not: Bytes
+  nftCollateralWrapper_gt: Bytes
+  nftCollateralWrapper_lt: Bytes
+  nftCollateralWrapper_gte: Bytes
+  nftCollateralWrapper_lte: Bytes
+  nftCollateralWrapper_in: [Bytes!]
+  nftCollateralWrapper_not_in: [Bytes!]
+  nftCollateralWrapper_contains: Bytes
+  nftCollateralWrapper_not_contains: Bytes
+  loanStartTime: BigInt
+  loanStartTime_not: BigInt
+  loanStartTime_gt: BigInt
+  loanStartTime_lt: BigInt
+  loanStartTime_gte: BigInt
+  loanStartTime_lte: BigInt
+  loanStartTime_in: [BigInt!]
+  loanStartTime_not_in: [BigInt!]
+  nftCollateralContract: Bytes
+  nftCollateralContract_not: Bytes
+  nftCollateralContract_gt: Bytes
+  nftCollateralContract_lt: Bytes
+  nftCollateralContract_gte: Bytes
+  nftCollateralContract_lte: Bytes
+  nftCollateralContract_in: [Bytes!]
+  nftCollateralContract_not_in: [Bytes!]
+  nftCollateralContract_contains: Bytes
+  nftCollateralContract_not_contains: Bytes
+  revenueSharePartner: Bytes
+  revenueSharePartner_not: Bytes
+  revenueSharePartner_gt: Bytes
+  revenueSharePartner_lt: Bytes
+  revenueSharePartner_gte: Bytes
+  revenueSharePartner_lte: Bytes
+  revenueSharePartner_in: [Bytes!]
+  revenueSharePartner_not_in: [Bytes!]
+  revenueSharePartner_contains: Bytes
+  revenueSharePartner_not_contains: Bytes
+  revenueShareInBasisPoints: Int
+  revenueShareInBasisPoints_not: Int
+  revenueShareInBasisPoints_gt: Int
+  revenueShareInBasisPoints_lt: Int
+  revenueShareInBasisPoints_gte: Int
+  revenueShareInBasisPoints_lte: Int
+  revenueShareInBasisPoints_in: [Int!]
+  revenueShareInBasisPoints_not_in: [Int!]
+  referralFeeInBasisPoints: Int
+  referralFeeInBasisPoints_not: Int
+  referralFeeInBasisPoints_gt: Int
+  referralFeeInBasisPoints_lt: Int
+  referralFeeInBasisPoints_gte: Int
+  referralFeeInBasisPoints_lte: Int
+  referralFeeInBasisPoints_in: [Int!]
+  referralFeeInBasisPoints_not_in: [Int!]
+  loanMaturityDate: BigInt
+  loanMaturityDate_not: BigInt
+  loanMaturityDate_gt: BigInt
+  loanMaturityDate_lt: BigInt
+  loanMaturityDate_gte: BigInt
+  loanMaturityDate_lte: BigInt
+  loanMaturityDate_in: [BigInt!]
+  loanMaturityDate_not_in: [BigInt!]
+  loanLiquidationDate: BigInt
+  loanLiquidationDate_not: BigInt
+  loanLiquidationDate_gt: BigInt
+  loanLiquidationDate_lt: BigInt
+  loanLiquidationDate_gte: BigInt
+  loanLiquidationDate_lte: BigInt
+  loanLiquidationDate_in: [BigInt!]
+  loanLiquidationDate_not_in: [BigInt!]
+  totalRenegotiationFeesPaid: BigInt
+  totalRenegotiationFeesPaid_not: BigInt
+  totalRenegotiationFeesPaid_gt: BigInt
+  totalRenegotiationFeesPaid_lt: BigInt
+  totalRenegotiationFeesPaid_gte: BigInt
+  totalRenegotiationFeesPaid_lte: BigInt
+  totalRenegotiationFeesPaid_in: [BigInt!]
+  totalRenegotiationFeesPaid_not_in: [BigInt!]
+  totalRenegotiationAdminFeesPaid: BigInt
+  totalRenegotiationAdminFeesPaid_not: BigInt
+  totalRenegotiationAdminFeesPaid_gt: BigInt
+  totalRenegotiationAdminFeesPaid_lt: BigInt
+  totalRenegotiationAdminFeesPaid_gte: BigInt
+  totalRenegotiationAdminFeesPaid_lte: BigInt
+  totalRenegotiationAdminFeesPaid_in: [BigInt!]
+  totalRenegotiationAdminFeesPaid_not_in: [BigInt!]
+  amountPaidToLender: BigInt
+  amountPaidToLender_not: BigInt
+  amountPaidToLender_gt: BigInt
+  amountPaidToLender_lt: BigInt
+  amountPaidToLender_gte: BigInt
+  amountPaidToLender_lte: BigInt
+  amountPaidToLender_in: [BigInt!]
+  amountPaidToLender_not_in: [BigInt!]
+  adminFeePaid: BigInt
+  adminFeePaid_not: BigInt
+  adminFeePaid_gt: BigInt
+  adminFeePaid_lt: BigInt
+  adminFeePaid_gte: BigInt
+  adminFeePaid_lte: BigInt
+  adminFeePaid_in: [BigInt!]
+  adminFeePaid_not_in: [BigInt!]
+  revenueSharePaid: BigInt
+  revenueSharePaid_not: BigInt
+  revenueSharePaid_gt: BigInt
+  revenueSharePaid_lt: BigInt
+  revenueSharePaid_gte: BigInt
+  revenueSharePaid_lte: BigInt
+  revenueSharePaid_in: [BigInt!]
+  revenueSharePaid_not_in: [BigInt!]
+  obligationReceipt_: ObligationReceipt_filter
+  promissoryNotes_: PromissoryNote_filter
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [Loan_filter]
+  or: [Loan_filter]
+}
+
+enum Loan_orderBy {
+  id
+  loanContract
+  loanId
+  loanStatus
+  borrower
+  borrower__id
+  borrower__address
+  borrower__tokenCount
+  lender
+  lender__id
+  lender__address
+  lender__tokenCount
+  loanPrincipalAmount
+  maximumRepaymentAmount
+  nftCollateralId
+  loanERC20Denomination
+  loanDuration
+  loanInterestRateForDurationInBasisPoints
+  loanAdminFeeInBasisPoints
+  nftCollateralWrapper
+  loanStartTime
+  nftCollateralContract
+  revenueSharePartner
+  revenueShareInBasisPoints
+  referralFeeInBasisPoints
+  loanMaturityDate
+  loanLiquidationDate
+  totalRenegotiationFeesPaid
+  totalRenegotiationAdminFeesPaid
+  amountPaidToLender
+  adminFeePaid
+  revenueSharePaid
+  obligationReceipt
+  obligationReceipt__id
+  obligationReceipt__receiptTokenId
+  obligationReceipt__nftCollateralContract
+  obligationReceipt__nftCollateralId
+  promissoryNotes
+}
+
+type ObligationReceipt {
+  id: Bytes!
+  receiptTokenId: BigInt!
+  loan: Loan!
+  nftCollateralContract: Bytes!
+  nftCollateralId: BigInt!
+  creator: User!
+  holder: User
+}
+
+input ObligationReceipt_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  receiptTokenId: BigInt
+  receiptTokenId_not: BigInt
+  receiptTokenId_gt: BigInt
+  receiptTokenId_lt: BigInt
+  receiptTokenId_gte: BigInt
+  receiptTokenId_lte: BigInt
+  receiptTokenId_in: [BigInt!]
+  receiptTokenId_not_in: [BigInt!]
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  nftCollateralContract: Bytes
+  nftCollateralContract_not: Bytes
+  nftCollateralContract_gt: Bytes
+  nftCollateralContract_lt: Bytes
+  nftCollateralContract_gte: Bytes
+  nftCollateralContract_lte: Bytes
+  nftCollateralContract_in: [Bytes!]
+  nftCollateralContract_not_in: [Bytes!]
+  nftCollateralContract_contains: Bytes
+  nftCollateralContract_not_contains: Bytes
+  nftCollateralId: BigInt
+  nftCollateralId_not: BigInt
+  nftCollateralId_gt: BigInt
+  nftCollateralId_lt: BigInt
+  nftCollateralId_gte: BigInt
+  nftCollateralId_lte: BigInt
+  nftCollateralId_in: [BigInt!]
+  nftCollateralId_not_in: [BigInt!]
+  creator: String
+  creator_not: String
+  creator_gt: String
+  creator_lt: String
+  creator_gte: String
+  creator_lte: String
+  creator_in: [String!]
+  creator_not_in: [String!]
+  creator_contains: String
+  creator_contains_nocase: String
+  creator_not_contains: String
+  creator_not_contains_nocase: String
+  creator_starts_with: String
+  creator_starts_with_nocase: String
+  creator_not_starts_with: String
+  creator_not_starts_with_nocase: String
+  creator_ends_with: String
+  creator_ends_with_nocase: String
+  creator_not_ends_with: String
+  creator_not_ends_with_nocase: String
+  creator_: User_filter
+  holder: String
+  holder_not: String
+  holder_gt: String
+  holder_lt: String
+  holder_gte: String
+  holder_lte: String
+  holder_in: [String!]
+  holder_not_in: [String!]
+  holder_contains: String
+  holder_contains_nocase: String
+  holder_not_contains: String
+  holder_not_contains_nocase: String
+  holder_starts_with: String
+  holder_starts_with_nocase: String
+  holder_not_starts_with: String
+  holder_not_starts_with_nocase: String
+  holder_ends_with: String
+  holder_ends_with_nocase: String
+  holder_not_ends_with: String
+  holder_not_ends_with_nocase: String
+  holder_: User_filter
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [ObligationReceipt_filter]
+  or: [ObligationReceipt_filter]
+}
+
+enum ObligationReceipt_orderBy {
+  id
+  receiptTokenId
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  nftCollateralContract
+  nftCollateralId
+  creator
+  creator__id
+  creator__address
+  creator__tokenCount
+  holder
+  holder__id
+  holder__address
+  holder__tokenCount
+}
+
+type OperatingAgreementUpdate {
+  id: Bytes!
+  token: Token!
+  newValue: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input OperatingAgreementUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  newValue: String
+  newValue_not: String
+  newValue_gt: String
+  newValue_lt: String
+  newValue_gte: String
+  newValue_lte: String
+  newValue_in: [String!]
+  newValue_not_in: [String!]
+  newValue_contains: String
+  newValue_contains_nocase: String
+  newValue_not_contains: String
+  newValue_not_contains_nocase: String
+  newValue_starts_with: String
+  newValue_starts_with_nocase: String
+  newValue_not_starts_with: String
+  newValue_not_starts_with_nocase: String
+  newValue_ends_with: String
+  newValue_ends_with_nocase: String
+  newValue_not_ends_with: String
+  newValue_not_ends_with_nocase: String
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [OperatingAgreementUpdate_filter]
+  or: [OperatingAgreementUpdate_filter]
+}
+
+enum OperatingAgreementUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+"""Defines the order direction, either ascending or descending"""
+enum OrderDirection {
+  asc
+  desc
+}
+
+type PromissoryNote {
+  id: Bytes!
+  noteTokenId: BigInt!
+  loan: Loan
+  creator: User!
+  holder: User
+}
+
+input PromissoryNote_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  noteTokenId: BigInt
+  noteTokenId_not: BigInt
+  noteTokenId_gt: BigInt
+  noteTokenId_lt: BigInt
+  noteTokenId_gte: BigInt
+  noteTokenId_lte: BigInt
+  noteTokenId_in: [BigInt!]
+  noteTokenId_not_in: [BigInt!]
+  loan: String
+  loan_not: String
+  loan_gt: String
+  loan_lt: String
+  loan_gte: String
+  loan_lte: String
+  loan_in: [String!]
+  loan_not_in: [String!]
+  loan_contains: String
+  loan_contains_nocase: String
+  loan_not_contains: String
+  loan_not_contains_nocase: String
+  loan_starts_with: String
+  loan_starts_with_nocase: String
+  loan_not_starts_with: String
+  loan_not_starts_with_nocase: String
+  loan_ends_with: String
+  loan_ends_with_nocase: String
+  loan_not_ends_with: String
+  loan_not_ends_with_nocase: String
+  loan_: Loan_filter
+  creator: String
+  creator_not: String
+  creator_gt: String
+  creator_lt: String
+  creator_gte: String
+  creator_lte: String
+  creator_in: [String!]
+  creator_not_in: [String!]
+  creator_contains: String
+  creator_contains_nocase: String
+  creator_not_contains: String
+  creator_not_contains_nocase: String
+  creator_starts_with: String
+  creator_starts_with_nocase: String
+  creator_not_starts_with: String
+  creator_not_starts_with_nocase: String
+  creator_ends_with: String
+  creator_ends_with_nocase: String
+  creator_not_ends_with: String
+  creator_not_ends_with_nocase: String
+  creator_: User_filter
+  holder: String
+  holder_not: String
+  holder_gt: String
+  holder_lt: String
+  holder_gte: String
+  holder_lte: String
+  holder_in: [String!]
+  holder_not_in: [String!]
+  holder_contains: String
+  holder_contains_nocase: String
+  holder_not_contains: String
+  holder_not_contains_nocase: String
+  holder_starts_with: String
+  holder_starts_with_nocase: String
+  holder_not_starts_with: String
+  holder_not_starts_with_nocase: String
+  holder_ends_with: String
+  holder_ends_with_nocase: String
+  holder_not_ends_with: String
+  holder_not_ends_with_nocase: String
+  holder_: User_filter
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [PromissoryNote_filter]
+  or: [PromissoryNote_filter]
+}
+
+enum PromissoryNote_orderBy {
+  id
+  noteTokenId
+  loan
+  loan__id
+  loan__loanContract
+  loan__loanId
+  loan__loanStatus
+  loan__loanPrincipalAmount
+  loan__maximumRepaymentAmount
+  loan__nftCollateralId
+  loan__loanERC20Denomination
+  loan__loanDuration
+  loan__loanInterestRateForDurationInBasisPoints
+  loan__loanAdminFeeInBasisPoints
+  loan__nftCollateralWrapper
+  loan__loanStartTime
+  loan__nftCollateralContract
+  loan__revenueSharePartner
+  loan__revenueShareInBasisPoints
+  loan__referralFeeInBasisPoints
+  loan__loanMaturityDate
+  loan__loanLiquidationDate
+  loan__totalRenegotiationFeesPaid
+  loan__totalRenegotiationAdminFeesPaid
+  loan__amountPaidToLender
+  loan__adminFeePaid
+  loan__revenueSharePaid
+  creator
+  creator__id
+  creator__address
+  creator__tokenCount
+  holder
+  holder__id
+  holder__address
+  holder__tokenCount
+}
+
+type Query {
+  sepolia_token(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Token
+  sepolia_tokens(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Token_orderBy
+    orderDirection: OrderDirection
+    where: Token_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Token!]!
+  sepolia_balance(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Balance
+  sepolia_balances(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Balance_orderBy
+    orderDirection: OrderDirection
+    where: Balance_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Balance!]!
+  sepolia_user(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): User
+  sepolia_users(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: User_orderBy
+    orderDirection: OrderDirection
+    where: User_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [User!]!
+  sepolia_transfer(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Transfer
+  sepolia_transfers(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Transfer_orderBy
+    orderDirection: OrderDirection
+    where: Transfer_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Transfer!]!
+  sepolia_configurationUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ConfigurationUpdate
+  sepolia_configurationUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ConfigurationUpdate_orderBy
+    orderDirection: OrderDirection
+    where: ConfigurationUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ConfigurationUpdate!]!
+  sepolia_operatingAgreementUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): OperatingAgreementUpdate
+  sepolia_operatingAgreementUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: OperatingAgreementUpdate_orderBy
+    orderDirection: OrderDirection
+    where: OperatingAgreementUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [OperatingAgreementUpdate!]!
+  sepolia_validatorUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ValidatorUpdate
+  sepolia_validatorUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ValidatorUpdate_orderBy
+    orderDirection: OrderDirection
+    where: ValidatorUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ValidatorUpdate!]!
+  sepolia_traitMetadata(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitMetadata
+  sepolia_traitMetadata_collection(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitMetadata_orderBy
+    orderDirection: OrderDirection
+    where: TraitMetadata_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitMetadata!]!
+  sepolia_traitMetadataUriUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitMetadataUriUpdate
+  sepolia_traitMetadataUriUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitMetadataUriUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitMetadataUriUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitMetadataUriUpdate!]!
+  sepolia_traitDefinition(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDefinition
+  sepolia_traitDefinitions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDefinition_orderBy
+    orderDirection: OrderDirection
+    where: TraitDefinition_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDefinition!]!
+  sepolia_traitStringUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitStringUpdate
+  sepolia_traitStringUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitStringUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitStringUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitStringUpdate!]!
+  sepolia_traitDecimalUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDecimalUpdate
+  sepolia_traitDecimalUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDecimalUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitDecimalUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDecimalUpdate!]!
+  sepolia_traitBooleanUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitBooleanUpdate
+  sepolia_traitBooleanUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitBooleanUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitBooleanUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitBooleanUpdate!]!
+  sepolia_traitString(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitString
+  sepolia_traitStrings(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitString_orderBy
+    orderDirection: OrderDirection
+    where: TraitString_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitString!]!
+  sepolia_traitDecimal(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDecimal
+  sepolia_traitDecimals(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDecimal_orderBy
+    orderDirection: OrderDirection
+    where: TraitDecimal_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDecimal!]!
+  sepolia_traitBoolean(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitBoolean
+  sepolia_traitBooleans(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitBoolean_orderBy
+    orderDirection: OrderDirection
+    where: TraitBoolean_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitBoolean!]!
+  sepolia_loan(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Loan
+  sepolia_loans(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Loan_orderBy
+    orderDirection: OrderDirection
+    where: Loan_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Loan!]!
+  sepolia_loanLiquidatedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanLiquidatedEvent
+  sepolia_loanLiquidatedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanLiquidatedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanLiquidatedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanLiquidatedEvent!]!
+  sepolia_loanRenegotiatedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanRenegotiatedEvent
+  sepolia_loanRenegotiatedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanRenegotiatedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanRenegotiatedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanRenegotiatedEvent!]!
+  sepolia_loanRepaidEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanRepaidEvent
+  sepolia_loanRepaidEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanRepaidEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanRepaidEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanRepaidEvent!]!
+  sepolia_loanStartedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanStartedEvent
+  sepolia_loanStartedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanStartedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanStartedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanStartedEvent!]!
+  sepolia_obligationReceipt(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ObligationReceipt
+  sepolia_obligationReceipts(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ObligationReceipt_orderBy
+    orderDirection: OrderDirection
+    where: ObligationReceipt_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ObligationReceipt!]!
+  sepolia_promissoryNote(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): PromissoryNote
+  sepolia_promissoryNotes(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PromissoryNote_orderBy
+    orderDirection: OrderDirection
+    where: PromissoryNote_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [PromissoryNote!]!
+  """Access to subgraph metadata"""
+  sepolia__meta(block: Block_height): _Meta_
+}
+
+type Subscription {
+  sepolia_token(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Token
+  sepolia_tokens(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Token_orderBy
+    orderDirection: OrderDirection
+    where: Token_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Token!]!
+  sepolia_balance(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Balance
+  sepolia_balances(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Balance_orderBy
+    orderDirection: OrderDirection
+    where: Balance_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Balance!]!
+  sepolia_user(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): User
+  sepolia_users(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: User_orderBy
+    orderDirection: OrderDirection
+    where: User_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [User!]!
+  sepolia_transfer(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Transfer
+  sepolia_transfers(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Transfer_orderBy
+    orderDirection: OrderDirection
+    where: Transfer_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Transfer!]!
+  sepolia_configurationUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ConfigurationUpdate
+  sepolia_configurationUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ConfigurationUpdate_orderBy
+    orderDirection: OrderDirection
+    where: ConfigurationUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ConfigurationUpdate!]!
+  sepolia_operatingAgreementUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): OperatingAgreementUpdate
+  sepolia_operatingAgreementUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: OperatingAgreementUpdate_orderBy
+    orderDirection: OrderDirection
+    where: OperatingAgreementUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [OperatingAgreementUpdate!]!
+  sepolia_validatorUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ValidatorUpdate
+  sepolia_validatorUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ValidatorUpdate_orderBy
+    orderDirection: OrderDirection
+    where: ValidatorUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ValidatorUpdate!]!
+  sepolia_traitMetadata(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitMetadata
+  sepolia_traitMetadata_collection(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitMetadata_orderBy
+    orderDirection: OrderDirection
+    where: TraitMetadata_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitMetadata!]!
+  sepolia_traitMetadataUriUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitMetadataUriUpdate
+  sepolia_traitMetadataUriUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitMetadataUriUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitMetadataUriUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitMetadataUriUpdate!]!
+  sepolia_traitDefinition(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDefinition
+  sepolia_traitDefinitions(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDefinition_orderBy
+    orderDirection: OrderDirection
+    where: TraitDefinition_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDefinition!]!
+  sepolia_traitStringUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitStringUpdate
+  sepolia_traitStringUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitStringUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitStringUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitStringUpdate!]!
+  sepolia_traitDecimalUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDecimalUpdate
+  sepolia_traitDecimalUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDecimalUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitDecimalUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDecimalUpdate!]!
+  sepolia_traitBooleanUpdate(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitBooleanUpdate
+  sepolia_traitBooleanUpdates(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitBooleanUpdate_orderBy
+    orderDirection: OrderDirection
+    where: TraitBooleanUpdate_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitBooleanUpdate!]!
+  sepolia_traitString(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitString
+  sepolia_traitStrings(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitString_orderBy
+    orderDirection: OrderDirection
+    where: TraitString_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitString!]!
+  sepolia_traitDecimal(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitDecimal
+  sepolia_traitDecimals(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitDecimal_orderBy
+    orderDirection: OrderDirection
+    where: TraitDecimal_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitDecimal!]!
+  sepolia_traitBoolean(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): TraitBoolean
+  sepolia_traitBooleans(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: TraitBoolean_orderBy
+    orderDirection: OrderDirection
+    where: TraitBoolean_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [TraitBoolean!]!
+  sepolia_loan(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): Loan
+  sepolia_loans(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: Loan_orderBy
+    orderDirection: OrderDirection
+    where: Loan_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [Loan!]!
+  sepolia_loanLiquidatedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanLiquidatedEvent
+  sepolia_loanLiquidatedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanLiquidatedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanLiquidatedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanLiquidatedEvent!]!
+  sepolia_loanRenegotiatedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanRenegotiatedEvent
+  sepolia_loanRenegotiatedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanRenegotiatedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanRenegotiatedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanRenegotiatedEvent!]!
+  sepolia_loanRepaidEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanRepaidEvent
+  sepolia_loanRepaidEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanRepaidEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanRepaidEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanRepaidEvent!]!
+  sepolia_loanStartedEvent(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): LoanStartedEvent
+  sepolia_loanStartedEvents(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: LoanStartedEvent_orderBy
+    orderDirection: OrderDirection
+    where: LoanStartedEvent_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [LoanStartedEvent!]!
+  sepolia_obligationReceipt(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): ObligationReceipt
+  sepolia_obligationReceipts(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: ObligationReceipt_orderBy
+    orderDirection: OrderDirection
+    where: ObligationReceipt_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [ObligationReceipt!]!
+  sepolia_promissoryNote(
+    id: ID!
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): PromissoryNote
+  sepolia_promissoryNotes(
+    skip: Int = 0
+    first: Int = 100
+    orderBy: PromissoryNote_orderBy
+    orderDirection: OrderDirection
+    where: PromissoryNote_filter
+    """
+    The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
+    """
+    block: Block_height
+    """
+    Set to `allow` to receive data even if the subgraph has skipped over errors while syncing.
+    """
+    subgraphError: _SubgraphErrorPolicy_! = deny
+  ): [PromissoryNote!]!
+  """Access to subgraph metadata"""
+  sepolia__meta(block: Block_height): _Meta_
+}
+
+"""
+A string representation of microseconds UNIX timestamp (16 digits)
+
+"""
+scalar Timestamp
+
+type Token {
+  id: Bytes!
+  mintTimestamp: BigInt!
+  booleanTraits(skip: Int = 0, first: Int = 100, orderBy: TraitBoolean_orderBy, orderDirection: OrderDirection, where: TraitBoolean_filter): [TraitBoolean!]
+  configuration: String!
+  supply: BigInt!
+  balances(skip: Int = 0, first: Int = 100, orderBy: Balance_orderBy, orderDirection: OrderDirection, where: Balance_filter): [Balance!]
+  creator: User!
+  decimalTraits(skip: Int = 0, first: Int = 100, orderBy: TraitDecimal_orderBy, orderDirection: OrderDirection, where: TraitDecimal_filter): [TraitDecimal!]
+  definition: String!
+  operatingAgreement: String!
+  stringTraits(skip: Int = 0, first: Int = 100, orderBy: TraitString_orderBy, orderDirection: OrderDirection, where: TraitString_filter): [TraitString!]
+  tokenId: BigInt!
+  transfers(skip: Int = 0, first: Int = 100, orderBy: Transfer_orderBy, orderDirection: OrderDirection, where: Transfer_filter): [Transfer!]
+  uri: String!
+  validator: Bytes!
+}
+
+input Token_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  mintTimestamp: BigInt
+  mintTimestamp_not: BigInt
+  mintTimestamp_gt: BigInt
+  mintTimestamp_lt: BigInt
+  mintTimestamp_gte: BigInt
+  mintTimestamp_lte: BigInt
+  mintTimestamp_in: [BigInt!]
+  mintTimestamp_not_in: [BigInt!]
+  booleanTraits_: TraitBoolean_filter
+  configuration: String
+  configuration_not: String
+  configuration_gt: String
+  configuration_lt: String
+  configuration_gte: String
+  configuration_lte: String
+  configuration_in: [String!]
+  configuration_not_in: [String!]
+  configuration_contains: String
+  configuration_contains_nocase: String
+  configuration_not_contains: String
+  configuration_not_contains_nocase: String
+  configuration_starts_with: String
+  configuration_starts_with_nocase: String
+  configuration_not_starts_with: String
+  configuration_not_starts_with_nocase: String
+  configuration_ends_with: String
+  configuration_ends_with_nocase: String
+  configuration_not_ends_with: String
+  configuration_not_ends_with_nocase: String
+  supply: BigInt
+  supply_not: BigInt
+  supply_gt: BigInt
+  supply_lt: BigInt
+  supply_gte: BigInt
+  supply_lte: BigInt
+  supply_in: [BigInt!]
+  supply_not_in: [BigInt!]
+  balances_: Balance_filter
+  creator: String
+  creator_not: String
+  creator_gt: String
+  creator_lt: String
+  creator_gte: String
+  creator_lte: String
+  creator_in: [String!]
+  creator_not_in: [String!]
+  creator_contains: String
+  creator_contains_nocase: String
+  creator_not_contains: String
+  creator_not_contains_nocase: String
+  creator_starts_with: String
+  creator_starts_with_nocase: String
+  creator_not_starts_with: String
+  creator_not_starts_with_nocase: String
+  creator_ends_with: String
+  creator_ends_with_nocase: String
+  creator_not_ends_with: String
+  creator_not_ends_with_nocase: String
+  creator_: User_filter
+  decimalTraits_: TraitDecimal_filter
+  definition: String
+  definition_not: String
+  definition_gt: String
+  definition_lt: String
+  definition_gte: String
+  definition_lte: String
+  definition_in: [String!]
+  definition_not_in: [String!]
+  definition_contains: String
+  definition_contains_nocase: String
+  definition_not_contains: String
+  definition_not_contains_nocase: String
+  definition_starts_with: String
+  definition_starts_with_nocase: String
+  definition_not_starts_with: String
+  definition_not_starts_with_nocase: String
+  definition_ends_with: String
+  definition_ends_with_nocase: String
+  definition_not_ends_with: String
+  definition_not_ends_with_nocase: String
+  operatingAgreement: String
+  operatingAgreement_not: String
+  operatingAgreement_gt: String
+  operatingAgreement_lt: String
+  operatingAgreement_gte: String
+  operatingAgreement_lte: String
+  operatingAgreement_in: [String!]
+  operatingAgreement_not_in: [String!]
+  operatingAgreement_contains: String
+  operatingAgreement_contains_nocase: String
+  operatingAgreement_not_contains: String
+  operatingAgreement_not_contains_nocase: String
+  operatingAgreement_starts_with: String
+  operatingAgreement_starts_with_nocase: String
+  operatingAgreement_not_starts_with: String
+  operatingAgreement_not_starts_with_nocase: String
+  operatingAgreement_ends_with: String
+  operatingAgreement_ends_with_nocase: String
+  operatingAgreement_not_ends_with: String
+  operatingAgreement_not_ends_with_nocase: String
+  stringTraits_: TraitString_filter
+  tokenId: BigInt
+  tokenId_not: BigInt
+  tokenId_gt: BigInt
+  tokenId_lt: BigInt
+  tokenId_gte: BigInt
+  tokenId_lte: BigInt
+  tokenId_in: [BigInt!]
+  tokenId_not_in: [BigInt!]
+  transfers_: Transfer_filter
+  uri: String
+  uri_not: String
+  uri_gt: String
+  uri_lt: String
+  uri_gte: String
+  uri_lte: String
+  uri_in: [String!]
+  uri_not_in: [String!]
+  uri_contains: String
+  uri_contains_nocase: String
+  uri_not_contains: String
+  uri_not_contains_nocase: String
+  uri_starts_with: String
+  uri_starts_with_nocase: String
+  uri_not_starts_with: String
+  uri_not_starts_with_nocase: String
+  uri_ends_with: String
+  uri_ends_with_nocase: String
+  uri_not_ends_with: String
+  uri_not_ends_with_nocase: String
+  validator: Bytes
+  validator_not: Bytes
+  validator_gt: Bytes
+  validator_lt: Bytes
+  validator_gte: Bytes
+  validator_lte: Bytes
+  validator_in: [Bytes!]
+  validator_not_in: [Bytes!]
+  validator_contains: Bytes
+  validator_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [Token_filter]
+  or: [Token_filter]
+}
+
+enum Token_orderBy {
+  id
+  mintTimestamp
+  booleanTraits
+  configuration
+  supply
+  balances
+  creator
+  creator__id
+  creator__address
+  creator__tokenCount
+  decimalTraits
+  definition
+  operatingAgreement
+  stringTraits
+  tokenId
+  transfers
+  uri
+  validator
+}
+
+type TraitBoolean {
+  id: Bytes!
+  token: Token!
+  key: String!
+  displayName: String!
+  value: Boolean!
+}
+
+type TraitBooleanUpdate {
+  id: Bytes!
+  token: Token!
+  traitKey: String!
+  newValue: Boolean
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input TraitBooleanUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  traitKey: String
+  traitKey_not: String
+  traitKey_gt: String
+  traitKey_lt: String
+  traitKey_gte: String
+  traitKey_lte: String
+  traitKey_in: [String!]
+  traitKey_not_in: [String!]
+  traitKey_contains: String
+  traitKey_contains_nocase: String
+  traitKey_not_contains: String
+  traitKey_not_contains_nocase: String
+  traitKey_starts_with: String
+  traitKey_starts_with_nocase: String
+  traitKey_not_starts_with: String
+  traitKey_not_starts_with_nocase: String
+  traitKey_ends_with: String
+  traitKey_ends_with_nocase: String
+  traitKey_not_ends_with: String
+  traitKey_not_ends_with_nocase: String
+  newValue: Boolean
+  newValue_not: Boolean
+  newValue_in: [Boolean!]
+  newValue_not_in: [Boolean!]
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitBooleanUpdate_filter]
+  or: [TraitBooleanUpdate_filter]
+}
+
+enum TraitBooleanUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  traitKey
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+input TraitBoolean_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  key: String
+  key_not: String
+  key_gt: String
+  key_lt: String
+  key_gte: String
+  key_lte: String
+  key_in: [String!]
+  key_not_in: [String!]
+  key_contains: String
+  key_contains_nocase: String
+  key_not_contains: String
+  key_not_contains_nocase: String
+  key_starts_with: String
+  key_starts_with_nocase: String
+  key_not_starts_with: String
+  key_not_starts_with_nocase: String
+  key_ends_with: String
+  key_ends_with_nocase: String
+  key_not_ends_with: String
+  key_not_ends_with_nocase: String
+  displayName: String
+  displayName_not: String
+  displayName_gt: String
+  displayName_lt: String
+  displayName_gte: String
+  displayName_lte: String
+  displayName_in: [String!]
+  displayName_not_in: [String!]
+  displayName_contains: String
+  displayName_contains_nocase: String
+  displayName_not_contains: String
+  displayName_not_contains_nocase: String
+  displayName_starts_with: String
+  displayName_starts_with_nocase: String
+  displayName_not_starts_with: String
+  displayName_not_starts_with_nocase: String
+  displayName_ends_with: String
+  displayName_ends_with_nocase: String
+  displayName_not_ends_with: String
+  displayName_not_ends_with_nocase: String
+  value: Boolean
+  value_not: Boolean
+  value_in: [Boolean!]
+  value_not_in: [Boolean!]
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitBoolean_filter]
+  or: [TraitBoolean_filter]
+}
+
+enum TraitBoolean_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  key
+  displayName
+  value
+}
+
+type TraitDecimal {
+  id: Bytes!
+  token: Token!
+  key: String!
+  displayName: String!
+  value: Int
+}
+
+type TraitDecimalUpdate {
+  id: Bytes!
+  token: Token!
+  traitKey: String!
+  newValue: Int
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input TraitDecimalUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  traitKey: String
+  traitKey_not: String
+  traitKey_gt: String
+  traitKey_lt: String
+  traitKey_gte: String
+  traitKey_lte: String
+  traitKey_in: [String!]
+  traitKey_not_in: [String!]
+  traitKey_contains: String
+  traitKey_contains_nocase: String
+  traitKey_not_contains: String
+  traitKey_not_contains_nocase: String
+  traitKey_starts_with: String
+  traitKey_starts_with_nocase: String
+  traitKey_not_starts_with: String
+  traitKey_not_starts_with_nocase: String
+  traitKey_ends_with: String
+  traitKey_ends_with_nocase: String
+  traitKey_not_ends_with: String
+  traitKey_not_ends_with_nocase: String
+  newValue: Int
+  newValue_not: Int
+  newValue_gt: Int
+  newValue_lt: Int
+  newValue_gte: Int
+  newValue_lte: Int
+  newValue_in: [Int!]
+  newValue_not_in: [Int!]
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitDecimalUpdate_filter]
+  or: [TraitDecimalUpdate_filter]
+}
+
+enum TraitDecimalUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  traitKey
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+input TraitDecimal_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  key: String
+  key_not: String
+  key_gt: String
+  key_lt: String
+  key_gte: String
+  key_lte: String
+  key_in: [String!]
+  key_not_in: [String!]
+  key_contains: String
+  key_contains_nocase: String
+  key_not_contains: String
+  key_not_contains_nocase: String
+  key_starts_with: String
+  key_starts_with_nocase: String
+  key_not_starts_with: String
+  key_not_starts_with_nocase: String
+  key_ends_with: String
+  key_ends_with_nocase: String
+  key_not_ends_with: String
+  key_not_ends_with_nocase: String
+  displayName: String
+  displayName_not: String
+  displayName_gt: String
+  displayName_lt: String
+  displayName_gte: String
+  displayName_lte: String
+  displayName_in: [String!]
+  displayName_not_in: [String!]
+  displayName_contains: String
+  displayName_contains_nocase: String
+  displayName_not_contains: String
+  displayName_not_contains_nocase: String
+  displayName_starts_with: String
+  displayName_starts_with_nocase: String
+  displayName_not_starts_with: String
+  displayName_not_starts_with_nocase: String
+  displayName_ends_with: String
+  displayName_ends_with_nocase: String
+  displayName_not_ends_with: String
+  displayName_not_ends_with_nocase: String
+  value: Int
+  value_not: Int
+  value_gt: Int
+  value_lt: Int
+  value_gte: Int
+  value_lte: Int
+  value_in: [Int!]
+  value_not_in: [Int!]
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitDecimal_filter]
+  or: [TraitDecimal_filter]
+}
+
+enum TraitDecimal_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  key
+  displayName
+  value
+}
+
+type TraitDefinition {
+  id: Bytes!
+  type: TraitType!
+  key: String!
+  displayName: String!
+}
+
+input TraitDefinition_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  type: TraitType
+  type_not: TraitType
+  type_in: [TraitType!]
+  type_not_in: [TraitType!]
+  key: String
+  key_not: String
+  key_gt: String
+  key_lt: String
+  key_gte: String
+  key_lte: String
+  key_in: [String!]
+  key_not_in: [String!]
+  key_contains: String
+  key_contains_nocase: String
+  key_not_contains: String
+  key_not_contains_nocase: String
+  key_starts_with: String
+  key_starts_with_nocase: String
+  key_not_starts_with: String
+  key_not_starts_with_nocase: String
+  key_ends_with: String
+  key_ends_with_nocase: String
+  key_not_ends_with: String
+  key_not_ends_with_nocase: String
+  displayName: String
+  displayName_not: String
+  displayName_gt: String
+  displayName_lt: String
+  displayName_gte: String
+  displayName_lte: String
+  displayName_in: [String!]
+  displayName_not_in: [String!]
+  displayName_contains: String
+  displayName_contains_nocase: String
+  displayName_not_contains: String
+  displayName_not_contains_nocase: String
+  displayName_starts_with: String
+  displayName_starts_with_nocase: String
+  displayName_not_starts_with: String
+  displayName_not_starts_with_nocase: String
+  displayName_ends_with: String
+  displayName_ends_with_nocase: String
+  displayName_not_ends_with: String
+  displayName_not_ends_with_nocase: String
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitDefinition_filter]
+  or: [TraitDefinition_filter]
+}
+
+enum TraitDefinition_orderBy {
+  id
+  type
+  key
+  displayName
+}
+
+type TraitMetadata {
+  id: Bytes!
+  uri: String!
+  decoded: String!
+}
+
+type TraitMetadataUriUpdate {
+  id: Bytes!
+  uri: String!
+  decoded: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input TraitMetadataUriUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  uri: String
+  uri_not: String
+  uri_gt: String
+  uri_lt: String
+  uri_gte: String
+  uri_lte: String
+  uri_in: [String!]
+  uri_not_in: [String!]
+  uri_contains: String
+  uri_contains_nocase: String
+  uri_not_contains: String
+  uri_not_contains_nocase: String
+  uri_starts_with: String
+  uri_starts_with_nocase: String
+  uri_not_starts_with: String
+  uri_not_starts_with_nocase: String
+  uri_ends_with: String
+  uri_ends_with_nocase: String
+  uri_not_ends_with: String
+  uri_not_ends_with_nocase: String
+  decoded: String
+  decoded_not: String
+  decoded_gt: String
+  decoded_lt: String
+  decoded_gte: String
+  decoded_lte: String
+  decoded_in: [String!]
+  decoded_not_in: [String!]
+  decoded_contains: String
+  decoded_contains_nocase: String
+  decoded_not_contains: String
+  decoded_not_contains_nocase: String
+  decoded_starts_with: String
+  decoded_starts_with_nocase: String
+  decoded_not_starts_with: String
+  decoded_not_starts_with_nocase: String
+  decoded_ends_with: String
+  decoded_ends_with_nocase: String
+  decoded_not_ends_with: String
+  decoded_not_ends_with_nocase: String
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitMetadataUriUpdate_filter]
+  or: [TraitMetadataUriUpdate_filter]
+}
+
+enum TraitMetadataUriUpdate_orderBy {
+  id
+  uri
+  decoded
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+input TraitMetadata_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  uri: String
+  uri_not: String
+  uri_gt: String
+  uri_lt: String
+  uri_gte: String
+  uri_lte: String
+  uri_in: [String!]
+  uri_not_in: [String!]
+  uri_contains: String
+  uri_contains_nocase: String
+  uri_not_contains: String
+  uri_not_contains_nocase: String
+  uri_starts_with: String
+  uri_starts_with_nocase: String
+  uri_not_starts_with: String
+  uri_not_starts_with_nocase: String
+  uri_ends_with: String
+  uri_ends_with_nocase: String
+  uri_not_ends_with: String
+  uri_not_ends_with_nocase: String
+  decoded: String
+  decoded_not: String
+  decoded_gt: String
+  decoded_lt: String
+  decoded_gte: String
+  decoded_lte: String
+  decoded_in: [String!]
+  decoded_not_in: [String!]
+  decoded_contains: String
+  decoded_contains_nocase: String
+  decoded_not_contains: String
+  decoded_not_contains_nocase: String
+  decoded_starts_with: String
+  decoded_starts_with_nocase: String
+  decoded_not_starts_with: String
+  decoded_not_starts_with_nocase: String
+  decoded_ends_with: String
+  decoded_ends_with_nocase: String
+  decoded_not_ends_with: String
+  decoded_not_ends_with_nocase: String
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitMetadata_filter]
+  or: [TraitMetadata_filter]
+}
+
+enum TraitMetadata_orderBy {
+  id
+  uri
+  decoded
+}
+
+type TraitString {
+  id: Bytes!
+  key: String!
+  displayName: String!
+  token: Token!
+  value: String
+}
+
+type TraitStringUpdate {
+  id: Bytes!
+  token: Token!
+  traitKey: String!
+  newValue: String
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input TraitStringUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  traitKey: String
+  traitKey_not: String
+  traitKey_gt: String
+  traitKey_lt: String
+  traitKey_gte: String
+  traitKey_lte: String
+  traitKey_in: [String!]
+  traitKey_not_in: [String!]
+  traitKey_contains: String
+  traitKey_contains_nocase: String
+  traitKey_not_contains: String
+  traitKey_not_contains_nocase: String
+  traitKey_starts_with: String
+  traitKey_starts_with_nocase: String
+  traitKey_not_starts_with: String
+  traitKey_not_starts_with_nocase: String
+  traitKey_ends_with: String
+  traitKey_ends_with_nocase: String
+  traitKey_not_ends_with: String
+  traitKey_not_ends_with_nocase: String
+  newValue: String
+  newValue_not: String
+  newValue_gt: String
+  newValue_lt: String
+  newValue_gte: String
+  newValue_lte: String
+  newValue_in: [String!]
+  newValue_not_in: [String!]
+  newValue_contains: String
+  newValue_contains_nocase: String
+  newValue_not_contains: String
+  newValue_not_contains_nocase: String
+  newValue_starts_with: String
+  newValue_starts_with_nocase: String
+  newValue_not_starts_with: String
+  newValue_not_starts_with_nocase: String
+  newValue_ends_with: String
+  newValue_ends_with_nocase: String
+  newValue_not_ends_with: String
+  newValue_not_ends_with_nocase: String
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitStringUpdate_filter]
+  or: [TraitStringUpdate_filter]
+}
+
+enum TraitStringUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  traitKey
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+input TraitString_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  key: String
+  key_not: String
+  key_gt: String
+  key_lt: String
+  key_gte: String
+  key_lte: String
+  key_in: [String!]
+  key_not_in: [String!]
+  key_contains: String
+  key_contains_nocase: String
+  key_not_contains: String
+  key_not_contains_nocase: String
+  key_starts_with: String
+  key_starts_with_nocase: String
+  key_not_starts_with: String
+  key_not_starts_with_nocase: String
+  key_ends_with: String
+  key_ends_with_nocase: String
+  key_not_ends_with: String
+  key_not_ends_with_nocase: String
+  displayName: String
+  displayName_not: String
+  displayName_gt: String
+  displayName_lt: String
+  displayName_gte: String
+  displayName_lte: String
+  displayName_in: [String!]
+  displayName_not_in: [String!]
+  displayName_contains: String
+  displayName_contains_nocase: String
+  displayName_not_contains: String
+  displayName_not_contains_nocase: String
+  displayName_starts_with: String
+  displayName_starts_with_nocase: String
+  displayName_not_starts_with: String
+  displayName_not_starts_with_nocase: String
+  displayName_ends_with: String
+  displayName_ends_with_nocase: String
+  displayName_not_ends_with: String
+  displayName_not_ends_with_nocase: String
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  value: String
+  value_not: String
+  value_gt: String
+  value_lt: String
+  value_gte: String
+  value_lte: String
+  value_in: [String!]
+  value_not_in: [String!]
+  value_contains: String
+  value_contains_nocase: String
+  value_not_contains: String
+  value_not_contains_nocase: String
+  value_starts_with: String
+  value_starts_with_nocase: String
+  value_not_starts_with: String
+  value_not_starts_with_nocase: String
+  value_ends_with: String
+  value_ends_with_nocase: String
+  value_not_ends_with: String
+  value_not_ends_with_nocase: String
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [TraitString_filter]
+  or: [TraitString_filter]
+}
+
+enum TraitString_orderBy {
+  id
+  key
+  displayName
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  value
+}
+
+enum TraitType {
+  string
+  decimal
+  boolean
+  epochSeconds
+}
+
+type Transfer {
+  id: Bytes!
+  operator: Bytes!
+  from: User
+  to: User
+  token: Token!
+  value: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input Transfer_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  operator: Bytes
+  operator_not: Bytes
+  operator_gt: Bytes
+  operator_lt: Bytes
+  operator_gte: Bytes
+  operator_lte: Bytes
+  operator_in: [Bytes!]
+  operator_not_in: [Bytes!]
+  operator_contains: Bytes
+  operator_not_contains: Bytes
+  from: String
+  from_not: String
+  from_gt: String
+  from_lt: String
+  from_gte: String
+  from_lte: String
+  from_in: [String!]
+  from_not_in: [String!]
+  from_contains: String
+  from_contains_nocase: String
+  from_not_contains: String
+  from_not_contains_nocase: String
+  from_starts_with: String
+  from_starts_with_nocase: String
+  from_not_starts_with: String
+  from_not_starts_with_nocase: String
+  from_ends_with: String
+  from_ends_with_nocase: String
+  from_not_ends_with: String
+  from_not_ends_with_nocase: String
+  from_: User_filter
+  to: String
+  to_not: String
+  to_gt: String
+  to_lt: String
+  to_gte: String
+  to_lte: String
+  to_in: [String!]
+  to_not_in: [String!]
+  to_contains: String
+  to_contains_nocase: String
+  to_not_contains: String
+  to_not_contains_nocase: String
+  to_starts_with: String
+  to_starts_with_nocase: String
+  to_not_starts_with: String
+  to_not_starts_with_nocase: String
+  to_ends_with: String
+  to_ends_with_nocase: String
+  to_not_ends_with: String
+  to_not_ends_with_nocase: String
+  to_: User_filter
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  value: BigInt
+  value_not: BigInt
+  value_gt: BigInt
+  value_lt: BigInt
+  value_gte: BigInt
+  value_lte: BigInt
+  value_in: [BigInt!]
+  value_not_in: [BigInt!]
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [Transfer_filter]
+  or: [Transfer_filter]
+}
+
+enum Transfer_orderBy {
+  id
+  operator
+  from
+  from__id
+  from__address
+  from__tokenCount
+  to
+  to__id
+  to__address
+  to__tokenCount
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  value
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+type User {
+  id: Bytes!
+  address: Bytes!
+  tokenCount: BigInt!
+  tokens(skip: Int = 0, first: Int = 100, orderBy: Balance_orderBy, orderDirection: OrderDirection, where: Balance_filter): [Balance!]
+  created(skip: Int = 0, first: Int = 100, orderBy: Token_orderBy, orderDirection: OrderDirection, where: Token_filter): [Token!]
+  obligationReceipts(skip: Int = 0, first: Int = 100, orderBy: ObligationReceipt_orderBy, orderDirection: OrderDirection, where: ObligationReceipt_filter): [ObligationReceipt!]
+  promissoryNotes(skip: Int = 0, first: Int = 100, orderBy: PromissoryNote_orderBy, orderDirection: OrderDirection, where: PromissoryNote_filter): [PromissoryNote!]
+  lending(skip: Int = 0, first: Int = 100, orderBy: Loan_orderBy, orderDirection: OrderDirection, where: Loan_filter): [Loan!]
+  borrowing(skip: Int = 0, first: Int = 100, orderBy: Loan_orderBy, orderDirection: OrderDirection, where: Loan_filter): [Loan!]
+}
+
+input User_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  address: Bytes
+  address_not: Bytes
+  address_gt: Bytes
+  address_lt: Bytes
+  address_gte: Bytes
+  address_lte: Bytes
+  address_in: [Bytes!]
+  address_not_in: [Bytes!]
+  address_contains: Bytes
+  address_not_contains: Bytes
+  tokenCount: BigInt
+  tokenCount_not: BigInt
+  tokenCount_gt: BigInt
+  tokenCount_lt: BigInt
+  tokenCount_gte: BigInt
+  tokenCount_lte: BigInt
+  tokenCount_in: [BigInt!]
+  tokenCount_not_in: [BigInt!]
+  tokens_: Balance_filter
+  created_: Token_filter
+  obligationReceipts_: ObligationReceipt_filter
+  promissoryNotes_: PromissoryNote_filter
+  lending_: Loan_filter
+  borrowing_: Loan_filter
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [User_filter]
+  or: [User_filter]
+}
+
+enum User_orderBy {
+  id
+  address
+  tokenCount
+  tokens
+  created
+  obligationReceipts
+  promissoryNotes
+  lending
+  borrowing
+}
+
+enum ValidateOnSale {
+  none
+  requireEq
+  requireUintGte
+  requireUintLte
+}
+
+type ValidatorUpdate {
+  id: Bytes!
+  token: Token!
+  newValue: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+input ValidatorUpdate_filter {
+  id: Bytes
+  id_not: Bytes
+  id_gt: Bytes
+  id_lt: Bytes
+  id_gte: Bytes
+  id_lte: Bytes
+  id_in: [Bytes!]
+  id_not_in: [Bytes!]
+  id_contains: Bytes
+  id_not_contains: Bytes
+  token: String
+  token_not: String
+  token_gt: String
+  token_lt: String
+  token_gte: String
+  token_lte: String
+  token_in: [String!]
+  token_not_in: [String!]
+  token_contains: String
+  token_contains_nocase: String
+  token_not_contains: String
+  token_not_contains_nocase: String
+  token_starts_with: String
+  token_starts_with_nocase: String
+  token_not_starts_with: String
+  token_not_starts_with_nocase: String
+  token_ends_with: String
+  token_ends_with_nocase: String
+  token_not_ends_with: String
+  token_not_ends_with_nocase: String
+  token_: Token_filter
+  newValue: Bytes
+  newValue_not: Bytes
+  newValue_gt: Bytes
+  newValue_lt: Bytes
+  newValue_gte: Bytes
+  newValue_lte: Bytes
+  newValue_in: [Bytes!]
+  newValue_not_in: [Bytes!]
+  newValue_contains: Bytes
+  newValue_not_contains: Bytes
+  blockNumber: BigInt
+  blockNumber_not: BigInt
+  blockNumber_gt: BigInt
+  blockNumber_lt: BigInt
+  blockNumber_gte: BigInt
+  blockNumber_lte: BigInt
+  blockNumber_in: [BigInt!]
+  blockNumber_not_in: [BigInt!]
+  blockTimestamp: BigInt
+  blockTimestamp_not: BigInt
+  blockTimestamp_gt: BigInt
+  blockTimestamp_lt: BigInt
+  blockTimestamp_gte: BigInt
+  blockTimestamp_lte: BigInt
+  blockTimestamp_in: [BigInt!]
+  blockTimestamp_not_in: [BigInt!]
+  transactionHash: Bytes
+  transactionHash_not: Bytes
+  transactionHash_gt: Bytes
+  transactionHash_lt: Bytes
+  transactionHash_gte: Bytes
+  transactionHash_lte: Bytes
+  transactionHash_in: [Bytes!]
+  transactionHash_not_in: [Bytes!]
+  transactionHash_contains: Bytes
+  transactionHash_not_contains: Bytes
+  """Filter for the block changed event."""
+  _change_block: BlockChangedFilter
+  and: [ValidatorUpdate_filter]
+  or: [ValidatorUpdate_filter]
+}
+
+enum ValidatorUpdate_orderBy {
+  id
+  token
+  token__id
+  token__mintTimestamp
+  token__configuration
+  token__supply
+  token__definition
+  token__operatingAgreement
+  token__tokenId
+  token__uri
+  token__validator
+  newValue
+  blockNumber
+  blockTimestamp
+  transactionHash
+}
+
+type _Block_ {
+  """The hash of the block"""
+  hash: Bytes
+  """The block number"""
+  number: Int!
+  """Integer representation of the timestamp stored in blocks for the chain"""
+  timestamp: Int
+  """The hash of the parent block"""
+  parentHash: Bytes
+}
+
+"""The type for the top-level _meta field"""
+type _Meta_ {
+  """
+  Information about a specific subgraph block. The hash of the block
+  will be null if the _meta field has a block constraint that asks for
+  a block number. It will be filled if the _meta field has no block constraint
+  and therefore asks for the latest  block
+  
+  """
+  block: _Block_!
+  """The deployment ID"""
+  deployment: String!
+  """If `true`, the subgraph encountered indexing errors at some past block"""
+  hasIndexingErrors: Boolean!
+}
+
+enum _SubgraphErrorPolicy_ {
+  """Data will be returned even if the subgraph has indexing errors"""
+  allow
+  """
+  If the subgraph has indexing errors, data will be omitted. The default.
+  """
+  deny
+}

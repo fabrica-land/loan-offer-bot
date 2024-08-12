@@ -1,9 +1,11 @@
 import { z } from 'zod'
+
+import { CronExpression } from './cron-expression'
 import { EthereumAddress } from './ethereum-address'
-import { NonEmptyString } from './non-empty-string'
 import { PositiveFloatString } from './float'
-import { PositiveInteger } from './positive-integer'
 import { HexString } from './hex-string'
+import { NonEmptyString } from './non-empty-string'
+import { PositiveInteger } from './positive-integer'
 
 export const LendingNetworkConfig = z.object({
   enabled: z.boolean(),
@@ -17,7 +19,8 @@ export const LendingNetworkConfig = z.object({
       loanDurationDays: PositiveInteger,
       offerExpirationDays: PositiveInteger,
       percentChanceToLend: PositiveInteger.min(1).max(100).optional(),
-    })
+    }),
   ),
+  periodicity: CronExpression,
 })
 export type LendingNetworkConfig = z.infer<typeof LendingNetworkConfig>

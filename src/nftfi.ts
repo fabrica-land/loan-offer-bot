@@ -1,18 +1,20 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import NftfiSdk from '@nftfi/js'
+import Decimal from 'decimal.js'
+import { StatusCodes } from 'http-status-codes'
+import stringify from 'json-stringify-safe'
 
 import { Blockchain } from './blockchain'
 import { Config, NetworkName } from './types/config'
-import { TokenIdentity } from './types/token-identity'
+import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress, ZERO_ADDRESS } from './types/ethereum-address'
 import { LoanTerms } from './types/loan-terms'
-import { NftfiOffer } from './types/nftfi-offer'
+import { NftfiOffer, NftfiOffers } from './types/nftfi-offer'
 import { NonEmptyString } from './types/non-empty-string'
-import stringify from 'json-stringify-safe'
-import { StatusCodes } from 'http-status-codes'
 import { isPlainObject } from './types/plain-object'
-import Decimal from 'decimal.js'
+import { PositiveIntegerString } from './types/positive-integer-string'
+import { TokenIdentity } from './types/token-identity'
 
 export class Nftfi {
   constructor(
@@ -49,23 +51,69 @@ export class Nftfi {
     })
   }
 
+  public readonly getOffers = async (
+    contractIdentity: ContractIdentity,
+    tokenId?: PositiveIntegerString,
+  ): Promise<NftfiOffers> => {
+    const network = this.config.networks[contractIdentity.network]
+    const nftfi = await this.getNftfiClient(
+      contractIdentity.network,
+      network.lending.lendingWalletPrivateKey,
+    )
+    const result = await nftfi.offers.get({
+      filters: {
+        nft: {
+          address: contractIdentity.contractAddress,
+          id: tokenId,
+        },
+        nftfi: {
+          contract: nftfi.config.loan.fixed.v2_3.name,
+        },
+      },
+    })
+    const asArray = Array.isArray(result) ? result : [result]
+    let offers: NftfiOffers
+    try {
+      offers = NftfiOffers.parse(asArray)
+    } catch (err) {
+      const message = `Unexpected response getting offers for ${Blockchain.logString(contractIdentity)}:\n${stringify(
+        result,
+        undefined,
+        2,
+      )}`
+      console.warn(
+        {
+          ...contractIdentity,
+          result,
+          err,
+        },
+        message,
+      )
+      throw new Error(message)
+    }
+    offers.forEach((offer) => {
+      offer.signature = null
+    })
+    return offers
+  }
+
   public readonly createOffer = async (
     tokenIdentity: TokenIdentity,
     terms: LoanTerms,
     walletPrivateKey: NonEmptyString,
     borrowerAddress: EthereumAddress = ZERO_ADDRESS,
   ): Promise<NftfiOffer> => {
-    const nftfi = await this.getNftfiClient(tokenIdentity.network, walletPrivateKey)
+    const nftfi = await this.getNftfiClient(
+      tokenIdentity.network,
+      walletPrivateKey,
+    )
     // Make sure the lender wallet has enough coin
     const lenderBalance = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },
       token: { address: terms.currency },
     })
-    console.log({ lenderBalance, principal: terms.principal })
     const decimalLenderBalance = new Decimal(lenderBalance.toString())
-    console.log({ decimalLenderBalance })
     const decimalPrincipal = new Decimal(terms.principal)
-    console.log({ decimalPrincipal })
     if (decimalLenderBalance.lt(decimalPrincipal)) {
       const message = `Lender balance of ${lenderBalance} is lower than principal amount of ${terms.principal}`
       console.warn(message, { lenderBalance, principal: terms.principal })
@@ -73,18 +121,15 @@ export class Nftfi {
     }
     // Allow NFTfi to spend up to the total of all outstanding offers, including this one
     // 1. Check current allowance
-    const currentAllowance = BigInt(await nftfi.erc20.allowance({
-      account: { address: nftfi.account.getAddress() },
-      token: { address: terms.currency },
-      nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
-    }))
+    const currentAllowance = BigInt(
+      await nftfi.erc20.allowance({
+        account: { address: nftfi.account.getAddress() },
+        token: { address: terms.currency },
+        nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
+      }),
+    )
     // 2. Sum up the principals of the lender's outstanding NFTfi offers
-    const offers = await nftfi.offers.get({
-      filters: {
-        lender: { address: { eq: nftfi.account.getAddress() } },
-        nftfi: { contract: nftfi.config.loan.fixed.v2_3.name },
-      }
-    })
+    const offers = await this.getOffers(tokenIdentity, tokenIdentity.tokenId)
     const sumOfOutstandingOffers = offers.reduce(
       (
         sum: bigint,
@@ -95,7 +140,10 @@ export class Nftfi {
     // 3. Using the minimum of these two values as a basis, increase the allowance; this
     //    way, if NFTfi is honest, we lower the allowance as old offers expire, and if
     //    they are not, we only increase the allowance by this offer's principal
-    const minimumBasis = currentAllowance < sumOfOutstandingOffers ? currentAllowance : sumOfOutstandingOffers
+    const minimumBasis =
+      currentAllowance < sumOfOutstandingOffers
+        ? currentAllowance
+        : sumOfOutstandingOffers
     const amountToApprove = minimumBasis + BigInt(terms.principal)
     await nftfi.erc20.approve({
       amount: amountToApprove.toString(),
@@ -126,7 +174,7 @@ export class Nftfi {
         NonEmptyString.safeParse(firstError[0]).success
           ? `Error creating offer: ${firstCode}: ${firstError[0]}`
           : 'Unknown error creating offer'
-      console.log(message, { result: response })
+      console.warn(message, { result: response })
       throw new Error(message)
     }
     const { result } = response

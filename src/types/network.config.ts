@@ -1,13 +1,13 @@
-import { z } from "zod";
+import { z } from 'zod'
 import { AlchemyNetworkConfig } from './alchemy.network.config'
+import { NetworkName } from './config'
 import { FabricaNetworkConfig } from './fabrica.network.config'
 import { NftfiNetworkConfig } from './nftfi.network.config'
 import { LendingNetworkConfig } from './lending.network.config'
 import { TransactionsNetworkConfig } from './transactions.network.config'
-import { NonEmptyString } from './non-empty-string'
 
 export const NetworkConfig = z.object({
-  name: NonEmptyString,
+  name: z.nativeEnum(NetworkName),
   chainId: z.number().int().positive(),
   alchemy: AlchemyNetworkConfig,
   fabrica: FabricaNetworkConfig,

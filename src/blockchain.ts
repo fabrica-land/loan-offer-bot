@@ -1,11 +1,18 @@
 import { Log } from '@ethersproject/abstract-provider'
-import { AlchemyNetworkConfig } from './types/alchemy.network.config'
-import { ContractIdentity } from './types/contract-identity'
-import { Alchemy, TransactionRequest, Wallet, WebSocketNamespace } from 'alchemy-sdk'
-import { Config } from './types/config'
-import { NonEmptyString } from './types/non-empty-string'
-import keccak256 from 'keccak256'
+import {
+  Alchemy,
+  TransactionRequest,
+  Wallet,
+  WebSocketNamespace,
+} from 'alchemy-sdk'
 import { ContractInterface, ethers } from 'ethers'
+import keccak256 from 'keccak256'
+
+import { AlchemyNetworkConfig } from './types/alchemy.network.config'
+import { Config } from './types/config'
+import { ContractIdentity } from './types/contract-identity'
+import { NonEmptyString } from './types/non-empty-string'
+import { titleCase } from './types/strings'
 
 export type BlockchainEventProcessor = (
   contractIdentity: ContractIdentity,
@@ -32,9 +39,7 @@ export class Blockchain {
     )
     const method = contract[methodName]
     if (typeof method !== 'function') {
-      const message = `Method ${methodName} does not exist on the ${
-        contractIdentity.contractAddress
-      } contract on ${contractIdentity.network}`
+      const message = `Method ${methodName} does not exist on the ${contractIdentity.contractAddress} contract on ${contractIdentity.network}`
       console.warn(message, { methodName })
       throw new Error(message)
     }
@@ -45,7 +50,11 @@ export class Blockchain {
     try {
       result = await contract[methodName](...args, txOptions)
     } catch (e) {
-      console.error(e, { network: network.alchemy.networkName, methodName, args })
+      console.error(e, {
+        network: network.alchemy.networkName,
+        methodName,
+        args,
+      })
       throw new Error(
         `Failed to call ${methodName} on ${network.alchemy.networkName}: ${e}`,
       )
@@ -75,7 +84,9 @@ export class Blockchain {
     signingPrivateKey?: NonEmptyString,
   ): Promise<ethers.Contract> {
     const network = this.config.networks[contractIdentity.network]
-    const provider = await this.getAlchemyClient(network.alchemy).config.getProvider()
+    const provider = await this.getAlchemyClient(
+      network.alchemy,
+    ).config.getProvider()
     const signer = signingPrivateKey
       ? new Wallet(signingPrivateKey, provider)
       : provider
@@ -92,4 +103,10 @@ export class Blockchain {
     this.alchemyClients[alchemy.networkName] = client
     return client
   }
+
+  public static logString = (
+    contractIdentity: ContractIdentity,
+    capitalize = false,
+  ): NonEmptyString =>
+    `${capitalize ? 'T' : 't'}he ${contractIdentity.contractAddress} contract on ${titleCase(contractIdentity.network)}`
 }

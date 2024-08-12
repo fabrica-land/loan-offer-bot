@@ -1,9 +1,11 @@
-import { before, describe, it } from 'node:test'
-import { Nftfi } from './nftfi'
-import { getConfig, NetworkName } from './types/config'
-import { Blockchain } from './blockchain'
-import * as assert from 'node:assert'
 import { BigNumber } from 'ethers'
+import * as assert from 'node:assert'
+import { before, describe, it } from 'node:test'
+
+import { Blockchain } from './blockchain'
+import { getConfig } from './config'
+import { Nftfi } from './nftfi'
+import { NetworkName } from './types/config'
 
 void describe('NFTfi', async () => {
   const config = getConfig()
@@ -11,13 +13,11 @@ void describe('NFTfi', async () => {
   let nftfi: Nftfi
 
   before(async () => {
-    console.log('asdf')
     blockchain = new Blockchain(config)
     nftfi = new Nftfi(blockchain, config)
   })
 
   void it('nftfiClient.balanceOf', async () => {
-    console.log('qwerty')
     const nftfiClient = await nftfi.getNftfiClient(
       NetworkName.Sepolia,
       config.networks.sepolia.lending.lendingWalletPrivateKey,
@@ -27,7 +27,6 @@ void describe('NFTfi', async () => {
       token: { address: nftfiClient.config.erc20.usdc.address },
     })
     const balanceBigNum = BigNumber.from(balance)
-    const balanceString = balanceBigNum.toString()
     console.log({ balance, balanceBigNum })
     assert.ok(BigNumber.from(balance).gt(0))
   })

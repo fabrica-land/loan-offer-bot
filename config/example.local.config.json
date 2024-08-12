@@ -12,19 +12,13 @@
             "loanDurationDays": 20,
             "offerExpirationDays": 7
           }
-        ]
-      },
-      "transactions": {
-        "gasLimit": 1000000,
-        "maxFeePerGasInGwei": 20,
-        "maxPriorityFeePerGasInGwei": 5,
-        "maxWriteTransactionsPerBlock": 10,
-        "privateTransact": true
+        ],
+        "periodicity": "0 15 7 * * *"
       }
     },
     "sepolia": {
       "lending": {
-        "enabled": false,
+        "enabled": true,
         "lendingWalletAddress": "[Use your own wallet]",
         "offerRules": [
           {
@@ -41,14 +35,8 @@
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           }
-        ]
-      },
-      "transactions": {
-        "gasLimit": 1000000,
-        "maxFeePerGasInGwei": 20,
-        "maxPriorityFeePerGasInGwei": 5,
-        "maxWriteTransactionsPerBlock": 10,
-        "privateTransact": false
+        ],
+        "periodicity": "0 15 7 * * *"
       }
     }
   }

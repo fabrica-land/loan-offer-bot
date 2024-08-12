@@ -1,6 +1,7 @@
-import { EthereumAddress } from './ethereum-address'
-import { NetworkName } from './config'
 import { z } from 'zod'
+
+import { NetworkName } from './config'
+import { EthereumAddress } from './ethereum-address'
 
 export const ContractIdentity = z.object({
   network: z.nativeEnum(NetworkName),
