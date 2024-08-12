@@ -16,7 +16,6 @@
     "ci": "./fix-prod-graphclient-urls.sh ; export CI=true ; NODE_ENV=CI yarn install && yarn build && yarn test",
     "clean": "del dist",
     "build": "tsc --project ./",
-    "build:graphclient": "del dist/.graphclient src/.graphclient .graphclient && graphclient build && mv .graphclient src",
     "rebuild": "yarn clean && yarn build",
     "start": "node --enable-source-maps ./dist/index.js",
     "start:dev": "NODE_OPTIONS='--trace-warnings --require tsconfig-paths/register' nodemon src/index.ts | pjl",
@@ -25,7 +24,10 @@
   "dependencies": {
     "@graphql-mesh/cache-file": "^0.100.0",
     "@graphql-mesh/config": "^0.102.0",
+    "@graphql-mesh/graphql": "^0.100.0",
     "@graphql-mesh/runtime": "^0.101.0",
+    "@graphql-mesh/transform-prefix": "^0.100.0",
+    "@graphql-mesh/transform-type-merging": "^0.100.0",
     "@graphql-mesh/types": "^0.100.0",
     "@graphql-mesh/utils": "^0.100.0",
     "@nftfi/js": "NFTfi-Genesis/nftfi.js#v0.5.5",
@@ -51,10 +53,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@graphprotocol/client-cli": "^3.0.5",
-    "@graphql-mesh/graphql": "^0.100.0",
-    "@graphql-mesh/transform-prefix": "^0.100.0",
-    "@graphql-mesh/transform-type-merging": "^0.100.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/json-stringify-safe": "^5.0.3",
     "@types/luxon": "^3.4.2",
