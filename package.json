@@ -27,6 +27,7 @@
     "@graphql-mesh/cross-helpers": "^0.4.5",
     "@graphql-mesh/graphql": "^0.100.0",
     "@graphql-mesh/runtime": "^0.101.0",
+    "@graphql-mesh/store": "^0.100.0",
     "@graphql-mesh/transform-prefix": "^0.100.0",
     "@graphql-mesh/transform-type-merging": "^0.100.0",
     "@graphql-mesh/types": "^0.100.0",
