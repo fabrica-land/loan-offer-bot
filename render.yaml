@@ -15,7 +15,7 @@ services:
     region: oregon
     repo: https://github.com/fabrica-land/loan-offer-bot
     branch: main
-    buildCommand: 'NODE_ENV=CI yarn && yarn build'
+    buildCommand: 'yarn ci'
     startCommand: 'yarn start'
     autoDeploy: true
     envVars:

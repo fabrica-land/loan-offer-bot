@@ -27,12 +27,12 @@ type MintListener = (
 ) => unknown
 
 export class Fabrica {
-  private readonly mintListeners = new Set<MintListener>
+  private readonly mintListeners = new Set<MintListener>()
 
   constructor(
     private readonly blockchain: Blockchain,
     private readonly config: Config,
-    ) {
+  ) {
     this.startListeners()
   }
 
@@ -40,7 +40,9 @@ export class Fabrica {
     this.mintListeners.add(listener)
   }
 
-  public readonly getMetadata = async (tokenIdentity: TokenIdentity): Promise<NftMetadata> => {
+  public readonly getMetadata = async (
+    tokenIdentity: TokenIdentity,
+  ): Promise<NftMetadata> => {
     const urlResult = await this.blockchain.executeContractMethod(
       tokenIdentity,
       fabricaTokenAbi,

@@ -1,34 +1,54 @@
-import * as vm from 'node:vm'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import NftfiSdk from '@nftfi/js'
 import Decimal from 'decimal.js'
+import { BigNumber } from 'ethers'
 import { DateTime, DurationLike } from 'luxon'
+import * as vm from 'node:vm'
+import * as cron from 'node-cron'
 
 import { asyncEachSerial, asyncSleep } from './async'
+import { Blockchain } from './blockchain'
+import { getConfig } from './config'
 import { Fabrica } from './fabrica'
+import { GraphProtocol } from './graph-protocol'
 import { Nftfi } from './nftfi'
-import { Config, getConfig } from './types/config'
+import { Config } from './types/config'
+import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress } from './types/ethereum-address'
 import { PrefixedHexString } from './types/hex-string'
 import { LoanTerms } from './types/loan-terms'
+import { NetworkConfig } from './types/network.config'
+import { NftfiOffers } from './types/nftfi-offer'
 import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
+import { titleCase } from './types/strings'
 import { TokenIdentity } from './types/token-identity'
-import { Blockchain } from './blockchain'
-import { BigNumber } from 'ethers'
 
-const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 30
+const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 60
 
 class FabricaLoanBot {
   private readonly blockchain: Blockchain
   private readonly config: Config
   private readonly fabrica: Fabrica
+  private readonly graph: GraphProtocol
   private readonly nftfi: Nftfi
 
   constructor(config: Config) {
     this.config = config
     this.blockchain = new Blockchain(this.config)
     this.fabrica = new Fabrica(this.blockchain, this.config)
+    this.graph = new GraphProtocol(this.config)
     this.nftfi = new Nftfi(this.blockchain, this.config)
     this.fabrica.addMintListener(this.processMint)
+    Object.values(this.config.networks).forEach((network) => {
+      if (network.lending.enabled) {
+        cron.schedule(network.lending.periodicity, () =>
+          this.periodicallyOfferLoans(network),
+        )
+        void this.periodicallyOfferLoans(network)
+      }
+    })
   }
 
   private readonly processMint = async (
@@ -39,24 +59,29 @@ class FabricaLoanBot {
     blockNumber: PositiveInteger,
     transactionHash: PrefixedHexString,
   ): Promise<void> => {
-    console.log(`Detected a mint! Waiting ${WAIT_FOR_ESTIMATED_VALUE_SECONDS} seconds for estimated value...`, {
-      tokenIdentity,
-      operator,
-      to,
-      amount,
-      blockNumber,
-      transactionHash,
-    })
-    await asyncSleep(WAIT_FOR_ESTIMATED_VALUE_SECONDS * 1_000)
-    const metadata = await this.fabrica.getMetadata(tokenIdentity)
-    const attributes: Record<string, string | number> =
-      metadata.attributes?.reduce(
-        (soFar, attr) => ({ ...soFar, [attr.trait_type]: attr.value }),
-        {},
-      ) ?? {}
-    console.log(attributes)
     const network = this.config.networks[tokenIdentity.network]
-    const nftfi = await this.nftfi.getNftfiClient(tokenIdentity.network, network.lending.lendingWalletPrivateKey)
+    if (!network.lending.enabled) {
+      console.log(
+        `Detected a mint on ${titleCase(tokenIdentity.network)}, but lending is disabled on that network`,
+      )
+      return
+    }
+    console.log(
+      `Detected a mint! Waiting ${WAIT_FOR_ESTIMATED_VALUE_SECONDS} seconds for estimated value...`,
+      {
+        tokenIdentity,
+        operator,
+        to,
+        amount,
+        blockNumber,
+        transactionHash,
+      },
+    )
+    await asyncSleep(WAIT_FOR_ESTIMATED_VALUE_SECONDS * 1_000)
+    const nftfi = await this.nftfi.getNftfiClient(
+      network.name,
+      network.lending.lendingWalletPrivateKey,
+    )
     const lenderBalanceResult = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },
       token: { address: nftfi.config.erc20.usdc.address },
@@ -65,7 +90,64 @@ class FabricaLoanBot {
       BigNumber.from(lenderBalanceResult).toString(),
       nftfi.config.erc20.usdc.unit,
     )
-    console.log({ lenderBalanceResult, lenderBalance })
+    await this.makeOffers(network, nftfi, tokenIdentity, lenderBalance)
+  }
+
+  private readonly periodicallyOfferLoans = async (
+    network: NetworkConfig,
+  ): Promise<void> => {
+    const contractIdentity: ContractIdentity = {
+      network: network.name,
+      contractAddress: network.fabrica.tokenContractAddress,
+    }
+    console.log(
+      `Making periodic check to create loan offers on ${Blockchain.logString(contractIdentity)}`,
+    )
+    const tokens = await this.graph.getAllTokensForContract(contractIdentity)
+    const nftfi = await this.nftfi.getNftfiClient(
+      network.name,
+      network.lending.lendingWalletPrivateKey,
+    )
+    const lenderBalanceResult = await nftfi.erc20.balanceOf({
+      account: { address: nftfi.account.getAddress() },
+      token: { address: nftfi.config.erc20.usdc.address },
+    })
+    const lenderBalance = nftfi.utils.formatUnits(
+      BigNumber.from(lenderBalanceResult).toString(),
+      nftfi.config.erc20.usdc.unit,
+    )
+    await asyncEachSerial(tokens, async (token) => {
+      let offers: NftfiOffers
+      try {
+        offers = await this.nftfi.getOffers(contractIdentity, token.tokenId)
+      } catch (err) {
+        console.error(
+          `Failed to get NFTfi offers for token ${token.tokenId} on ${Blockchain.logString(contractIdentity)}`,
+        )
+        return
+      }
+      if (offers.length < 1) {
+        await this.makeOffers(network, nftfi, token, lenderBalance)
+      } else {
+        console.info(
+          `There are already ${offers.length} offers made by the lending wallet for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+        )
+      }
+    })
+  }
+
+  private readonly makeOffers = async (
+    network: NetworkConfig,
+    nftfi: NftfiSdk,
+    tokenIdentity: TokenIdentity,
+    lenderBalance: string,
+  ): Promise<void> => {
+    const metadata = await this.fabrica.getMetadata(tokenIdentity)
+    const attributes: Record<string, string | number> =
+      metadata.attributes?.reduce(
+        (soFar, attr) => ({ ...soFar, [attr.trait_type]: attr.value }),
+        {},
+      ) ?? {}
     const context = vm.createContext({
       Math,
       attributes,
@@ -75,27 +157,29 @@ class FabricaLoanBot {
         },
       },
     })
-    console.log(context)
     await asyncEachSerial(network.lending.offerRules, async (rule) => {
-      if (rule.percentChanceToLend && Math.floor(Math.random() * 100) > rule.percentChanceToLend) {
+      if (
+        rule.percentChanceToLend &&
+        Math.floor(Math.random() * 100) > rule.percentChanceToLend
+      ) {
         return
       }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
         return
       }
-      const principal = new Decimal(vm.runInContext(
-        rule.loanPrincipal,
-        context,
-      ))
-      console.log({ principal })
+      const principal = new Decimal(
+        vm.runInContext(rule.loanPrincipal, context),
+      )
       const apr = new Decimal(vm.runInContext(rule.loanApr, context))
-      console.log({ apr })
       const durationDays = rule.loanDurationDays
-      console.log({ durationDays })
       const interest = apr.times(durationDays).div(365)
-      console.log({ interest })
       const repayment = principal.times(interest.plus(1))
-      console.log({ repayment })
+      if (principal.lte(0) || repayment.lte(0)) {
+        console.warn(
+          `Skipping making a loan offer since principal or repayment are not positive`,
+        )
+        return
+      }
       const terms: LoanTerms = {
         currency: nftfi.config.erc20.usdc.address,
         duration: this.getTermInSeconds({
@@ -109,18 +193,30 @@ class FabricaLoanBot {
       }
       console.log('Loan terms', terms)
       try {
-        await this.nftfi.createOffer(tokenIdentity, terms, network.lending.lendingWalletPrivateKey)
+        await this.nftfi.createOffer(
+          tokenIdentity,
+          terms,
+          network.lending.lendingWalletPrivateKey,
+        )
       } catch (err) {
         console.error('Error creating NFTfi offer...', err)
       }
     })
   }
 
-  private readonly getTermInSeconds = (duration: DurationLike): PositiveInteger =>
+  private readonly getTermInSeconds = (
+    duration: DurationLike,
+  ): PositiveInteger =>
     Math.ceil(DateTime.utc().plus(duration).diffNow().as('seconds'))
 
-  private readonly decimalToUsdcScaleString = (nftfi: any, value: Decimal): PositiveIntegerString =>
-    nftfi.utils.formatWei(value.toFixed(5), nftfi.config.erc20.usdc.unit).toBigInt().toString()
+  private readonly decimalToUsdcScaleString = (
+    nftfi: any,
+    value: Decimal,
+  ): PositiveIntegerString =>
+    nftfi.utils
+      .formatWei(value.toFixed(5), nftfi.config.erc20.usdc.unit)
+      .toBigInt()
+      .toString()
 }
 
 new FabricaLoanBot(getConfig())
