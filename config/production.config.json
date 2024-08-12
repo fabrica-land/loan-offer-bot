@@ -20,7 +20,8 @@
             "loanDurationDays": 20,
             "offerExpirationDays": 30
           }
-        ]
+        ],
+        "periodicity": "0 15 7 * * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sdk-api.nftfi.com",
@@ -83,7 +84,8 @@
             "offerExpirationDays": 20,
             "percentChanceToLend": 20
           }
-        ]
+        ],
+        "periodicity": "0 15 7 * * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sepolia-integration-sdk-api.nftfi.com",
