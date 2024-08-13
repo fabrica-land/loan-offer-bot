@@ -174,9 +174,14 @@ class FabricaLoanBot {
       const durationDays = rule.loanDurationDays
       const interest = apr.times(durationDays).div(365)
       const repayment = principal.times(interest.plus(1))
-      if (principal.lte(0) || repayment.lte(0)) {
+      if (
+        principal.lte(0) ||
+        repayment.lte(0) ||
+        principal.toString() === 'NaN' ||
+        repayment.toString() === 'NaN'
+      ) {
         console.warn(
-          `Skipping making a loan offer since principal or repayment are not positive`,
+          `Skipping making a loan offer for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)} since principal (${principal}) or repayment (${repayment}) are not both positive numbers`,
         )
         return
       }
