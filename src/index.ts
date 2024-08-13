@@ -19,6 +19,7 @@ import { EthereumAddress } from './types/ethereum-address'
 import { PrefixedHexString } from './types/hex-string'
 import { LoanTerms } from './types/loan-terms'
 import { NetworkConfig } from './types/network.config'
+import { NftMetadata } from './types/nft-metadata'
 import { NftfiOffers } from './types/nftfi-offer'
 import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
@@ -142,7 +143,16 @@ class FabricaLoanBot {
     tokenIdentity: TokenIdentity,
     lenderBalance: string,
   ): Promise<void> => {
-    const metadata = await this.fabrica.getMetadata(tokenIdentity)
+    let metadata: NftMetadata
+    try {
+      metadata = await this.fabrica.getMetadata(tokenIdentity)
+    } catch (err) {
+      console.warn(
+        { err },
+        `Error getting metadata for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+      )
+      return
+    }
     const attributes: Record<string, string | number> =
       metadata.attributes?.reduce(
         (soFar, attr) => ({ ...soFar, [attr.trait_type]: attr.value }),
