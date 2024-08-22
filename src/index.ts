@@ -172,9 +172,15 @@ class FabricaLoanBot {
         rule.percentChanceToLend &&
         Math.floor(Math.random() * 100) > rule.percentChanceToLend
       ) {
+        console.log(
+          `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+        )
         return
       }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
+        console.log(
+          `Property doesn't meet the rule's filter "${rule.filter}": skipping offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+        )
         return
       }
       const principal = new Decimal(
@@ -206,7 +212,10 @@ class FabricaLoanBot {
         principal: this.decimalToUsdcScaleString(nftfi, principal),
         repayment: this.decimalToUsdcScaleString(nftfi, repayment),
       }
-      console.log('Loan terms', terms)
+      console.log(
+        `Creating loan offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)} with these terms`,
+        terms,
+      )
       try {
         await this.nftfi.createOffer(
           tokenIdentity,
