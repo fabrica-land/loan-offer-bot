@@ -191,7 +191,7 @@ export class Nftfi {
       throw new Error(message)
     }
     nftfiOffer.signature = null
-    console.debug('NFTfi offer created!', { nftfiOffer })
+    console.debug('NFTfi offer created!', stringify(nftfiOffer, undefined, 2))
     return nftfiOffer
   }
 }
