@@ -149,7 +149,7 @@ class FabricaLoanBot {
     } catch (err) {
       console.warn(
         { err },
-        `Error getting metadata for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+        `Error getting metadata for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}`,
       )
       return
     }
@@ -173,13 +173,13 @@ class FabricaLoanBot {
         Math.floor(Math.random() * 100) > rule.percentChanceToLend
       ) {
         console.log(
-          `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+          `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}`,
         )
         return
       }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
         console.log(
-          `Property doesn't meet the rule's filter "${rule.filter}": skipping offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)}`,
+          `Property doesn't meet the rule's filter "${rule.filter}": skipping offer for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}`,
         )
         return
       }
@@ -213,7 +213,7 @@ class FabricaLoanBot {
         repayment: this.decimalToUsdcScaleString(nftfi, repayment),
       }
       console.log(
-        `Creating loan offer for token ${tokenIdentity} on ${Blockchain.logString(tokenIdentity)} with these terms`,
+        `Creating loan offer for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)} with these terms`,
         terms,
       )
       try {
