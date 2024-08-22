@@ -15,7 +15,7 @@
         "offerRules": [
           {
             "filter": "attributes['Confidence Score'] >= 2_000",
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] <= 5_000 ? attributes['Estimated value in USD'] * 0.2 : attributes['Estimated value in USD'] >= 50_000 ? attributes['Estimated value in USD'] * 0.5 : (attributes['Estimated value in USD'] - 5_000) * 45_000 * .3 + .2, wallet.balances.usdc)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] <= 5_000 ? attributes['Estimated value in USD'] * 0.2 : attributes['Estimated value in USD'] >= 50_000 ? attributes['Estimated value in USD'] * 0.5 : (attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2, wallet.balances.usdc)",
             "loanApr": "0.15",
             "loanDurationDays": 180,
             "offerExpirationDays": 30,
@@ -23,7 +23,7 @@
           },
           {
             "filter": "attributes['Confidence Score'] >= 2_000",
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] <= 5_000 ? attributes['Estimated value in USD'] * 0.2 : attributes['Estimated value in USD'] >= 50_000 ? attributes['Estimated value in USD'] * 0.5 : (attributes['Estimated value in USD'] - 5_000) * 45_000 * .3 + .2, wallet.balances.usdc)",
+            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] <= 5_000 ? attributes['Estimated value in USD'] * 0.2 : attributes['Estimated value in USD'] >= 50_000 ? attributes['Estimated value in USD'] * 0.5 : (attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2, wallet.balances.usdc)",
             "loanApr": "0.12",
             "loanDurationDays": 90,
             "offerExpirationDays": 30,
