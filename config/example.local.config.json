@@ -22,14 +22,14 @@
         "lendingWalletAddress": "[Use your own wallet]",
         "offerRules": [
           {
-            "filter": "attributes.State === 'California'",
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
+            "filter": "token.attributes.State === 'California'",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
             "offerExpirationDays": 7
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.3)",
             "loanApr": "0.25",
             "loanDurationDays": 120,
             "offerExpirationDays": 30,
