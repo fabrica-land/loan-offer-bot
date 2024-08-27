@@ -75,19 +75,17 @@ export const FabricaToken = FabricaTokenSubgraph.extend({
 })
 export type FabricaToken = z.infer<typeof FabricaToken>
 
-export const FabricaTokenProperties = z
-  .object({
-    supply: PositiveIntegerString,
-    operatingAgreement: z.string(),
-    definition: z.string(),
-    configuration: z.string(),
-    validator: z.string(),
-  })
-  .refine(
-    (token) =>
-      parseInt(token.supply, 10) > 0 ||
-      token.operatingAgreement.length > 0 ||
-      token.definition.length > 0 ||
-      token.configuration.length > 0,
-  )
-export type FabricaTokenProperties = z.infer<typeof FabricaTokenProperties>
+export interface FabricaTokenProperties {
+  supply: PositiveIntegerString
+  operatingAgreement: string
+  definition: string
+  configuration: string
+}
+export const FabricaTokenProperties = z.custom<FabricaTokenProperties>(
+  (token) =>
+    typeof token === 'object' &&
+    PositiveIntegerString.safeParse(token.supply) &&
+    NonEmptyString.safeParse(token.operatingAgreement) &&
+    NonEmptyString.safeParse(token.definition) &&
+    NonEmptyString.safeParse(token.configuration),
+)
