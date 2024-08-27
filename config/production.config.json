@@ -14,16 +14,16 @@
         "lendingWalletAddress": "0xB53f8A9db5eaD2148402BE181968d2ff10f02cB0",
         "offerRules": [
           {
-            "filter": "attributes['Confidence Score'] >= 2_000",
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * (attributes['Estimated value in USD'] <= 5_000 ? 0.2 : attributes['Estimated value in USD'] >= 50_000 ? 0.5 : (attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2), wallet.balances.usdc)",
+            "filter": "token.validator === '0x170511f95560A1F280c29026f73a9cD6a4bA8ab0' && token.attributes['Confidence Score'] >= 2_000",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * (token.attributes['Estimated value in USD'] <= 5_000 ? 0.2 : token.attributes['Estimated value in USD'] >= 50_000 ? 0.5 : (token.attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2), wallet.balances.usdc)",
             "loanApr": "0.15",
             "loanDurationDays": 180,
             "offerExpirationDays": 30,
             "percentChanceToLend": 100
           },
           {
-            "filter": "attributes['Confidence Score'] >= 2_000",
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * (attributes['Estimated value in USD'] <= 5_000 ? 0.2 : attributes['Estimated value in USD'] >= 50_000 ? 0.5 : (attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2), wallet.balances.usdc)",
+            "filter": "token.validator === '0x170511f95560A1F280c29026f73a9cD6a4bA8ab0' && token.attributes['Confidence Score'] >= 2_000",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * (token.attributes['Estimated value in USD'] <= 5_000 ? 0.2 : token.attributes['Estimated value in USD'] >= 50_000 ? 0.5 : (token.attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2), wallet.balances.usdc)",
             "loanApr": "0.12",
             "loanDurationDays": 90,
             "offerExpirationDays": 30,
@@ -59,35 +59,35 @@
         "lendingWalletAddress": "0xBD43d28CE84b7549B2afC8D4C9e9c15Ad492Cdb4",
         "offerRules": [
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
             "offerExpirationDays": 7,
             "percentChanceToLend": 100
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.2)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.2)",
             "loanApr": "0.25",
             "loanDurationDays": 120,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.2, wallet.balances.usdc * 0.25)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.2, wallet.balances.usdc * 0.25)",
             "loanApr": "0.10",
             "loanDurationDays": 60,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.25, wallet.balances.usdc * 0.4)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.25, wallet.balances.usdc * 0.4)",
             "loanApr": "0.18",
             "loanDurationDays": 180,
             "offerExpirationDays": 30,
             "percentChanceToLend": 20
           },
           {
-            "loanPrincipal": "Math.min(attributes['Estimated value in USD'] * 0.8, wallet.balances.usdc * 0.15)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.8, wallet.balances.usdc * 0.15)",
             "loanApr": "0.30",
             "loanDurationDays": 365,
             "offerExpirationDays": 20,

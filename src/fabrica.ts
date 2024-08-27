@@ -8,6 +8,7 @@ import { fetchOrThrow } from './fetch'
 import { Config, NetworkName } from './types/config'
 import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress, ZERO_ADDRESS } from './types/ethereum-address'
+import { FabricaTokenProperties } from './types/fabrica-token'
 import { PrefixedHexString } from './types/hex-string'
 import { NftMetadata } from './types/nft-metadata'
 import { PositiveInteger } from './types/positive-integer'
@@ -38,6 +39,19 @@ export class Fabrica {
 
   public readonly addMintListener = (listener: MintListener): void => {
     this.mintListeners.add(listener)
+  }
+
+  public readonly getProperties = async (
+    tokenIdentity: TokenIdentity,
+  ): Promise<FabricaTokenProperties> => {
+    const propertiesResult = await this.blockchain.executeContractMethod(
+      tokenIdentity,
+      fabricaTokenAbi,
+      '_property',
+      undefined,
+      tokenIdentity.tokenId,
+    )
+    return FabricaTokenProperties.parse(propertiesResult)
   }
 
   public readonly getMetadata = async (

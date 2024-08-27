@@ -16,6 +16,7 @@ import { Nftfi } from './nftfi'
 import { Config } from './types/config'
 import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress } from './types/ethereum-address'
+import { FabricaTokenProperties } from './types/fabrica-token'
 import { PrefixedHexString } from './types/hex-string'
 import { LoanTerms } from './types/loan-terms'
 import { NetworkConfig } from './types/network.config'
@@ -143,6 +144,16 @@ class FabricaLoanBot {
     tokenIdentity: TokenIdentity,
     lenderBalance: string,
   ): Promise<void> => {
+    let properties: FabricaTokenProperties
+    try {
+      properties = await this.fabrica.getProperties(tokenIdentity)
+    } catch (err) {
+      console.warn(
+        { err },
+        `Error getting token properties for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}`,
+      )
+      return
+    }
     let metadata: NftMetadata
     try {
       metadata = await this.fabrica.getMetadata(tokenIdentity)
@@ -160,7 +171,10 @@ class FabricaLoanBot {
       ) ?? {}
     const context = vm.createContext({
       Math,
-      attributes,
+      token: {
+        ...properties,
+        attributes,
+      },
       wallet: {
         balances: {
           usdc: lenderBalance,

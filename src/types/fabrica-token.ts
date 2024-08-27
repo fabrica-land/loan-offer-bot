@@ -1,12 +1,12 @@
 import { z } from 'zod'
 
-import { PrefixedHexString } from './hex-string'
-import { EthereumAddress } from './ethereum-address'
-import { PositiveIntegerString } from './positive-integer-string'
-import { NonEmptyString } from './non-empty-string'
-import { HttpUrlString } from './url-strings'
 import { NetworkName } from './config'
+import { EthereumAddress } from './ethereum-address'
+import { PrefixedHexString } from './hex-string'
+import { NonEmptyString } from './non-empty-string'
 import { PositiveInteger } from './positive-integer'
+import { PositiveIntegerString } from './positive-integer-string'
+import { HttpUrlString } from './url-strings'
 
 export const Balance = z.object({
   owner: z.object({ address: EthereumAddress }),
@@ -74,3 +74,20 @@ export const FabricaToken = FabricaTokenSubgraph.extend({
   contractAddress: EthereumAddress,
 })
 export type FabricaToken = z.infer<typeof FabricaToken>
+
+export const FabricaTokenProperties = z
+  .object({
+    supply: PositiveIntegerString,
+    operatingAgreement: z.string(),
+    definition: z.string(),
+    configuration: z.string(),
+    validator: z.string(),
+  })
+  .refine(
+    (token) =>
+      parseInt(token.supply, 10) > 0 ||
+      token.operatingAgreement.length > 0 ||
+      token.definition.length > 0 ||
+      token.configuration.length > 0,
+  )
+export type FabricaTokenProperties = z.infer<typeof FabricaTokenProperties>
