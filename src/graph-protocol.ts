@@ -98,7 +98,7 @@ export class GraphProtocol {
   ): GraphQLOperation<unknown, unknown> => {
     return `#graphql
       query ${titleCase(network.name)}Token($tokenId: String) {
-        token: ${network.name}_token(where: { tokenId: $tokenId }, first: 1000) {
+        tokens: ${network.name}_token(where: { tokenId: $tokenId }, first: 1000) {
           ...tokenFields
         }
         meta: ${network.name}__meta {
