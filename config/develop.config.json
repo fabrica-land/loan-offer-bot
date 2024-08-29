@@ -11,8 +11,9 @@
       },
       "nftfi": {
         "apiBaseUri": "https://sdk-api.nftfi.com",
-        "website": "https://app.nftfi.com",
-        "loanContractAddress": "0xd0a40eB7FD94eE97102BA8e9342243A2b2E22207"
+        "bnplContractAddress": "0x959879019288C4799B6e7c26eeECd0F0D499fF88",
+        "loanContractAddress": "0xd0a40eB7FD94eE97102BA8e9342243A2b2E22207",
+        "website": "https://app.nftfi.com"
       },
       "transactions": {
         "gasLimit": 1000000,
@@ -33,8 +34,9 @@
       },
       "nftfi": {
         "apiBaseUri": "https://sepolia-integration-sdk-api.nftfi.com",
-        "website": "https://sepolia-integration.nftfi.com",
-        "loanContractAddress": "0x170605b4753eB8837a08D3e58aF012B68eeD06b9"
+        "bnplContractAddress": "0x94306cff51b11b46482b8593811008573270f330",
+        "loanContractAddress": "0x170605b4753eB8837a08D3e58aF012B68eeD06b9",
+        "website": "https://sepolia-integration.nftfi.com"
       },
       "transactions": {
         "gasLimit": 1000000,

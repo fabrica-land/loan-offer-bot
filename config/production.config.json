@@ -59,6 +59,7 @@
         "lendingWalletAddress": "0xBD43d28CE84b7549B2afC8D4C9e9c15Ad492Cdb4",
         "offerRules": [
           {
+            "borrower": "bnpl.address",
             "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
@@ -66,6 +67,7 @@
             "percentChanceToLend": 100
           },
           {
+            "borrower": "token.owner",
             "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.2)",
             "loanApr": "0.25",
             "loanDurationDays": 120,
@@ -73,6 +75,7 @@
             "percentChanceToLend": 20
           },
           {
+            "borrower": "token.owner",
             "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.2, wallet.balances.usdc * 0.25)",
             "loanApr": "0.10",
             "loanDurationDays": 60,
@@ -80,6 +83,7 @@
             "percentChanceToLend": 20
           },
           {
+            "borrower": "token.owner",
             "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.25, wallet.balances.usdc * 0.4)",
             "loanApr": "0.18",
             "loanDurationDays": 180,

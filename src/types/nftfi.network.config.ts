@@ -1,12 +1,13 @@
 import { z } from 'zod'
-import { HttpUrlString } from './url-strings'
-import { NonEmptyString } from './non-empty-string'
+
 import { EthereumAddress } from './ethereum-address'
-import { HexString, PrefixedHexString } from './hex-string'
+import { NonEmptyString } from './non-empty-string'
+import { HttpUrlString } from './url-strings'
 
 export const NftfiNetworkConfig = z.object({
   apiBaseUri: HttpUrlString.optional(),
   apiKey: NonEmptyString,
+  bnplContractAddress: EthereumAddress,
   loanContractAddress: EthereumAddress,
   website: HttpUrlString.optional(),
 })

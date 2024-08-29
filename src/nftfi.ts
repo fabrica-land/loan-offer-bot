@@ -9,12 +9,12 @@ import { Blockchain } from './blockchain'
 import { Config, NetworkName } from './types/config'
 import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress, ZERO_ADDRESS } from './types/ethereum-address'
+import { FabricaToken } from './types/fabrica-token'
 import { LoanTerms } from './types/loan-terms'
 import { NftfiOffer, NftfiOffers } from './types/nftfi-offer'
 import { NonEmptyString } from './types/non-empty-string'
 import { isPlainObject } from './types/plain-object'
 import { PositiveIntegerString } from './types/positive-integer-string'
-import { TokenIdentity } from './types/token-identity'
 
 export class Nftfi {
   constructor(
@@ -98,15 +98,12 @@ export class Nftfi {
   }
 
   public readonly createOffer = async (
-    tokenIdentity: TokenIdentity,
+    token: FabricaToken,
     terms: LoanTerms,
     walletPrivateKey: NonEmptyString,
     borrowerAddress: EthereumAddress = ZERO_ADDRESS,
   ): Promise<NftfiOffer> => {
-    const nftfi = await this.getNftfiClient(
-      tokenIdentity.network,
-      walletPrivateKey,
-    )
+    const nftfi = await this.getNftfiClient(token.network, walletPrivateKey)
     // Make sure the lender wallet has enough coin
     const lenderBalance = await nftfi.erc20.balanceOf({
       account: { address: nftfi.account.getAddress() },
@@ -129,7 +126,7 @@ export class Nftfi {
       }),
     )
     // 2. Sum up the principals of the lender's outstanding NFTfi offers
-    const offers = await this.getOffers(tokenIdentity, tokenIdentity.tokenId)
+    const offers = await this.getOffers(token, token.tokenId)
     const sumOfOutstandingOffers = offers.reduce(
       (
         sum: bigint,
@@ -154,8 +151,8 @@ export class Nftfi {
     const createOffer = {
       terms,
       nft: {
-        address: tokenIdentity.contractAddress,
-        id: tokenIdentity.tokenId,
+        address: token.contractAddress,
+        id: token.tokenId,
       },
       borrower: { address: borrowerAddress },
       nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },

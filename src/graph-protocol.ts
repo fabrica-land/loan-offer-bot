@@ -14,6 +14,7 @@ import { NetworkConfig } from './types/network.config'
 import { isPlainObject } from './types/plain-object'
 import { titleCase } from './types/strings'
 import { TokenFieldsFragment } from './types/token-fields-fragment'
+import { TokenIdentity } from './types/token-identity'
 
 export class GraphProtocol {
   private _graphProtocolClient: MeshInstance | undefined
@@ -25,6 +26,38 @@ export class GraphProtocol {
       this._graphProtocolClient = await getBuiltGraphClient()
     }
     return this._graphProtocolClient
+  }
+
+  public async getToken(tokenIdentity: TokenIdentity): Promise<FabricaToken> {
+    console.debug(
+      {
+        network: tokenIdentity.network,
+        contractAddress: tokenIdentity.contractAddress,
+        tokenId: tokenIdentity.tokenId,
+      },
+      `Getting token ${tokenIdentity.tokenId} from The Graph on ${Blockchain.logString(tokenIdentity)}`,
+    )
+    const network = this.config.networks[tokenIdentity.network]
+    const query = this.getTokenQuery(network)
+    const result = await this.executeGraphQuery(query)
+    let parsed: FabricaTokensSubgraphResult
+    try {
+      parsed = FabricaTokensSubgraphResult.parse(result)
+    } catch (err) {
+      const message = `getToken result is not in expected format for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}\n${isPlainObject(err) ? err.message : err}`
+      console.warn({ err, ...tokenIdentity, result }, message)
+      throw new Error(message)
+    }
+    const tokens = parsed.data.tokens.map((token) => ({
+      ...tokenIdentity,
+      ...token,
+    }))
+    if (tokens.length < 1) {
+      throw new Error(
+        `No token with id ${tokenIdentity.tokenId} found on ${Blockchain.logString(tokenIdentity)}`,
+      )
+    }
+    return tokens[0]
   }
 
   public async getAllTokensForContract(
@@ -58,6 +91,24 @@ export class GraphProtocol {
       }) tokens from The Graph for ${Blockchain.logString(contractIdentity)}`,
     )
     return tokens
+  }
+
+  private readonly getTokenQuery = (
+    network: NetworkConfig,
+  ): GraphQLOperation<unknown, unknown> => {
+    return `#graphql
+      query ${titleCase(network.name)}Token($tokenId: String) {
+        token: ${network.name}_token(where: { tokenId: $tokenId }, first: 1000) {
+          ...tokenFields
+        }
+        meta: ${network.name}__meta {
+          block {
+            number
+          }
+        }
+      }
+      ${TokenFieldsFragment}
+    `
   }
 
   private readonly getAllTokensQuery = (
