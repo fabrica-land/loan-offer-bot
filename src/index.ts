@@ -129,7 +129,7 @@ class FabricaLoanBot {
         )
         return
       }
-      if (offers.length < 1) {
+      if (offers.length < 10) {
         await this.makeOffers(network, nftfi, token, lenderBalance)
       } else {
         console.info(

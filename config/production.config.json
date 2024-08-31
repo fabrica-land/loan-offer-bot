@@ -30,7 +30,7 @@
             "percentChanceToLend": 100
           }
         ],
-        "periodicity": "0 20 * * * *"
+        "periodicity": "0 20 7 * * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sdk-api.nftfi.com",
