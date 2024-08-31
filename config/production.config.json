@@ -16,7 +16,7 @@
           {
             "filter": "token.validator.toLocaleLowerCase() === '0x170511f95560A1F280c29026f73a9cD6a4bA8ab0'.toLocaleLowerCase() && token.attributes['Confidence Score'] >= 2_000",
             "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * (token.attributes['Estimated value in USD'] <= 5_000 ? 0.1 : token.attributes['Estimated value in USD'] >= 50_000 ? 0.6 : (token.attributes['Estimated value in USD'] - 5_000) / 45_000 * .3 + .2), wallet.balances.usdc)",
-            "loanApr": "0.15",
+            "loanApr": "0.16",
             "loanDurationDays": 120,
             "offerExpirationDays": 30,
             "percentChanceToLend": 100
@@ -30,7 +30,7 @@
             "percentChanceToLend": 100
           }
         ],
-        "periodicity": "0 15 7 * * *"
+        "periodicity": "0 20 * * * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sdk-api.nftfi.com",
