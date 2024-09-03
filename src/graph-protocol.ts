@@ -63,13 +63,15 @@ export class GraphProtocol {
   public async getAllTokensForContract(
     contractIdentity: ContractIdentity,
   ): Promise<Array<FabricaToken>> {
-    console.debug(
-      { network: contractIdentity.network },
-      `Getting all tokens from The Graph for the ${titleCase(
-        contractIdentity.network,
-      )} network`,
-    )
     const network = this.config.networks[contractIdentity.network]
+    if (network.logging.verbose) {
+      console.debug(
+        { network: contractIdentity.network },
+        `Getting all tokens from The Graph for the ${titleCase(
+          contractIdentity.network,
+        )} network`,
+      )
+    }
     const query = this.getAllTokensQuery(network)
     const result = await this.executeGraphQuery(query)
     let parsed: FabricaTokensSubgraphResult
@@ -84,12 +86,14 @@ export class GraphProtocol {
       ...contractIdentity,
       ...token,
     }))
-    console.debug(
-      { tokens },
-      `Received all (${
-        tokens.length
-      }) tokens from The Graph for ${Blockchain.logString(contractIdentity)}`,
-    )
+    if (network.logging.verbose) {
+      console.debug(
+        { tokens },
+        `Received all (${
+          tokens.length
+        }) tokens from The Graph for ${Blockchain.logString(contractIdentity)}`,
+      )
+    }
     return tokens
   }
 

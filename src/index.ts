@@ -25,6 +25,7 @@ import { NftfiOffers } from './types/nftfi-offer'
 import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
 import { titleCase } from './types/strings'
+import { durationToFriendlyString } from './types/time'
 import { TokenIdentity } from './types/token-identity'
 
 const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 60
@@ -45,9 +46,11 @@ class FabricaLoanBot {
     this.fabrica.addMintListener(this.processMint)
     Object.values(this.config.networks).forEach((network) => {
       if (network.lending.enabled) {
-        cron.schedule(network.lending.periodicity, () =>
-          this.periodicallyOfferLoans(network),
-        )
+        if (!network.lending.simulate) {
+          cron.schedule(network.lending.periodicity, () =>
+            this.periodicallyOfferLoans(network),
+          )
+        }
         void this.periodicallyOfferLoans(network)
       }
     })
@@ -103,9 +106,11 @@ class FabricaLoanBot {
       network: network.name,
       contractAddress: network.fabrica.tokenContractAddress,
     }
-    console.log(
-      `Making periodic check to create loan offers on ${Blockchain.logString(contractIdentity)}`,
-    )
+    if (network.logging.verbose) {
+      console.log(
+        `Making periodic check to create loan offers on ${Blockchain.logString(contractIdentity)}`,
+      )
+    }
     const tokens = await this.graph.getAllTokensForContract(contractIdentity)
     const nftfi = await this.nftfi.getNftfiClient(
       network.name,
@@ -132,9 +137,11 @@ class FabricaLoanBot {
       if (offers.length < 1) {
         await this.makeOffers(network, nftfi, token, lenderBalance)
       } else {
-        console.info(
-          `There ${offers.length > 1 ? 'are' : 'is'} already ${offers.length > 1 ? offers.length : 'an'} offer${offers.length > 1 ? 's' : ''} made by the lending wallet for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-        )
+        if (network.logging.verbose) {
+          console.info(
+            `There ${offers.length > 1 ? 'are' : 'is'} already ${offers.length > 1 ? offers.length : 'an'} offer${offers.length > 1 ? 's' : ''} made by the lending wallet for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+          )
+        }
       }
     })
   }
@@ -148,9 +155,11 @@ class FabricaLoanBot {
     const owner = token.balances.find((balance) => BigInt(balance.balance) > 0)
       ?.owner?.address
     if (!owner) {
-      console.warn(
-        `No owner found for token ${token.tokenId} on ${Blockchain.logString(token)}; skipping`,
-      )
+      if (network.logging.verbose) {
+        console.warn(
+          `No owner found for token ${token.tokenId} on ${Blockchain.logString(token)}; skipping`,
+        )
+      }
       return
     }
     let properties: FabricaTokenProperties
@@ -199,15 +208,19 @@ class FabricaLoanBot {
         rule.percentChanceToLend &&
         Math.floor(Math.random() * 100) > rule.percentChanceToLend
       ) {
-        console.log(
-          `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-        )
+        if (network.logging.verbose) {
+          console.log(
+            `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+          )
+        }
         return
       }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
-        console.log(
-          `Property doesn't meet the rule's filter "${rule.filter}": skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-        )
+        if (network.logging.verbose) {
+          console.log(
+            `Property doesn't meet the rule's filter "${rule.filter}": skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+          )
+        }
         return
       }
       let borrowerAddress = ZERO_ADDRESS
@@ -234,9 +247,11 @@ class FabricaLoanBot {
         principal.toString() === 'NaN' ||
         repayment.toString() === 'NaN'
       ) {
-        console.warn(
-          `Skipping making a loan offer for token ${token.tokenId} on ${Blockchain.logString(token)} since principal (${principal}) or repayment (${repayment}) are not both positive numbers`,
-        )
+        if (network.logging.verbose) {
+          console.warn(
+            `Skipping making a loan offer for token ${token.tokenId} on ${Blockchain.logString(token)} since principal (${principal}) or repayment (${repayment}) are not both positive numbers`,
+          )
+        }
         return
       }
       const terms: LoanTerms = {
@@ -249,6 +264,12 @@ class FabricaLoanBot {
         }),
         principal: this.decimalToUsdcScaleString(nftfi, principal),
         repayment: this.decimalToUsdcScaleString(nftfi, repayment),
+      }
+      if (network.lending.simulate) {
+        console.log(
+          `${metadata.name} - ${network.soilBaseUrl}/property/${network.name}/${token.tokenId} - $${principal} - ${apr.times(100)}% - ${durationToFriendlyString(durationDays)} - $${borrowerAddress}`,
+        )
+        return
       }
       console.log(
         `Creating loan offer for token ${token.tokenId} on ${Blockchain.logString(token)} with these terms`,
@@ -263,6 +284,7 @@ class FabricaLoanBot {
         )
       } catch (err) {
         console.error('Error creating NFTfi offer...', err)
+        return
       }
     })
   }
