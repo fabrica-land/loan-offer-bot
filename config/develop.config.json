@@ -15,6 +15,7 @@
         "loanContractAddress": "0xd0a40eB7FD94eE97102BA8e9342243A2b2E22207",
         "website": "https://app.nftfi.com"
       },
+      "soilBaseUrl": "https://fabrica.land",
       "transactions": {
         "gasLimit": 1000000,
         "maxFeePerGasInGwei": 20,
@@ -38,6 +39,7 @@
         "loanContractAddress": "0x170605b4753eB8837a08D3e58aF012B68eeD06b9",
         "website": "https://sepolia-integration.nftfi.com"
       },
+      "soilBaseUrl": "https://testnets.fabrica.land",
       "transactions": {
         "gasLimit": 1000000,
         "maxFeePerGasInGwei": 20,

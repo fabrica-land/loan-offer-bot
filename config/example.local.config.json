@@ -7,8 +7,8 @@
         "lendingWalletAddress": "[Use your own wallet]",
         "offerRules": [
           {
-            "filter": "property.state === 'TX'",
-            "loanPrincipal": "Math.min(property.value * 0.5, wallet.balances.usdc * 0.3)",
+            "filter": "token.attributes.State === 'TX'",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
             "offerExpirationDays": 7
