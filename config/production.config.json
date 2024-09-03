@@ -30,7 +30,7 @@
             "percentChanceToLend": 100
           }
         ],
-        "periodicity": "0 20 7 * * *"
+        "periodicity": "0 20 7 1 * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sdk-api.nftfi.com",
@@ -99,7 +99,7 @@
             "percentChanceToLend": 20
           }
         ],
-        "periodicity": "0 15 7 * * *"
+        "periodicity": "0 15 7 1 * *"
       },
       "nftfi": {
         "apiBaseUri": "https://sepolia-integration-sdk-api.nftfi.com",
