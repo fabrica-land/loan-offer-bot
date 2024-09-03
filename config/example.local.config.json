@@ -3,6 +3,7 @@
     "ethereum": {
       "lending": {
         "enabled": false,
+        "simulate": true,
         "lendingWalletAddress": "[Use your own wallet]",
         "offerRules": [
           {
@@ -14,11 +15,16 @@
           }
         ],
         "periodicity": "0 15 7 * * *"
-      }
+      },
+      "logging": {
+        "verbose": false
+      },
+      "soilBaseUrl": "https://fabrica.land"
     },
     "sepolia": {
       "lending": {
         "enabled": true,
+        "simulate": true,
         "lendingWalletAddress": "[Use your own wallet]",
         "offerRules": [
           {
@@ -39,7 +45,11 @@
           }
         ],
         "periodicity": "0 15 7 * * *"
-      }
+      },
+      "logging": {
+        "verbose": true
+      },
+      "soilBaseUrl": "https://testnets.fabrica.land"
     }
   }
 }

@@ -9,6 +9,7 @@ import { PositiveInteger } from './positive-integer'
 
 export const LendingNetworkConfig = z.object({
   enabled: z.boolean(),
+  simulate: z.boolean(),
   lendingWalletAddress: EthereumAddress,
   lendingWalletPrivateKey: HexString,
   offerRules: z.array(
