@@ -30,14 +30,14 @@
           {
             "borrower": "token.owner",
             "filter": "token.attributes.State === 'California'",
-            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.5, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * (token.attributes['Estimated value confidence'] || 100) / 100 * 0.5, wallet.balances.usdc * 0.3)",
             "loanApr": "0.15",
             "loanDurationDays": 20,
             "offerExpirationDays": 7
           },
           {
             "borrower": "bnpl.address",
-            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * 0.4, wallet.balances.usdc * 0.3)",
+            "loanPrincipal": "Math.min(token.attributes['Estimated value in USD'] * (token.attributes['Estimated value confidence'] || 100) / 100 * 0.4, wallet.balances.usdc * 0.3)",
             "loanApr": "0.25",
             "loanDurationDays": 120,
             "offerExpirationDays": 30,
