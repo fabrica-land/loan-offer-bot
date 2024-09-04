@@ -53,6 +53,7 @@ export class Nftfi {
 
   public readonly getOffers = async (
     contractIdentity: ContractIdentity,
+    lenderAddress?: EthereumAddress,
     tokenId?: PositiveIntegerString,
   ): Promise<NftfiOffers> => {
     const network = this.config.networks[contractIdentity.network]
@@ -62,13 +63,12 @@ export class Nftfi {
     )
     const result = await nftfi.offers.get({
       filters: {
+        lender: { address: { eq: lenderAddress } },
         nft: {
           address: contractIdentity.contractAddress,
           id: tokenId,
         },
-        nftfi: {
-          contract: nftfi.config.loan.fixed.v2_3.name,
-        },
+        nftfi: { contract: nftfi.config.loan.fixed.v2_3.name },
       },
     })
     const asArray = Array.isArray(result) ? result : [result]
@@ -103,6 +103,7 @@ export class Nftfi {
     walletPrivateKey: NonEmptyString,
     borrowerAddress: EthereumAddress = ZERO_ADDRESS,
   ): Promise<NftfiOffer> => {
+    const network = this.config.networks[token.network]
     const nftfi = await this.getNftfiClient(token.network, walletPrivateKey)
     // Make sure the lender wallet has enough coin
     const lenderBalance = await nftfi.erc20.balanceOf({
@@ -126,7 +127,11 @@ export class Nftfi {
       }),
     )
     // 2. Sum up the principals of the lender's outstanding NFTfi offers
-    const offers = await this.getOffers(token, token.tokenId)
+    const offers = await this.getOffers(
+      token,
+      network.lending.lendingWalletAddress,
+      token.tokenId,
+    )
     const sumOfOutstandingOffers = offers.reduce(
       (
         sum: bigint,

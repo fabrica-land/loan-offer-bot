@@ -125,24 +125,7 @@ class FabricaLoanBot {
       nftfi.config.erc20.usdc.unit,
     )
     await asyncEachSerial(tokens, async (token) => {
-      let offers: NftfiOffers
-      try {
-        offers = await this.nftfi.getOffers(contractIdentity, token.tokenId)
-      } catch (err) {
-        console.error(
-          `Failed to get NFTfi offers for token ${token.tokenId} on ${Blockchain.logString(contractIdentity)}`,
-        )
-        return
-      }
-      if (offers.length < 1) {
-        await this.makeOffers(network, nftfi, token, lenderBalance)
-      } else {
-        if (network.logging.verbose) {
-          console.info(
-            `There ${offers.length > 1 ? 'are' : 'is'} already ${offers.length > 1 ? offers.length : 'an'} offer${offers.length > 1 ? 's' : ''} made by the lending wallet for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-          )
-        }
-      }
+      await this.makeOffers(network, nftfi, token, lenderBalance)
     })
   }
 
@@ -166,20 +149,24 @@ class FabricaLoanBot {
     try {
       properties = await this.fabrica.getProperties(token)
     } catch (err) {
-      console.warn(
-        { err },
-        `Error getting token properties for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-      )
+      if (network.logging.verbose) {
+        console.warn(
+          { err },
+          `Error getting token properties for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+        )
+      }
       return
     }
     let metadata: NftMetadata
     try {
       metadata = await this.fabrica.getMetadata(token)
     } catch (err) {
-      console.warn(
-        { err },
-        `Error getting metadata for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-      )
+      if (network.logging.verbose) {
+        console.warn(
+          { err },
+          `Error getting metadata for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+        )
+      }
       return
     }
     const attributes: Record<string, string | number> =
@@ -203,18 +190,20 @@ class FabricaLoanBot {
         },
       },
     })
+    let existingOffers: NftfiOffers
+    try {
+      existingOffers = await this.nftfi.getOffers(
+        token,
+        network.lending.lendingWalletAddress,
+        token.tokenId,
+      )
+    } catch (err) {
+      console.error(
+        `Failed to get NFTfi offers for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+      )
+      return
+    }
     await asyncEachSerial(network.lending.offerRules, async (rule) => {
-      if (
-        rule.percentChanceToLend &&
-        Math.floor(Math.random() * 100) > rule.percentChanceToLend
-      ) {
-        if (network.logging.verbose) {
-          console.log(
-            `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
-          )
-        }
-        return
-      }
       if (rule.filter && !vm.runInContext(rule.filter, context)) {
         if (network.logging.verbose) {
           console.log(
@@ -233,6 +222,17 @@ class FabricaLoanBot {
           console.warn({ err }, `Borrower rule invalid: "${rule.borrower}"`)
           return
         }
+      }
+      if (
+        rule.percentChanceToLend &&
+        Math.floor(Math.random() * 100) > rule.percentChanceToLend
+      ) {
+        if (network.logging.verbose) {
+          console.log(
+            `Percent chance to lend of ${rule.percentChanceToLend} not cleared: skipping offer for token ${token.tokenId} on ${Blockchain.logString(token)}`,
+          )
+        }
+        return
       }
       const principal = new Decimal(
         vm.runInContext(rule.loanPrincipal, context),
@@ -265,9 +265,43 @@ class FabricaLoanBot {
         principal: this.decimalToUsdcScaleString(nftfi, principal),
         repayment: this.decimalToUsdcScaleString(nftfi, repayment),
       }
+      const existingOffer = existingOffers.find((offer) => {
+        console.log('---')
+        console.log(
+          'borrower',
+          offer.borrower.address.toLocaleLowerCase(),
+          borrowerAddress.toLocaleLowerCase(),
+        )
+        console.log(
+          'principal',
+          new Decimal(offer.terms.loan.principal),
+          principal,
+        )
+        console.log(
+          'repayment',
+          new Decimal(offer.terms.loan.repayment),
+          repayment,
+        )
+        console.log('duration', offer.terms.loan.duration, terms.duration)
+        return (
+          offer.borrower.address.toLocaleLowerCase() ===
+            borrowerAddress.toLocaleLowerCase() &&
+          new Decimal(offer.terms.loan.principal).eq(principal) &&
+          new Decimal(offer.terms.loan.repayment).eq(repayment) &&
+          offer.terms.loan.duration === terms.duration
+        )
+      })
+      if (existingOffer) {
+        if (network.logging.verbose) {
+          console.log(
+            `Loan already exists for ${metadata.name} with principal $${principal}, APR ${apr.times(100)}%, duration ${durationToFriendlyString(terms.duration)}, targeting borrower $${borrowerAddress}`,
+          )
+        }
+        return
+      }
       if (network.lending.simulate) {
         console.log(
-          `${metadata.name} - ${network.soilBaseUrl}/property/${network.name}/${token.tokenId} - $${principal} - ${apr.times(100)}% - ${durationToFriendlyString(durationDays)} - $${borrowerAddress}`,
+          `${metadata.name} - ${network.soilBaseUrl}/property/${network.name}/${token.tokenId} - $${principal} - ${apr.times(100)}% - ${durationToFriendlyString(terms.duration)} - $${borrowerAddress}`,
         )
         return
       }
