@@ -55,6 +55,7 @@ export class Nftfi {
     contractIdentity: ContractIdentity,
     lenderAddress?: EthereumAddress,
     tokenId?: PositiveIntegerString,
+    specificLoanContractName?: NonEmptyString,
   ): Promise<NftfiOffers> => {
     const network = this.config.networks[contractIdentity.network]
     const nftfi = await this.getNftfiClient(
@@ -68,7 +69,7 @@ export class Nftfi {
           address: contractIdentity.contractAddress,
           id: tokenId,
         },
-        nftfi: { contract: network.nftfi.defaultLoanContractName },
+        nftfi: { contract: specificLoanContractName },
       },
     })
     const asArray = Array.isArray(result) ? result : [result]
@@ -131,6 +132,7 @@ export class Nftfi {
       token,
       network.lending.lendingWalletAddress,
       token.tokenId,
+      network.nftfi.defaultLoanContractName,
     )
     const sumOfOutstandingOffers = offers.reduce(
       (
