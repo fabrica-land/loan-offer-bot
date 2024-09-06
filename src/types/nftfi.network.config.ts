@@ -8,7 +8,7 @@ export const NftfiNetworkConfig = z.object({
   apiBaseUri: HttpUrlString.optional(),
   apiKey: NonEmptyString,
   bnplContractAddress: EthereumAddress,
-  loanContractAddress: EthereumAddress,
+  defaultLoanContractName: NonEmptyString,
   website: HttpUrlString.optional(),
 })
 export type NftfiNetworkConfig = z.infer<typeof NftfiNetworkConfig>
