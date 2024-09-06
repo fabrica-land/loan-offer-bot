@@ -55,6 +55,7 @@ export class Nftfi {
     contractIdentity: ContractIdentity,
     lenderAddress?: EthereumAddress,
     tokenId?: PositiveIntegerString,
+    specificLoanContractName?: NonEmptyString,
   ): Promise<NftfiOffers> => {
     const network = this.config.networks[contractIdentity.network]
     const nftfi = await this.getNftfiClient(
@@ -68,7 +69,7 @@ export class Nftfi {
           address: contractIdentity.contractAddress,
           id: tokenId,
         },
-        nftfi: { contract: nftfi.config.loan.fixed.v2_3.name },
+        nftfi: { contract: specificLoanContractName },
       },
     })
     const asArray = Array.isArray(result) ? result : [result]
@@ -123,7 +124,7 @@ export class Nftfi {
       await nftfi.erc20.allowance({
         account: { address: nftfi.account.getAddress() },
         token: { address: terms.currency },
-        nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
+        nftfi: { contract: { name: network.nftfi.defaultLoanContractName } },
       }),
     )
     // 2. Sum up the principals of the lender's outstanding NFTfi offers
@@ -131,6 +132,7 @@ export class Nftfi {
       token,
       network.lending.lendingWalletAddress,
       token.tokenId,
+      network.nftfi.defaultLoanContractName,
     )
     const sumOfOutstandingOffers = offers.reduce(
       (
@@ -150,7 +152,7 @@ export class Nftfi {
     await nftfi.erc20.approve({
       amount: amountToApprove.toString(),
       token: { address: terms.currency },
-      nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
+      nftfi: { contract: { name: network.nftfi.defaultLoanContractName } },
     })
     // Publish the offer
     const createOffer = {
@@ -160,7 +162,7 @@ export class Nftfi {
         id: token.tokenId,
       },
       borrower: { address: borrowerAddress },
-      nftfi: { contract: { name: nftfi.config.loan.fixed.v2_3.name } },
+      nftfi: { contract: { name: network.nftfi.defaultLoanContractName } },
     }
     console.debug('Creating NFTfi offer...', { createOffer })
     const response = await nftfi.offers.create(createOffer)

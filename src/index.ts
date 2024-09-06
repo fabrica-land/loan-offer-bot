@@ -266,23 +266,6 @@ class FabricaLoanBot {
         repayment: this.decimalToUsdcScaleString(nftfi, repayment),
       }
       const existingOffer = existingOffers.find((offer) => {
-        console.log('---')
-        console.log(
-          'borrower',
-          offer.borrower.address.toLocaleLowerCase(),
-          borrowerAddress.toLocaleLowerCase(),
-        )
-        console.log(
-          'principal',
-          new Decimal(offer.terms.loan.principal),
-          principal,
-        )
-        console.log(
-          'repayment',
-          new Decimal(offer.terms.loan.repayment),
-          repayment,
-        )
-        console.log('duration', offer.terms.loan.duration, terms.duration)
         return (
           offer.borrower.address.toLocaleLowerCase() ===
             borrowerAddress.toLocaleLowerCase() &&

@@ -6,7 +6,7 @@ sources:
   - name: fabrica-ethereum
     handler:
       graphql:
-        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-ethereum/version/v0.0.8/api
+        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-ethereum/version/v0.0.9/api
     transforms:
       - autoPagination:
           validateSchema: true # Validates that the schema source actually contains the required input filters.
@@ -20,7 +20,7 @@ sources:
   - name: fabrica-sepolia
     handler:
       graphql:
-        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-sepolia/version/v0.0.19/api
+        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-sepolia/version/v0.0.20/api
     transforms:
       - autoPagination:
           validateSchema: true # Validates that the schema source actually contains the required input filters.
