@@ -1,7 +1,4 @@
 # .graphclientrc.yml
-cache:
-  file:
-    path: ./.graphclient-cache.json
 sources:
   - name: fabrica-ethereum
     handler:
@@ -16,11 +13,10 @@ sources:
           includeTypes: false
           mode: bare | wrap
           value: ethereum_
-      - typeMerging:
   - name: fabrica-sepolia
     handler:
       graphql:
-        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-sepolia/version/v0.0.20/api
+        endpoint: https://subgraph.satsuma-prod.com/0f3e6e7bbd04/fabrica/fabrica-noipfs-sepolia/version/v0.0.21/api
     transforms:
       - autoPagination:
           validateSchema: true # Validates that the schema source actually contains the required input filters.
@@ -30,4 +26,3 @@ sources:
           includeTypes: false
           mode: bare | wrap
           value: sepolia_
-      - typeMerging:
