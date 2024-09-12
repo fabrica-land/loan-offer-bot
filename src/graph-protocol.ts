@@ -1,6 +1,7 @@
 import { MeshInstance } from '@graphql-mesh/runtime'
 import { GraphQLOperation } from '@graphql-mesh/types'
 import { ExecutionResult } from 'graphql'
+import stringify from 'json-stringify-safe'
 
 import { getBuiltGraphClient } from './.graphclient'
 import { Blockchain } from './blockchain'
@@ -45,7 +46,10 @@ export class GraphProtocol {
       parsed = FabricaTokensSubgraphResult.parse(result)
     } catch (err) {
       const message = `getToken result is not in expected format for token ${tokenIdentity.tokenId} on ${Blockchain.logString(tokenIdentity)}\n${isPlainObject(err) ? err.message : err}`
-      console.warn({ err, ...tokenIdentity, result }, message)
+      console.warn(
+        { err, ...tokenIdentity, result: stringify(result, undefined, 2) },
+        message,
+      )
       throw new Error(message)
     }
     const tokens = parsed.data.tokens.map((token) => ({
@@ -79,7 +83,10 @@ export class GraphProtocol {
       parsed = FabricaTokensSubgraphResult.parse(result)
     } catch (err) {
       const message = `getAllTokensForContract result is not in expected format on ${Blockchain.logString(contractIdentity)}\n${isPlainObject(err) ? err.message : err}`
-      console.warn({ err, ...contractIdentity, result }, message)
+      console.warn(
+        { err, ...contractIdentity, result: stringify(result, undefined, 2) },
+        message,
+      )
       throw new Error(message)
     }
     const tokens = parsed.data.tokens.map((token) => ({
