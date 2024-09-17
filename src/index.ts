@@ -28,7 +28,7 @@ import { titleCase } from './types/strings'
 import { durationToFriendlyString } from './types/time'
 import { TokenIdentity } from './types/token-identity'
 
-const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 60
+const WAIT_FOR_ESTIMATED_VALUE_SECONDS = 120
 
 class FabricaLoanBot {
   private readonly blockchain: Blockchain
