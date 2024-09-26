@@ -1,6 +1,8 @@
 {
   "apiBaseUrl": "http://api.lvh.me:8081",
   "metadataBaseUrl": "http://metadata.lvh.me:8081",
+  "lendOnPremints": true,
+  "lendOnTokenMint": false,
   "networks": {
     "ethereum": {
       "name": "ethereum",

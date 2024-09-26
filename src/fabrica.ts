@@ -1,6 +1,7 @@
 import { Log } from '@ethersproject/abstract-provider'
 import { BigNumber, ContractInterface, ethers } from 'ethers'
 
+import { Api, HttpResponse, OnRampDto, RequestParams } from './api'
 import { asyncEachSerial } from './async'
 import { Blockchain } from './blockchain'
 import rawFabricaTokenAbi from './data/fabrica-1155.abi.json'
@@ -11,10 +12,11 @@ import { EthereumAddress, ZERO_ADDRESS } from './types/ethereum-address'
 import { FabricaTokenProperties } from './types/fabrica-token'
 import { PrefixedHexString } from './types/hex-string'
 import { NftMetadata } from './types/nft-metadata'
+import { isPlainObject } from './types/plain-object'
 import { PositiveInteger } from './types/positive-integer'
 import { PositiveIntegerString } from './types/positive-integer-string'
 import { TokenIdentity } from './types/token-identity'
-import { HttpUrlString } from './types/url-strings'
+import { buildUrl } from './types/url-strings'
 
 const fabricaTokenAbi: ContractInterface = rawFabricaTokenAbi
 
@@ -28,17 +30,52 @@ type MintListener = (
 ) => unknown
 
 export class Fabrica {
+  private readonly api: Api<string>
   private readonly mintListeners = new Set<MintListener>()
 
   constructor(
     private readonly blockchain: Blockchain,
     private readonly config: Config,
   ) {
+    this.api = new Api({
+      baseUrl: this.config.apiBaseUrl,
+      baseApiParams: { secure: true },
+      securityWorker: (): RequestParams => ({
+        headers: { Authorization: `Bearer ${this.config.apiBearerToken}` },
+      }),
+    })
     this.startListeners()
   }
 
   public readonly addMintListener = (listener: MintListener): void => {
     this.mintListeners.add(listener)
+  }
+
+  public readonly getPremints = async (
+    contractIdentity: ContractIdentity,
+  ): Promise<Array<OnRampDto>> => {
+    let response: HttpResponse<Array<OnRampDto>>
+    try {
+      response = await this.api.onRamp.getOnRamps(
+        contractIdentity.contractAddress,
+        contractIdentity.network,
+      )
+    } catch (err) {
+      if (isPlainObject(err) && typeof err.text === 'function') {
+        const body = await err.text()
+        console.error(body)
+      }
+      throw err
+    }
+    if (!response.ok) {
+      const message = `Invalid response getting premints from the Fabrica API`
+      console.error({
+        ...contractIdentity,
+        response,
+      })
+      throw new Error(message)
+    }
+    return response.data
   }
 
   public readonly getProperties = async (
@@ -57,14 +94,10 @@ export class Fabrica {
   public readonly getMetadata = async (
     tokenIdentity: TokenIdentity,
   ): Promise<NftMetadata> => {
-    const urlResult = await this.blockchain.executeContractMethod(
-      tokenIdentity,
-      fabricaTokenAbi,
-      'uri',
-      undefined,
-      tokenIdentity.tokenId,
+    const metadataUrl = buildUrl(
+      this.config.metadataBaseUrl,
+      `${tokenIdentity.network}/${tokenIdentity.contractAddress}/${tokenIdentity.tokenId}`,
     )
-    const metadataUrl = HttpUrlString.parse(urlResult)
     const result = await fetchOrThrow(metadataUrl)
     return NftMetadata.parse(result)
   }

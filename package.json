@@ -15,6 +15,7 @@
   "scripts": {
     "ci": "./fix-prod-graphclient-urls.sh ; export CI=true ; NODE_ENV=CI yarn install && yarn build && yarn test",
     "clean": "del dist",
+    "codegen": "sta -p https://fabrica-v3-staging.onrender.com/api-json -o src -n api.ts",
     "build": "tsc --project ./",
     "rebuild": "yarn clean && yarn build",
     "start": "node --enable-source-maps ./dist/index.js",
@@ -38,6 +39,7 @@
     "alchemy-sdk": "^3.4.1",
     "async-parallel": "^1.2.3",
     "big.js": "^6.2.2",
+    "crockford-base32": "^2.0.0",
     "dayjs": "^1.11.13",
     "decimal.js": "^10.4.3",
     "ethers": "^5.7.2",
@@ -76,6 +78,7 @@
     "prettier": "^3.3.3",
     "pretty-json-log": "^1.4.0",
     "source-map-support": "^0.5.20",
+    "swagger-typescript-api": "^13.0.22",
     "ts-loader": "^9.5.1",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^3.14.0",
