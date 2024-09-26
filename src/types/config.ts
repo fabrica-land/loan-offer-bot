@@ -2,6 +2,7 @@ import { z } from 'zod'
 
 import { NetworkConfig } from './network.config'
 import { NonEmptyString } from './non-empty-string'
+import { HttpUrlString } from './url-strings'
 
 export enum NetworkName {
   Ethereum = 'ethereum',
@@ -14,6 +15,11 @@ export const Networks = z.object({
 })
 export type Networks = z.infer<typeof Networks>
 export const Config = z.object({
+  apiBaseUrl: HttpUrlString,
+  apiBearerToken: NonEmptyString.min(32),
+  lendOnPremints: z.boolean(),
+  lendOnTokenMint: z.boolean(),
+  metadataBaseUrl: HttpUrlString,
   networks: Networks,
   nodeEnv: NonEmptyString,
 })
