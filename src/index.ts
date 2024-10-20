@@ -2,7 +2,7 @@
 // @ts-ignore
 import NftfiSdk from '@nftfi/js'
 import { CrockfordBase32 } from 'crockford-base32'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js-light'
 import { BigNumber } from 'ethers'
 import { DateTime, DurationLike } from 'luxon'
 import * as vm from 'node:vm'
@@ -436,7 +436,10 @@ class FabricaLoanBot {
     value: Decimal,
   ): PositiveIntegerString =>
     nftfi.utils
-      .formatWei(value.toFixed(5), nftfi.config.erc20.usdc.unit)
+      .formatWei(
+        value.toFixed(5, Decimal.ROUND_UP),
+        nftfi.config.erc20.usdc.unit,
+      )
       .toBigInt()
       .toString()
 
