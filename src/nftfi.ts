@@ -1,7 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import NftfiSdk from '@nftfi/js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js-light'
 import { BigNumber } from 'ethers'
 import { StatusCodes } from 'http-status-codes'
 import stringify from 'json-stringify-safe'
