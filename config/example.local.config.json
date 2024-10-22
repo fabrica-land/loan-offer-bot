@@ -1,4 +1,6 @@
 {
+  "lendOnPremints": true,
+  "lendOnTokenMint": false,
   "networks": {
     "ethereum": {
       "lending": {

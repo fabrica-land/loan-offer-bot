@@ -275,6 +275,7 @@ scalar Int8
 
 type Loan {
   id: Bytes!
+  loanProvider: String!
   loanContract: Bytes!
   loanId: BigInt!
   loanStatus: LoanStatus!
@@ -300,6 +301,7 @@ type Loan {
   amountPaidToLender: BigInt
   adminFeePaid: BigInt
   revenueSharePaid: BigInt
+  encodedLoanReceipt: Bytes
   obligationReceipt: ObligationReceipt
   promissoryNotes(skip: Int = 0, first: Int = 100, orderBy: PromissoryNote_orderBy, orderDirection: OrderDirection, where: PromissoryNote_filter): [PromissoryNote!]
 }
@@ -308,7 +310,7 @@ type LoanLiquidatedEvent {
   id: Bytes!
   loan: Loan!
   borrower: User!
-  lender: User!
+  lender: User
   loanPrincipalAmount: BigInt!
   nftCollateralId: BigInt!
   loanMaturityDate: BigInt!
@@ -471,6 +473,7 @@ enum LoanLiquidatedEvent_orderBy {
   id
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -494,6 +497,7 @@ enum LoanLiquidatedEvent_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   borrower
   borrower__id
   borrower__address
@@ -516,7 +520,7 @@ type LoanRenegotiatedEvent {
   id: Bytes!
   loan: Loan!
   borrower: User!
-  lender: User!
+  lender: User
   newLoanDuration: BigInt!
   newMaximumRepaymentAmount: BigInt!
   renegotiationFee: BigInt!
@@ -668,6 +672,7 @@ enum LoanRenegotiatedEvent_orderBy {
   id
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -691,6 +696,7 @@ enum LoanRenegotiatedEvent_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   borrower
   borrower__id
   borrower__address
@@ -712,7 +718,7 @@ type LoanRepaidEvent {
   id: Bytes!
   loan: Loan!
   borrower: User!
-  lender: User!
+  lender: User
   loanPrincipalAmount: BigInt!
   nftCollateralId: BigInt!
   amountPaidToLender: BigInt!
@@ -906,6 +912,7 @@ enum LoanRepaidEvent_orderBy {
   id
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -929,6 +936,7 @@ enum LoanRepaidEvent_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   borrower
   borrower__id
   borrower__address
@@ -954,7 +962,7 @@ type LoanStartedEvent {
   id: Bytes!
   loan: Loan!
   borrower: User!
-  lender: User!
+  lender: User
   loanPrincipalAmount: BigInt!
   maximumRepaymentAmount: BigInt!
   nftCollateralId: BigInt!
@@ -1195,6 +1203,7 @@ enum LoanStartedEvent_orderBy {
   id
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -1218,6 +1227,7 @@ enum LoanStartedEvent_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   borrower
   borrower__id
   borrower__address
@@ -1261,6 +1271,26 @@ input Loan_filter {
   id_not_in: [Bytes!]
   id_contains: Bytes
   id_not_contains: Bytes
+  loanProvider: String
+  loanProvider_not: String
+  loanProvider_gt: String
+  loanProvider_lt: String
+  loanProvider_gte: String
+  loanProvider_lte: String
+  loanProvider_in: [String!]
+  loanProvider_not_in: [String!]
+  loanProvider_contains: String
+  loanProvider_contains_nocase: String
+  loanProvider_not_contains: String
+  loanProvider_not_contains_nocase: String
+  loanProvider_starts_with: String
+  loanProvider_starts_with_nocase: String
+  loanProvider_not_starts_with: String
+  loanProvider_not_starts_with_nocase: String
+  loanProvider_ends_with: String
+  loanProvider_ends_with_nocase: String
+  loanProvider_not_ends_with: String
+  loanProvider_not_ends_with_nocase: String
   loanContract: Bytes
   loanContract_not: Bytes
   loanContract_gt: Bytes
@@ -1493,6 +1523,16 @@ input Loan_filter {
   revenueSharePaid_lte: BigInt
   revenueSharePaid_in: [BigInt!]
   revenueSharePaid_not_in: [BigInt!]
+  encodedLoanReceipt: Bytes
+  encodedLoanReceipt_not: Bytes
+  encodedLoanReceipt_gt: Bytes
+  encodedLoanReceipt_lt: Bytes
+  encodedLoanReceipt_gte: Bytes
+  encodedLoanReceipt_lte: Bytes
+  encodedLoanReceipt_in: [Bytes!]
+  encodedLoanReceipt_not_in: [Bytes!]
+  encodedLoanReceipt_contains: Bytes
+  encodedLoanReceipt_not_contains: Bytes
   obligationReceipt_: ObligationReceipt_filter
   promissoryNotes_: PromissoryNote_filter
   """Filter for the block changed event."""
@@ -1503,6 +1543,7 @@ input Loan_filter {
 
 enum Loan_orderBy {
   id
+  loanProvider
   loanContract
   loanId
   loanStatus
@@ -1534,6 +1575,7 @@ enum Loan_orderBy {
   amountPaidToLender
   adminFeePaid
   revenueSharePaid
+  encodedLoanReceipt
   obligationReceipt
   obligationReceipt__id
   obligationReceipt__receiptTokenId
@@ -1663,6 +1705,7 @@ enum ObligationReceipt_orderBy {
   receiptTokenId
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -1686,6 +1729,7 @@ enum ObligationReceipt_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   nftCollateralContract
   nftCollateralId
   creator
@@ -1916,6 +1960,7 @@ enum PromissoryNote_orderBy {
   noteTokenId
   loan
   loan__id
+  loan__loanProvider
   loan__loanContract
   loan__loanId
   loan__loanStatus
@@ -1939,6 +1984,7 @@ enum PromissoryNote_orderBy {
   loan__amountPaidToLender
   loan__adminFeePaid
   loan__revenueSharePaid
+  loan__encodedLoanReceipt
   creator
   creator__id
   creator__address

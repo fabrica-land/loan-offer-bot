@@ -3,7 +3,7 @@
 import { InContextSdkMethod } from '@graphql-mesh/types';
 import { MeshContext } from '@graphql-mesh/runtime';
 
-export namespace FabricaEthereumTypes {
+export namespace FabricaBaseSepoliaTypes {
   export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -1989,65 +1989,65 @@ export type PromissoryNote_orderBy =
   | 'holder__tokenCount';
 
 export type Query = {
-  ethereum_token?: Maybe<Token>;
-  ethereum_tokens: Array<Token>;
-  ethereum_balance?: Maybe<Balance>;
-  ethereum_balances: Array<Balance>;
-  ethereum_user?: Maybe<User>;
-  ethereum_users: Array<User>;
-  ethereum_transfer?: Maybe<Transfer>;
-  ethereum_transfers: Array<Transfer>;
-  ethereum_configurationUpdate?: Maybe<ConfigurationUpdate>;
-  ethereum_configurationUpdates: Array<ConfigurationUpdate>;
-  ethereum_operatingAgreementUpdate?: Maybe<OperatingAgreementUpdate>;
-  ethereum_operatingAgreementUpdates: Array<OperatingAgreementUpdate>;
-  ethereum_validatorUpdate?: Maybe<ValidatorUpdate>;
-  ethereum_validatorUpdates: Array<ValidatorUpdate>;
-  ethereum_traitMetadata?: Maybe<TraitMetadata>;
-  ethereum_traitMetadata_collection: Array<TraitMetadata>;
-  ethereum_traitMetadataUriUpdate?: Maybe<TraitMetadataUriUpdate>;
-  ethereum_traitMetadataUriUpdates: Array<TraitMetadataUriUpdate>;
-  ethereum_traitDefinition?: Maybe<TraitDefinition>;
-  ethereum_traitDefinitions: Array<TraitDefinition>;
-  ethereum_traitStringUpdate?: Maybe<TraitStringUpdate>;
-  ethereum_traitStringUpdates: Array<TraitStringUpdate>;
-  ethereum_traitDecimalUpdate?: Maybe<TraitDecimalUpdate>;
-  ethereum_traitDecimalUpdates: Array<TraitDecimalUpdate>;
-  ethereum_traitBooleanUpdate?: Maybe<TraitBooleanUpdate>;
-  ethereum_traitBooleanUpdates: Array<TraitBooleanUpdate>;
-  ethereum_traitString?: Maybe<TraitString>;
-  ethereum_traitStrings: Array<TraitString>;
-  ethereum_traitDecimal?: Maybe<TraitDecimal>;
-  ethereum_traitDecimals: Array<TraitDecimal>;
-  ethereum_traitBoolean?: Maybe<TraitBoolean>;
-  ethereum_traitBooleans: Array<TraitBoolean>;
-  ethereum_loan?: Maybe<Loan>;
-  ethereum_loans: Array<Loan>;
-  ethereum_loanLiquidatedEvent?: Maybe<LoanLiquidatedEvent>;
-  ethereum_loanLiquidatedEvents: Array<LoanLiquidatedEvent>;
-  ethereum_loanRenegotiatedEvent?: Maybe<LoanRenegotiatedEvent>;
-  ethereum_loanRenegotiatedEvents: Array<LoanRenegotiatedEvent>;
-  ethereum_loanRepaidEvent?: Maybe<LoanRepaidEvent>;
-  ethereum_loanRepaidEvents: Array<LoanRepaidEvent>;
-  ethereum_loanStartedEvent?: Maybe<LoanStartedEvent>;
-  ethereum_loanStartedEvents: Array<LoanStartedEvent>;
-  ethereum_obligationReceipt?: Maybe<ObligationReceipt>;
-  ethereum_obligationReceipts: Array<ObligationReceipt>;
-  ethereum_promissoryNote?: Maybe<PromissoryNote>;
-  ethereum_promissoryNotes: Array<PromissoryNote>;
+  base_sepolia_token?: Maybe<Token>;
+  base_sepolia_tokens: Array<Token>;
+  base_sepolia_balance?: Maybe<Balance>;
+  base_sepolia_balances: Array<Balance>;
+  base_sepolia_user?: Maybe<User>;
+  base_sepolia_users: Array<User>;
+  base_sepolia_transfer?: Maybe<Transfer>;
+  base_sepolia_transfers: Array<Transfer>;
+  base_sepolia_configurationUpdate?: Maybe<ConfigurationUpdate>;
+  base_sepolia_configurationUpdates: Array<ConfigurationUpdate>;
+  base_sepolia_operatingAgreementUpdate?: Maybe<OperatingAgreementUpdate>;
+  base_sepolia_operatingAgreementUpdates: Array<OperatingAgreementUpdate>;
+  base_sepolia_validatorUpdate?: Maybe<ValidatorUpdate>;
+  base_sepolia_validatorUpdates: Array<ValidatorUpdate>;
+  base_sepolia_traitMetadata?: Maybe<TraitMetadata>;
+  base_sepolia_traitMetadata_collection: Array<TraitMetadata>;
+  base_sepolia_traitMetadataUriUpdate?: Maybe<TraitMetadataUriUpdate>;
+  base_sepolia_traitMetadataUriUpdates: Array<TraitMetadataUriUpdate>;
+  base_sepolia_traitDefinition?: Maybe<TraitDefinition>;
+  base_sepolia_traitDefinitions: Array<TraitDefinition>;
+  base_sepolia_traitStringUpdate?: Maybe<TraitStringUpdate>;
+  base_sepolia_traitStringUpdates: Array<TraitStringUpdate>;
+  base_sepolia_traitDecimalUpdate?: Maybe<TraitDecimalUpdate>;
+  base_sepolia_traitDecimalUpdates: Array<TraitDecimalUpdate>;
+  base_sepolia_traitBooleanUpdate?: Maybe<TraitBooleanUpdate>;
+  base_sepolia_traitBooleanUpdates: Array<TraitBooleanUpdate>;
+  base_sepolia_traitString?: Maybe<TraitString>;
+  base_sepolia_traitStrings: Array<TraitString>;
+  base_sepolia_traitDecimal?: Maybe<TraitDecimal>;
+  base_sepolia_traitDecimals: Array<TraitDecimal>;
+  base_sepolia_traitBoolean?: Maybe<TraitBoolean>;
+  base_sepolia_traitBooleans: Array<TraitBoolean>;
+  base_sepolia_loan?: Maybe<Loan>;
+  base_sepolia_loans: Array<Loan>;
+  base_sepolia_loanLiquidatedEvent?: Maybe<LoanLiquidatedEvent>;
+  base_sepolia_loanLiquidatedEvents: Array<LoanLiquidatedEvent>;
+  base_sepolia_loanRenegotiatedEvent?: Maybe<LoanRenegotiatedEvent>;
+  base_sepolia_loanRenegotiatedEvents: Array<LoanRenegotiatedEvent>;
+  base_sepolia_loanRepaidEvent?: Maybe<LoanRepaidEvent>;
+  base_sepolia_loanRepaidEvents: Array<LoanRepaidEvent>;
+  base_sepolia_loanStartedEvent?: Maybe<LoanStartedEvent>;
+  base_sepolia_loanStartedEvents: Array<LoanStartedEvent>;
+  base_sepolia_obligationReceipt?: Maybe<ObligationReceipt>;
+  base_sepolia_obligationReceipts: Array<ObligationReceipt>;
+  base_sepolia_promissoryNote?: Maybe<PromissoryNote>;
+  base_sepolia_promissoryNotes: Array<PromissoryNote>;
   /** Access to subgraph metadata */
-  ethereum__meta?: Maybe<_Meta_>;
+  base_sepolia__meta?: Maybe<_Meta_>;
 };
 
 
-export type Queryethereum_tokenArgs = {
+export type Querybase_sepolia_tokenArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_tokensArgs = {
+export type Querybase_sepolia_tokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_orderBy>;
@@ -2058,14 +2058,14 @@ export type Queryethereum_tokensArgs = {
 };
 
 
-export type Queryethereum_balanceArgs = {
+export type Querybase_sepolia_balanceArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_balancesArgs = {
+export type Querybase_sepolia_balancesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Balance_orderBy>;
@@ -2076,14 +2076,14 @@ export type Queryethereum_balancesArgs = {
 };
 
 
-export type Queryethereum_userArgs = {
+export type Querybase_sepolia_userArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_usersArgs = {
+export type Querybase_sepolia_usersArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<User_orderBy>;
@@ -2094,14 +2094,14 @@ export type Queryethereum_usersArgs = {
 };
 
 
-export type Queryethereum_transferArgs = {
+export type Querybase_sepolia_transferArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_transfersArgs = {
+export type Querybase_sepolia_transfersArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Transfer_orderBy>;
@@ -2112,14 +2112,14 @@ export type Queryethereum_transfersArgs = {
 };
 
 
-export type Queryethereum_configurationUpdateArgs = {
+export type Querybase_sepolia_configurationUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_configurationUpdatesArgs = {
+export type Querybase_sepolia_configurationUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ConfigurationUpdate_orderBy>;
@@ -2130,14 +2130,14 @@ export type Queryethereum_configurationUpdatesArgs = {
 };
 
 
-export type Queryethereum_operatingAgreementUpdateArgs = {
+export type Querybase_sepolia_operatingAgreementUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_operatingAgreementUpdatesArgs = {
+export type Querybase_sepolia_operatingAgreementUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<OperatingAgreementUpdate_orderBy>;
@@ -2148,14 +2148,14 @@ export type Queryethereum_operatingAgreementUpdatesArgs = {
 };
 
 
-export type Queryethereum_validatorUpdateArgs = {
+export type Querybase_sepolia_validatorUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_validatorUpdatesArgs = {
+export type Querybase_sepolia_validatorUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ValidatorUpdate_orderBy>;
@@ -2166,14 +2166,14 @@ export type Queryethereum_validatorUpdatesArgs = {
 };
 
 
-export type Queryethereum_traitMetadataArgs = {
+export type Querybase_sepolia_traitMetadataArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitMetadata_collectionArgs = {
+export type Querybase_sepolia_traitMetadata_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitMetadata_orderBy>;
@@ -2184,14 +2184,14 @@ export type Queryethereum_traitMetadata_collectionArgs = {
 };
 
 
-export type Queryethereum_traitMetadataUriUpdateArgs = {
+export type Querybase_sepolia_traitMetadataUriUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitMetadataUriUpdatesArgs = {
+export type Querybase_sepolia_traitMetadataUriUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitMetadataUriUpdate_orderBy>;
@@ -2202,14 +2202,14 @@ export type Queryethereum_traitMetadataUriUpdatesArgs = {
 };
 
 
-export type Queryethereum_traitDefinitionArgs = {
+export type Querybase_sepolia_traitDefinitionArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitDefinitionsArgs = {
+export type Querybase_sepolia_traitDefinitionsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDefinition_orderBy>;
@@ -2220,14 +2220,14 @@ export type Queryethereum_traitDefinitionsArgs = {
 };
 
 
-export type Queryethereum_traitStringUpdateArgs = {
+export type Querybase_sepolia_traitStringUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitStringUpdatesArgs = {
+export type Querybase_sepolia_traitStringUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitStringUpdate_orderBy>;
@@ -2238,14 +2238,14 @@ export type Queryethereum_traitStringUpdatesArgs = {
 };
 
 
-export type Queryethereum_traitDecimalUpdateArgs = {
+export type Querybase_sepolia_traitDecimalUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitDecimalUpdatesArgs = {
+export type Querybase_sepolia_traitDecimalUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDecimalUpdate_orderBy>;
@@ -2256,14 +2256,14 @@ export type Queryethereum_traitDecimalUpdatesArgs = {
 };
 
 
-export type Queryethereum_traitBooleanUpdateArgs = {
+export type Querybase_sepolia_traitBooleanUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitBooleanUpdatesArgs = {
+export type Querybase_sepolia_traitBooleanUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitBooleanUpdate_orderBy>;
@@ -2274,14 +2274,14 @@ export type Queryethereum_traitBooleanUpdatesArgs = {
 };
 
 
-export type Queryethereum_traitStringArgs = {
+export type Querybase_sepolia_traitStringArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitStringsArgs = {
+export type Querybase_sepolia_traitStringsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitString_orderBy>;
@@ -2292,14 +2292,14 @@ export type Queryethereum_traitStringsArgs = {
 };
 
 
-export type Queryethereum_traitDecimalArgs = {
+export type Querybase_sepolia_traitDecimalArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitDecimalsArgs = {
+export type Querybase_sepolia_traitDecimalsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDecimal_orderBy>;
@@ -2310,14 +2310,14 @@ export type Queryethereum_traitDecimalsArgs = {
 };
 
 
-export type Queryethereum_traitBooleanArgs = {
+export type Querybase_sepolia_traitBooleanArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_traitBooleansArgs = {
+export type Querybase_sepolia_traitBooleansArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitBoolean_orderBy>;
@@ -2328,14 +2328,14 @@ export type Queryethereum_traitBooleansArgs = {
 };
 
 
-export type Queryethereum_loanArgs = {
+export type Querybase_sepolia_loanArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_loansArgs = {
+export type Querybase_sepolia_loansArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Loan_orderBy>;
@@ -2346,14 +2346,14 @@ export type Queryethereum_loansArgs = {
 };
 
 
-export type Queryethereum_loanLiquidatedEventArgs = {
+export type Querybase_sepolia_loanLiquidatedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_loanLiquidatedEventsArgs = {
+export type Querybase_sepolia_loanLiquidatedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanLiquidatedEvent_orderBy>;
@@ -2364,14 +2364,14 @@ export type Queryethereum_loanLiquidatedEventsArgs = {
 };
 
 
-export type Queryethereum_loanRenegotiatedEventArgs = {
+export type Querybase_sepolia_loanRenegotiatedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_loanRenegotiatedEventsArgs = {
+export type Querybase_sepolia_loanRenegotiatedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanRenegotiatedEvent_orderBy>;
@@ -2382,14 +2382,14 @@ export type Queryethereum_loanRenegotiatedEventsArgs = {
 };
 
 
-export type Queryethereum_loanRepaidEventArgs = {
+export type Querybase_sepolia_loanRepaidEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_loanRepaidEventsArgs = {
+export type Querybase_sepolia_loanRepaidEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanRepaidEvent_orderBy>;
@@ -2400,14 +2400,14 @@ export type Queryethereum_loanRepaidEventsArgs = {
 };
 
 
-export type Queryethereum_loanStartedEventArgs = {
+export type Querybase_sepolia_loanStartedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_loanStartedEventsArgs = {
+export type Querybase_sepolia_loanStartedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanStartedEvent_orderBy>;
@@ -2418,14 +2418,14 @@ export type Queryethereum_loanStartedEventsArgs = {
 };
 
 
-export type Queryethereum_obligationReceiptArgs = {
+export type Querybase_sepolia_obligationReceiptArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_obligationReceiptsArgs = {
+export type Querybase_sepolia_obligationReceiptsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ObligationReceipt_orderBy>;
@@ -2436,14 +2436,14 @@ export type Queryethereum_obligationReceiptsArgs = {
 };
 
 
-export type Queryethereum_promissoryNoteArgs = {
+export type Querybase_sepolia_promissoryNoteArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Queryethereum_promissoryNotesArgs = {
+export type Querybase_sepolia_promissoryNotesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<PromissoryNote_orderBy>;
@@ -2454,70 +2454,70 @@ export type Queryethereum_promissoryNotesArgs = {
 };
 
 
-export type Queryethereum__metaArgs = {
+export type Querybase_sepolia__metaArgs = {
   block?: InputMaybe<Block_height>;
 };
 
 export type Subscription = {
-  ethereum_token?: Maybe<Token>;
-  ethereum_tokens: Array<Token>;
-  ethereum_balance?: Maybe<Balance>;
-  ethereum_balances: Array<Balance>;
-  ethereum_user?: Maybe<User>;
-  ethereum_users: Array<User>;
-  ethereum_transfer?: Maybe<Transfer>;
-  ethereum_transfers: Array<Transfer>;
-  ethereum_configurationUpdate?: Maybe<ConfigurationUpdate>;
-  ethereum_configurationUpdates: Array<ConfigurationUpdate>;
-  ethereum_operatingAgreementUpdate?: Maybe<OperatingAgreementUpdate>;
-  ethereum_operatingAgreementUpdates: Array<OperatingAgreementUpdate>;
-  ethereum_validatorUpdate?: Maybe<ValidatorUpdate>;
-  ethereum_validatorUpdates: Array<ValidatorUpdate>;
-  ethereum_traitMetadata?: Maybe<TraitMetadata>;
-  ethereum_traitMetadata_collection: Array<TraitMetadata>;
-  ethereum_traitMetadataUriUpdate?: Maybe<TraitMetadataUriUpdate>;
-  ethereum_traitMetadataUriUpdates: Array<TraitMetadataUriUpdate>;
-  ethereum_traitDefinition?: Maybe<TraitDefinition>;
-  ethereum_traitDefinitions: Array<TraitDefinition>;
-  ethereum_traitStringUpdate?: Maybe<TraitStringUpdate>;
-  ethereum_traitStringUpdates: Array<TraitStringUpdate>;
-  ethereum_traitDecimalUpdate?: Maybe<TraitDecimalUpdate>;
-  ethereum_traitDecimalUpdates: Array<TraitDecimalUpdate>;
-  ethereum_traitBooleanUpdate?: Maybe<TraitBooleanUpdate>;
-  ethereum_traitBooleanUpdates: Array<TraitBooleanUpdate>;
-  ethereum_traitString?: Maybe<TraitString>;
-  ethereum_traitStrings: Array<TraitString>;
-  ethereum_traitDecimal?: Maybe<TraitDecimal>;
-  ethereum_traitDecimals: Array<TraitDecimal>;
-  ethereum_traitBoolean?: Maybe<TraitBoolean>;
-  ethereum_traitBooleans: Array<TraitBoolean>;
-  ethereum_loan?: Maybe<Loan>;
-  ethereum_loans: Array<Loan>;
-  ethereum_loanLiquidatedEvent?: Maybe<LoanLiquidatedEvent>;
-  ethereum_loanLiquidatedEvents: Array<LoanLiquidatedEvent>;
-  ethereum_loanRenegotiatedEvent?: Maybe<LoanRenegotiatedEvent>;
-  ethereum_loanRenegotiatedEvents: Array<LoanRenegotiatedEvent>;
-  ethereum_loanRepaidEvent?: Maybe<LoanRepaidEvent>;
-  ethereum_loanRepaidEvents: Array<LoanRepaidEvent>;
-  ethereum_loanStartedEvent?: Maybe<LoanStartedEvent>;
-  ethereum_loanStartedEvents: Array<LoanStartedEvent>;
-  ethereum_obligationReceipt?: Maybe<ObligationReceipt>;
-  ethereum_obligationReceipts: Array<ObligationReceipt>;
-  ethereum_promissoryNote?: Maybe<PromissoryNote>;
-  ethereum_promissoryNotes: Array<PromissoryNote>;
+  base_sepolia_token?: Maybe<Token>;
+  base_sepolia_tokens: Array<Token>;
+  base_sepolia_balance?: Maybe<Balance>;
+  base_sepolia_balances: Array<Balance>;
+  base_sepolia_user?: Maybe<User>;
+  base_sepolia_users: Array<User>;
+  base_sepolia_transfer?: Maybe<Transfer>;
+  base_sepolia_transfers: Array<Transfer>;
+  base_sepolia_configurationUpdate?: Maybe<ConfigurationUpdate>;
+  base_sepolia_configurationUpdates: Array<ConfigurationUpdate>;
+  base_sepolia_operatingAgreementUpdate?: Maybe<OperatingAgreementUpdate>;
+  base_sepolia_operatingAgreementUpdates: Array<OperatingAgreementUpdate>;
+  base_sepolia_validatorUpdate?: Maybe<ValidatorUpdate>;
+  base_sepolia_validatorUpdates: Array<ValidatorUpdate>;
+  base_sepolia_traitMetadata?: Maybe<TraitMetadata>;
+  base_sepolia_traitMetadata_collection: Array<TraitMetadata>;
+  base_sepolia_traitMetadataUriUpdate?: Maybe<TraitMetadataUriUpdate>;
+  base_sepolia_traitMetadataUriUpdates: Array<TraitMetadataUriUpdate>;
+  base_sepolia_traitDefinition?: Maybe<TraitDefinition>;
+  base_sepolia_traitDefinitions: Array<TraitDefinition>;
+  base_sepolia_traitStringUpdate?: Maybe<TraitStringUpdate>;
+  base_sepolia_traitStringUpdates: Array<TraitStringUpdate>;
+  base_sepolia_traitDecimalUpdate?: Maybe<TraitDecimalUpdate>;
+  base_sepolia_traitDecimalUpdates: Array<TraitDecimalUpdate>;
+  base_sepolia_traitBooleanUpdate?: Maybe<TraitBooleanUpdate>;
+  base_sepolia_traitBooleanUpdates: Array<TraitBooleanUpdate>;
+  base_sepolia_traitString?: Maybe<TraitString>;
+  base_sepolia_traitStrings: Array<TraitString>;
+  base_sepolia_traitDecimal?: Maybe<TraitDecimal>;
+  base_sepolia_traitDecimals: Array<TraitDecimal>;
+  base_sepolia_traitBoolean?: Maybe<TraitBoolean>;
+  base_sepolia_traitBooleans: Array<TraitBoolean>;
+  base_sepolia_loan?: Maybe<Loan>;
+  base_sepolia_loans: Array<Loan>;
+  base_sepolia_loanLiquidatedEvent?: Maybe<LoanLiquidatedEvent>;
+  base_sepolia_loanLiquidatedEvents: Array<LoanLiquidatedEvent>;
+  base_sepolia_loanRenegotiatedEvent?: Maybe<LoanRenegotiatedEvent>;
+  base_sepolia_loanRenegotiatedEvents: Array<LoanRenegotiatedEvent>;
+  base_sepolia_loanRepaidEvent?: Maybe<LoanRepaidEvent>;
+  base_sepolia_loanRepaidEvents: Array<LoanRepaidEvent>;
+  base_sepolia_loanStartedEvent?: Maybe<LoanStartedEvent>;
+  base_sepolia_loanStartedEvents: Array<LoanStartedEvent>;
+  base_sepolia_obligationReceipt?: Maybe<ObligationReceipt>;
+  base_sepolia_obligationReceipts: Array<ObligationReceipt>;
+  base_sepolia_promissoryNote?: Maybe<PromissoryNote>;
+  base_sepolia_promissoryNotes: Array<PromissoryNote>;
   /** Access to subgraph metadata */
-  ethereum__meta?: Maybe<_Meta_>;
+  base_sepolia__meta?: Maybe<_Meta_>;
 };
 
 
-export type Subscriptionethereum_tokenArgs = {
+export type Subscriptionbase_sepolia_tokenArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_tokensArgs = {
+export type Subscriptionbase_sepolia_tokensArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Token_orderBy>;
@@ -2528,14 +2528,14 @@ export type Subscriptionethereum_tokensArgs = {
 };
 
 
-export type Subscriptionethereum_balanceArgs = {
+export type Subscriptionbase_sepolia_balanceArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_balancesArgs = {
+export type Subscriptionbase_sepolia_balancesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Balance_orderBy>;
@@ -2546,14 +2546,14 @@ export type Subscriptionethereum_balancesArgs = {
 };
 
 
-export type Subscriptionethereum_userArgs = {
+export type Subscriptionbase_sepolia_userArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_usersArgs = {
+export type Subscriptionbase_sepolia_usersArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<User_orderBy>;
@@ -2564,14 +2564,14 @@ export type Subscriptionethereum_usersArgs = {
 };
 
 
-export type Subscriptionethereum_transferArgs = {
+export type Subscriptionbase_sepolia_transferArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_transfersArgs = {
+export type Subscriptionbase_sepolia_transfersArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Transfer_orderBy>;
@@ -2582,14 +2582,14 @@ export type Subscriptionethereum_transfersArgs = {
 };
 
 
-export type Subscriptionethereum_configurationUpdateArgs = {
+export type Subscriptionbase_sepolia_configurationUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_configurationUpdatesArgs = {
+export type Subscriptionbase_sepolia_configurationUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ConfigurationUpdate_orderBy>;
@@ -2600,14 +2600,14 @@ export type Subscriptionethereum_configurationUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_operatingAgreementUpdateArgs = {
+export type Subscriptionbase_sepolia_operatingAgreementUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_operatingAgreementUpdatesArgs = {
+export type Subscriptionbase_sepolia_operatingAgreementUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<OperatingAgreementUpdate_orderBy>;
@@ -2618,14 +2618,14 @@ export type Subscriptionethereum_operatingAgreementUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_validatorUpdateArgs = {
+export type Subscriptionbase_sepolia_validatorUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_validatorUpdatesArgs = {
+export type Subscriptionbase_sepolia_validatorUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ValidatorUpdate_orderBy>;
@@ -2636,14 +2636,14 @@ export type Subscriptionethereum_validatorUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_traitMetadataArgs = {
+export type Subscriptionbase_sepolia_traitMetadataArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitMetadata_collectionArgs = {
+export type Subscriptionbase_sepolia_traitMetadata_collectionArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitMetadata_orderBy>;
@@ -2654,14 +2654,14 @@ export type Subscriptionethereum_traitMetadata_collectionArgs = {
 };
 
 
-export type Subscriptionethereum_traitMetadataUriUpdateArgs = {
+export type Subscriptionbase_sepolia_traitMetadataUriUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitMetadataUriUpdatesArgs = {
+export type Subscriptionbase_sepolia_traitMetadataUriUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitMetadataUriUpdate_orderBy>;
@@ -2672,14 +2672,14 @@ export type Subscriptionethereum_traitMetadataUriUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_traitDefinitionArgs = {
+export type Subscriptionbase_sepolia_traitDefinitionArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitDefinitionsArgs = {
+export type Subscriptionbase_sepolia_traitDefinitionsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDefinition_orderBy>;
@@ -2690,14 +2690,14 @@ export type Subscriptionethereum_traitDefinitionsArgs = {
 };
 
 
-export type Subscriptionethereum_traitStringUpdateArgs = {
+export type Subscriptionbase_sepolia_traitStringUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitStringUpdatesArgs = {
+export type Subscriptionbase_sepolia_traitStringUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitStringUpdate_orderBy>;
@@ -2708,14 +2708,14 @@ export type Subscriptionethereum_traitStringUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_traitDecimalUpdateArgs = {
+export type Subscriptionbase_sepolia_traitDecimalUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitDecimalUpdatesArgs = {
+export type Subscriptionbase_sepolia_traitDecimalUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDecimalUpdate_orderBy>;
@@ -2726,14 +2726,14 @@ export type Subscriptionethereum_traitDecimalUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_traitBooleanUpdateArgs = {
+export type Subscriptionbase_sepolia_traitBooleanUpdateArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitBooleanUpdatesArgs = {
+export type Subscriptionbase_sepolia_traitBooleanUpdatesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitBooleanUpdate_orderBy>;
@@ -2744,14 +2744,14 @@ export type Subscriptionethereum_traitBooleanUpdatesArgs = {
 };
 
 
-export type Subscriptionethereum_traitStringArgs = {
+export type Subscriptionbase_sepolia_traitStringArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitStringsArgs = {
+export type Subscriptionbase_sepolia_traitStringsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitString_orderBy>;
@@ -2762,14 +2762,14 @@ export type Subscriptionethereum_traitStringsArgs = {
 };
 
 
-export type Subscriptionethereum_traitDecimalArgs = {
+export type Subscriptionbase_sepolia_traitDecimalArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitDecimalsArgs = {
+export type Subscriptionbase_sepolia_traitDecimalsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitDecimal_orderBy>;
@@ -2780,14 +2780,14 @@ export type Subscriptionethereum_traitDecimalsArgs = {
 };
 
 
-export type Subscriptionethereum_traitBooleanArgs = {
+export type Subscriptionbase_sepolia_traitBooleanArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_traitBooleansArgs = {
+export type Subscriptionbase_sepolia_traitBooleansArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<TraitBoolean_orderBy>;
@@ -2798,14 +2798,14 @@ export type Subscriptionethereum_traitBooleansArgs = {
 };
 
 
-export type Subscriptionethereum_loanArgs = {
+export type Subscriptionbase_sepolia_loanArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_loansArgs = {
+export type Subscriptionbase_sepolia_loansArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<Loan_orderBy>;
@@ -2816,14 +2816,14 @@ export type Subscriptionethereum_loansArgs = {
 };
 
 
-export type Subscriptionethereum_loanLiquidatedEventArgs = {
+export type Subscriptionbase_sepolia_loanLiquidatedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_loanLiquidatedEventsArgs = {
+export type Subscriptionbase_sepolia_loanLiquidatedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanLiquidatedEvent_orderBy>;
@@ -2834,14 +2834,14 @@ export type Subscriptionethereum_loanLiquidatedEventsArgs = {
 };
 
 
-export type Subscriptionethereum_loanRenegotiatedEventArgs = {
+export type Subscriptionbase_sepolia_loanRenegotiatedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_loanRenegotiatedEventsArgs = {
+export type Subscriptionbase_sepolia_loanRenegotiatedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanRenegotiatedEvent_orderBy>;
@@ -2852,14 +2852,14 @@ export type Subscriptionethereum_loanRenegotiatedEventsArgs = {
 };
 
 
-export type Subscriptionethereum_loanRepaidEventArgs = {
+export type Subscriptionbase_sepolia_loanRepaidEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_loanRepaidEventsArgs = {
+export type Subscriptionbase_sepolia_loanRepaidEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanRepaidEvent_orderBy>;
@@ -2870,14 +2870,14 @@ export type Subscriptionethereum_loanRepaidEventsArgs = {
 };
 
 
-export type Subscriptionethereum_loanStartedEventArgs = {
+export type Subscriptionbase_sepolia_loanStartedEventArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_loanStartedEventsArgs = {
+export type Subscriptionbase_sepolia_loanStartedEventsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<LoanStartedEvent_orderBy>;
@@ -2888,14 +2888,14 @@ export type Subscriptionethereum_loanStartedEventsArgs = {
 };
 
 
-export type Subscriptionethereum_obligationReceiptArgs = {
+export type Subscriptionbase_sepolia_obligationReceiptArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_obligationReceiptsArgs = {
+export type Subscriptionbase_sepolia_obligationReceiptsArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<ObligationReceipt_orderBy>;
@@ -2906,14 +2906,14 @@ export type Subscriptionethereum_obligationReceiptsArgs = {
 };
 
 
-export type Subscriptionethereum_promissoryNoteArgs = {
+export type Subscriptionbase_sepolia_promissoryNoteArgs = {
   id: Scalars['ID']['input'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type Subscriptionethereum_promissoryNotesArgs = {
+export type Subscriptionbase_sepolia_promissoryNotesArgs = {
   skip?: InputMaybe<Scalars['Int']['input']>;
   first?: InputMaybe<Scalars['Int']['input']>;
   orderBy?: InputMaybe<PromissoryNote_orderBy>;
@@ -2924,7 +2924,7 @@ export type Subscriptionethereum_promissoryNotesArgs = {
 };
 
 
-export type Subscriptionethereum__metaArgs = {
+export type Subscriptionbase_sepolia__metaArgs = {
   block?: InputMaybe<Block_height>;
 };
 
@@ -4543,99 +4543,99 @@ export type _SubgraphErrorPolicy_ =
 
   export type QuerySdk = {
       /** null **/
-  ethereum_token: InContextSdkMethod<Query['ethereum_token'], Queryethereum_tokenArgs, MeshContext>,
+  base_sepolia_token: InContextSdkMethod<Query['base_sepolia_token'], Querybase_sepolia_tokenArgs, MeshContext>,
   /** null **/
-  ethereum_tokens: InContextSdkMethod<Query['ethereum_tokens'], Queryethereum_tokensArgs, MeshContext>,
+  base_sepolia_tokens: InContextSdkMethod<Query['base_sepolia_tokens'], Querybase_sepolia_tokensArgs, MeshContext>,
   /** null **/
-  ethereum_balance: InContextSdkMethod<Query['ethereum_balance'], Queryethereum_balanceArgs, MeshContext>,
+  base_sepolia_balance: InContextSdkMethod<Query['base_sepolia_balance'], Querybase_sepolia_balanceArgs, MeshContext>,
   /** null **/
-  ethereum_balances: InContextSdkMethod<Query['ethereum_balances'], Queryethereum_balancesArgs, MeshContext>,
+  base_sepolia_balances: InContextSdkMethod<Query['base_sepolia_balances'], Querybase_sepolia_balancesArgs, MeshContext>,
   /** null **/
-  ethereum_user: InContextSdkMethod<Query['ethereum_user'], Queryethereum_userArgs, MeshContext>,
+  base_sepolia_user: InContextSdkMethod<Query['base_sepolia_user'], Querybase_sepolia_userArgs, MeshContext>,
   /** null **/
-  ethereum_users: InContextSdkMethod<Query['ethereum_users'], Queryethereum_usersArgs, MeshContext>,
+  base_sepolia_users: InContextSdkMethod<Query['base_sepolia_users'], Querybase_sepolia_usersArgs, MeshContext>,
   /** null **/
-  ethereum_transfer: InContextSdkMethod<Query['ethereum_transfer'], Queryethereum_transferArgs, MeshContext>,
+  base_sepolia_transfer: InContextSdkMethod<Query['base_sepolia_transfer'], Querybase_sepolia_transferArgs, MeshContext>,
   /** null **/
-  ethereum_transfers: InContextSdkMethod<Query['ethereum_transfers'], Queryethereum_transfersArgs, MeshContext>,
+  base_sepolia_transfers: InContextSdkMethod<Query['base_sepolia_transfers'], Querybase_sepolia_transfersArgs, MeshContext>,
   /** null **/
-  ethereum_configurationUpdate: InContextSdkMethod<Query['ethereum_configurationUpdate'], Queryethereum_configurationUpdateArgs, MeshContext>,
+  base_sepolia_configurationUpdate: InContextSdkMethod<Query['base_sepolia_configurationUpdate'], Querybase_sepolia_configurationUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_configurationUpdates: InContextSdkMethod<Query['ethereum_configurationUpdates'], Queryethereum_configurationUpdatesArgs, MeshContext>,
+  base_sepolia_configurationUpdates: InContextSdkMethod<Query['base_sepolia_configurationUpdates'], Querybase_sepolia_configurationUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_operatingAgreementUpdate: InContextSdkMethod<Query['ethereum_operatingAgreementUpdate'], Queryethereum_operatingAgreementUpdateArgs, MeshContext>,
+  base_sepolia_operatingAgreementUpdate: InContextSdkMethod<Query['base_sepolia_operatingAgreementUpdate'], Querybase_sepolia_operatingAgreementUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_operatingAgreementUpdates: InContextSdkMethod<Query['ethereum_operatingAgreementUpdates'], Queryethereum_operatingAgreementUpdatesArgs, MeshContext>,
+  base_sepolia_operatingAgreementUpdates: InContextSdkMethod<Query['base_sepolia_operatingAgreementUpdates'], Querybase_sepolia_operatingAgreementUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_validatorUpdate: InContextSdkMethod<Query['ethereum_validatorUpdate'], Queryethereum_validatorUpdateArgs, MeshContext>,
+  base_sepolia_validatorUpdate: InContextSdkMethod<Query['base_sepolia_validatorUpdate'], Querybase_sepolia_validatorUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_validatorUpdates: InContextSdkMethod<Query['ethereum_validatorUpdates'], Queryethereum_validatorUpdatesArgs, MeshContext>,
+  base_sepolia_validatorUpdates: InContextSdkMethod<Query['base_sepolia_validatorUpdates'], Querybase_sepolia_validatorUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadata: InContextSdkMethod<Query['ethereum_traitMetadata'], Queryethereum_traitMetadataArgs, MeshContext>,
+  base_sepolia_traitMetadata: InContextSdkMethod<Query['base_sepolia_traitMetadata'], Querybase_sepolia_traitMetadataArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadata_collection: InContextSdkMethod<Query['ethereum_traitMetadata_collection'], Queryethereum_traitMetadata_collectionArgs, MeshContext>,
+  base_sepolia_traitMetadata_collection: InContextSdkMethod<Query['base_sepolia_traitMetadata_collection'], Querybase_sepolia_traitMetadata_collectionArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadataUriUpdate: InContextSdkMethod<Query['ethereum_traitMetadataUriUpdate'], Queryethereum_traitMetadataUriUpdateArgs, MeshContext>,
+  base_sepolia_traitMetadataUriUpdate: InContextSdkMethod<Query['base_sepolia_traitMetadataUriUpdate'], Querybase_sepolia_traitMetadataUriUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadataUriUpdates: InContextSdkMethod<Query['ethereum_traitMetadataUriUpdates'], Queryethereum_traitMetadataUriUpdatesArgs, MeshContext>,
+  base_sepolia_traitMetadataUriUpdates: InContextSdkMethod<Query['base_sepolia_traitMetadataUriUpdates'], Querybase_sepolia_traitMetadataUriUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitDefinition: InContextSdkMethod<Query['ethereum_traitDefinition'], Queryethereum_traitDefinitionArgs, MeshContext>,
+  base_sepolia_traitDefinition: InContextSdkMethod<Query['base_sepolia_traitDefinition'], Querybase_sepolia_traitDefinitionArgs, MeshContext>,
   /** null **/
-  ethereum_traitDefinitions: InContextSdkMethod<Query['ethereum_traitDefinitions'], Queryethereum_traitDefinitionsArgs, MeshContext>,
+  base_sepolia_traitDefinitions: InContextSdkMethod<Query['base_sepolia_traitDefinitions'], Querybase_sepolia_traitDefinitionsArgs, MeshContext>,
   /** null **/
-  ethereum_traitStringUpdate: InContextSdkMethod<Query['ethereum_traitStringUpdate'], Queryethereum_traitStringUpdateArgs, MeshContext>,
+  base_sepolia_traitStringUpdate: InContextSdkMethod<Query['base_sepolia_traitStringUpdate'], Querybase_sepolia_traitStringUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitStringUpdates: InContextSdkMethod<Query['ethereum_traitStringUpdates'], Queryethereum_traitStringUpdatesArgs, MeshContext>,
+  base_sepolia_traitStringUpdates: InContextSdkMethod<Query['base_sepolia_traitStringUpdates'], Querybase_sepolia_traitStringUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimalUpdate: InContextSdkMethod<Query['ethereum_traitDecimalUpdate'], Queryethereum_traitDecimalUpdateArgs, MeshContext>,
+  base_sepolia_traitDecimalUpdate: InContextSdkMethod<Query['base_sepolia_traitDecimalUpdate'], Querybase_sepolia_traitDecimalUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimalUpdates: InContextSdkMethod<Query['ethereum_traitDecimalUpdates'], Queryethereum_traitDecimalUpdatesArgs, MeshContext>,
+  base_sepolia_traitDecimalUpdates: InContextSdkMethod<Query['base_sepolia_traitDecimalUpdates'], Querybase_sepolia_traitDecimalUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleanUpdate: InContextSdkMethod<Query['ethereum_traitBooleanUpdate'], Queryethereum_traitBooleanUpdateArgs, MeshContext>,
+  base_sepolia_traitBooleanUpdate: InContextSdkMethod<Query['base_sepolia_traitBooleanUpdate'], Querybase_sepolia_traitBooleanUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleanUpdates: InContextSdkMethod<Query['ethereum_traitBooleanUpdates'], Queryethereum_traitBooleanUpdatesArgs, MeshContext>,
+  base_sepolia_traitBooleanUpdates: InContextSdkMethod<Query['base_sepolia_traitBooleanUpdates'], Querybase_sepolia_traitBooleanUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitString: InContextSdkMethod<Query['ethereum_traitString'], Queryethereum_traitStringArgs, MeshContext>,
+  base_sepolia_traitString: InContextSdkMethod<Query['base_sepolia_traitString'], Querybase_sepolia_traitStringArgs, MeshContext>,
   /** null **/
-  ethereum_traitStrings: InContextSdkMethod<Query['ethereum_traitStrings'], Queryethereum_traitStringsArgs, MeshContext>,
+  base_sepolia_traitStrings: InContextSdkMethod<Query['base_sepolia_traitStrings'], Querybase_sepolia_traitStringsArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimal: InContextSdkMethod<Query['ethereum_traitDecimal'], Queryethereum_traitDecimalArgs, MeshContext>,
+  base_sepolia_traitDecimal: InContextSdkMethod<Query['base_sepolia_traitDecimal'], Querybase_sepolia_traitDecimalArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimals: InContextSdkMethod<Query['ethereum_traitDecimals'], Queryethereum_traitDecimalsArgs, MeshContext>,
+  base_sepolia_traitDecimals: InContextSdkMethod<Query['base_sepolia_traitDecimals'], Querybase_sepolia_traitDecimalsArgs, MeshContext>,
   /** null **/
-  ethereum_traitBoolean: InContextSdkMethod<Query['ethereum_traitBoolean'], Queryethereum_traitBooleanArgs, MeshContext>,
+  base_sepolia_traitBoolean: InContextSdkMethod<Query['base_sepolia_traitBoolean'], Querybase_sepolia_traitBooleanArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleans: InContextSdkMethod<Query['ethereum_traitBooleans'], Queryethereum_traitBooleansArgs, MeshContext>,
+  base_sepolia_traitBooleans: InContextSdkMethod<Query['base_sepolia_traitBooleans'], Querybase_sepolia_traitBooleansArgs, MeshContext>,
   /** null **/
-  ethereum_loan: InContextSdkMethod<Query['ethereum_loan'], Queryethereum_loanArgs, MeshContext>,
+  base_sepolia_loan: InContextSdkMethod<Query['base_sepolia_loan'], Querybase_sepolia_loanArgs, MeshContext>,
   /** null **/
-  ethereum_loans: InContextSdkMethod<Query['ethereum_loans'], Queryethereum_loansArgs, MeshContext>,
+  base_sepolia_loans: InContextSdkMethod<Query['base_sepolia_loans'], Querybase_sepolia_loansArgs, MeshContext>,
   /** null **/
-  ethereum_loanLiquidatedEvent: InContextSdkMethod<Query['ethereum_loanLiquidatedEvent'], Queryethereum_loanLiquidatedEventArgs, MeshContext>,
+  base_sepolia_loanLiquidatedEvent: InContextSdkMethod<Query['base_sepolia_loanLiquidatedEvent'], Querybase_sepolia_loanLiquidatedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanLiquidatedEvents: InContextSdkMethod<Query['ethereum_loanLiquidatedEvents'], Queryethereum_loanLiquidatedEventsArgs, MeshContext>,
+  base_sepolia_loanLiquidatedEvents: InContextSdkMethod<Query['base_sepolia_loanLiquidatedEvents'], Querybase_sepolia_loanLiquidatedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanRenegotiatedEvent: InContextSdkMethod<Query['ethereum_loanRenegotiatedEvent'], Queryethereum_loanRenegotiatedEventArgs, MeshContext>,
+  base_sepolia_loanRenegotiatedEvent: InContextSdkMethod<Query['base_sepolia_loanRenegotiatedEvent'], Querybase_sepolia_loanRenegotiatedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanRenegotiatedEvents: InContextSdkMethod<Query['ethereum_loanRenegotiatedEvents'], Queryethereum_loanRenegotiatedEventsArgs, MeshContext>,
+  base_sepolia_loanRenegotiatedEvents: InContextSdkMethod<Query['base_sepolia_loanRenegotiatedEvents'], Querybase_sepolia_loanRenegotiatedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanRepaidEvent: InContextSdkMethod<Query['ethereum_loanRepaidEvent'], Queryethereum_loanRepaidEventArgs, MeshContext>,
+  base_sepolia_loanRepaidEvent: InContextSdkMethod<Query['base_sepolia_loanRepaidEvent'], Querybase_sepolia_loanRepaidEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanRepaidEvents: InContextSdkMethod<Query['ethereum_loanRepaidEvents'], Queryethereum_loanRepaidEventsArgs, MeshContext>,
+  base_sepolia_loanRepaidEvents: InContextSdkMethod<Query['base_sepolia_loanRepaidEvents'], Querybase_sepolia_loanRepaidEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanStartedEvent: InContextSdkMethod<Query['ethereum_loanStartedEvent'], Queryethereum_loanStartedEventArgs, MeshContext>,
+  base_sepolia_loanStartedEvent: InContextSdkMethod<Query['base_sepolia_loanStartedEvent'], Querybase_sepolia_loanStartedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanStartedEvents: InContextSdkMethod<Query['ethereum_loanStartedEvents'], Queryethereum_loanStartedEventsArgs, MeshContext>,
+  base_sepolia_loanStartedEvents: InContextSdkMethod<Query['base_sepolia_loanStartedEvents'], Querybase_sepolia_loanStartedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_obligationReceipt: InContextSdkMethod<Query['ethereum_obligationReceipt'], Queryethereum_obligationReceiptArgs, MeshContext>,
+  base_sepolia_obligationReceipt: InContextSdkMethod<Query['base_sepolia_obligationReceipt'], Querybase_sepolia_obligationReceiptArgs, MeshContext>,
   /** null **/
-  ethereum_obligationReceipts: InContextSdkMethod<Query['ethereum_obligationReceipts'], Queryethereum_obligationReceiptsArgs, MeshContext>,
+  base_sepolia_obligationReceipts: InContextSdkMethod<Query['base_sepolia_obligationReceipts'], Querybase_sepolia_obligationReceiptsArgs, MeshContext>,
   /** null **/
-  ethereum_promissoryNote: InContextSdkMethod<Query['ethereum_promissoryNote'], Queryethereum_promissoryNoteArgs, MeshContext>,
+  base_sepolia_promissoryNote: InContextSdkMethod<Query['base_sepolia_promissoryNote'], Querybase_sepolia_promissoryNoteArgs, MeshContext>,
   /** null **/
-  ethereum_promissoryNotes: InContextSdkMethod<Query['ethereum_promissoryNotes'], Queryethereum_promissoryNotesArgs, MeshContext>,
+  base_sepolia_promissoryNotes: InContextSdkMethod<Query['base_sepolia_promissoryNotes'], Querybase_sepolia_promissoryNotesArgs, MeshContext>,
   /** Access to subgraph metadata **/
-  ethereum__meta: InContextSdkMethod<Query['ethereum__meta'], Queryethereum__metaArgs, MeshContext>
+  base_sepolia__meta: InContextSdkMethod<Query['base_sepolia__meta'], Querybase_sepolia__metaArgs, MeshContext>
   };
 
   export type MutationSdk = {
@@ -4644,103 +4644,103 @@ export type _SubgraphErrorPolicy_ =
 
   export type SubscriptionSdk = {
       /** null **/
-  ethereum_token: InContextSdkMethod<Subscription['ethereum_token'], Subscriptionethereum_tokenArgs, MeshContext>,
+  base_sepolia_token: InContextSdkMethod<Subscription['base_sepolia_token'], Subscriptionbase_sepolia_tokenArgs, MeshContext>,
   /** null **/
-  ethereum_tokens: InContextSdkMethod<Subscription['ethereum_tokens'], Subscriptionethereum_tokensArgs, MeshContext>,
+  base_sepolia_tokens: InContextSdkMethod<Subscription['base_sepolia_tokens'], Subscriptionbase_sepolia_tokensArgs, MeshContext>,
   /** null **/
-  ethereum_balance: InContextSdkMethod<Subscription['ethereum_balance'], Subscriptionethereum_balanceArgs, MeshContext>,
+  base_sepolia_balance: InContextSdkMethod<Subscription['base_sepolia_balance'], Subscriptionbase_sepolia_balanceArgs, MeshContext>,
   /** null **/
-  ethereum_balances: InContextSdkMethod<Subscription['ethereum_balances'], Subscriptionethereum_balancesArgs, MeshContext>,
+  base_sepolia_balances: InContextSdkMethod<Subscription['base_sepolia_balances'], Subscriptionbase_sepolia_balancesArgs, MeshContext>,
   /** null **/
-  ethereum_user: InContextSdkMethod<Subscription['ethereum_user'], Subscriptionethereum_userArgs, MeshContext>,
+  base_sepolia_user: InContextSdkMethod<Subscription['base_sepolia_user'], Subscriptionbase_sepolia_userArgs, MeshContext>,
   /** null **/
-  ethereum_users: InContextSdkMethod<Subscription['ethereum_users'], Subscriptionethereum_usersArgs, MeshContext>,
+  base_sepolia_users: InContextSdkMethod<Subscription['base_sepolia_users'], Subscriptionbase_sepolia_usersArgs, MeshContext>,
   /** null **/
-  ethereum_transfer: InContextSdkMethod<Subscription['ethereum_transfer'], Subscriptionethereum_transferArgs, MeshContext>,
+  base_sepolia_transfer: InContextSdkMethod<Subscription['base_sepolia_transfer'], Subscriptionbase_sepolia_transferArgs, MeshContext>,
   /** null **/
-  ethereum_transfers: InContextSdkMethod<Subscription['ethereum_transfers'], Subscriptionethereum_transfersArgs, MeshContext>,
+  base_sepolia_transfers: InContextSdkMethod<Subscription['base_sepolia_transfers'], Subscriptionbase_sepolia_transfersArgs, MeshContext>,
   /** null **/
-  ethereum_configurationUpdate: InContextSdkMethod<Subscription['ethereum_configurationUpdate'], Subscriptionethereum_configurationUpdateArgs, MeshContext>,
+  base_sepolia_configurationUpdate: InContextSdkMethod<Subscription['base_sepolia_configurationUpdate'], Subscriptionbase_sepolia_configurationUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_configurationUpdates: InContextSdkMethod<Subscription['ethereum_configurationUpdates'], Subscriptionethereum_configurationUpdatesArgs, MeshContext>,
+  base_sepolia_configurationUpdates: InContextSdkMethod<Subscription['base_sepolia_configurationUpdates'], Subscriptionbase_sepolia_configurationUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_operatingAgreementUpdate: InContextSdkMethod<Subscription['ethereum_operatingAgreementUpdate'], Subscriptionethereum_operatingAgreementUpdateArgs, MeshContext>,
+  base_sepolia_operatingAgreementUpdate: InContextSdkMethod<Subscription['base_sepolia_operatingAgreementUpdate'], Subscriptionbase_sepolia_operatingAgreementUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_operatingAgreementUpdates: InContextSdkMethod<Subscription['ethereum_operatingAgreementUpdates'], Subscriptionethereum_operatingAgreementUpdatesArgs, MeshContext>,
+  base_sepolia_operatingAgreementUpdates: InContextSdkMethod<Subscription['base_sepolia_operatingAgreementUpdates'], Subscriptionbase_sepolia_operatingAgreementUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_validatorUpdate: InContextSdkMethod<Subscription['ethereum_validatorUpdate'], Subscriptionethereum_validatorUpdateArgs, MeshContext>,
+  base_sepolia_validatorUpdate: InContextSdkMethod<Subscription['base_sepolia_validatorUpdate'], Subscriptionbase_sepolia_validatorUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_validatorUpdates: InContextSdkMethod<Subscription['ethereum_validatorUpdates'], Subscriptionethereum_validatorUpdatesArgs, MeshContext>,
+  base_sepolia_validatorUpdates: InContextSdkMethod<Subscription['base_sepolia_validatorUpdates'], Subscriptionbase_sepolia_validatorUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadata: InContextSdkMethod<Subscription['ethereum_traitMetadata'], Subscriptionethereum_traitMetadataArgs, MeshContext>,
+  base_sepolia_traitMetadata: InContextSdkMethod<Subscription['base_sepolia_traitMetadata'], Subscriptionbase_sepolia_traitMetadataArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadata_collection: InContextSdkMethod<Subscription['ethereum_traitMetadata_collection'], Subscriptionethereum_traitMetadata_collectionArgs, MeshContext>,
+  base_sepolia_traitMetadata_collection: InContextSdkMethod<Subscription['base_sepolia_traitMetadata_collection'], Subscriptionbase_sepolia_traitMetadata_collectionArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadataUriUpdate: InContextSdkMethod<Subscription['ethereum_traitMetadataUriUpdate'], Subscriptionethereum_traitMetadataUriUpdateArgs, MeshContext>,
+  base_sepolia_traitMetadataUriUpdate: InContextSdkMethod<Subscription['base_sepolia_traitMetadataUriUpdate'], Subscriptionbase_sepolia_traitMetadataUriUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitMetadataUriUpdates: InContextSdkMethod<Subscription['ethereum_traitMetadataUriUpdates'], Subscriptionethereum_traitMetadataUriUpdatesArgs, MeshContext>,
+  base_sepolia_traitMetadataUriUpdates: InContextSdkMethod<Subscription['base_sepolia_traitMetadataUriUpdates'], Subscriptionbase_sepolia_traitMetadataUriUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitDefinition: InContextSdkMethod<Subscription['ethereum_traitDefinition'], Subscriptionethereum_traitDefinitionArgs, MeshContext>,
+  base_sepolia_traitDefinition: InContextSdkMethod<Subscription['base_sepolia_traitDefinition'], Subscriptionbase_sepolia_traitDefinitionArgs, MeshContext>,
   /** null **/
-  ethereum_traitDefinitions: InContextSdkMethod<Subscription['ethereum_traitDefinitions'], Subscriptionethereum_traitDefinitionsArgs, MeshContext>,
+  base_sepolia_traitDefinitions: InContextSdkMethod<Subscription['base_sepolia_traitDefinitions'], Subscriptionbase_sepolia_traitDefinitionsArgs, MeshContext>,
   /** null **/
-  ethereum_traitStringUpdate: InContextSdkMethod<Subscription['ethereum_traitStringUpdate'], Subscriptionethereum_traitStringUpdateArgs, MeshContext>,
+  base_sepolia_traitStringUpdate: InContextSdkMethod<Subscription['base_sepolia_traitStringUpdate'], Subscriptionbase_sepolia_traitStringUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitStringUpdates: InContextSdkMethod<Subscription['ethereum_traitStringUpdates'], Subscriptionethereum_traitStringUpdatesArgs, MeshContext>,
+  base_sepolia_traitStringUpdates: InContextSdkMethod<Subscription['base_sepolia_traitStringUpdates'], Subscriptionbase_sepolia_traitStringUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimalUpdate: InContextSdkMethod<Subscription['ethereum_traitDecimalUpdate'], Subscriptionethereum_traitDecimalUpdateArgs, MeshContext>,
+  base_sepolia_traitDecimalUpdate: InContextSdkMethod<Subscription['base_sepolia_traitDecimalUpdate'], Subscriptionbase_sepolia_traitDecimalUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimalUpdates: InContextSdkMethod<Subscription['ethereum_traitDecimalUpdates'], Subscriptionethereum_traitDecimalUpdatesArgs, MeshContext>,
+  base_sepolia_traitDecimalUpdates: InContextSdkMethod<Subscription['base_sepolia_traitDecimalUpdates'], Subscriptionbase_sepolia_traitDecimalUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleanUpdate: InContextSdkMethod<Subscription['ethereum_traitBooleanUpdate'], Subscriptionethereum_traitBooleanUpdateArgs, MeshContext>,
+  base_sepolia_traitBooleanUpdate: InContextSdkMethod<Subscription['base_sepolia_traitBooleanUpdate'], Subscriptionbase_sepolia_traitBooleanUpdateArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleanUpdates: InContextSdkMethod<Subscription['ethereum_traitBooleanUpdates'], Subscriptionethereum_traitBooleanUpdatesArgs, MeshContext>,
+  base_sepolia_traitBooleanUpdates: InContextSdkMethod<Subscription['base_sepolia_traitBooleanUpdates'], Subscriptionbase_sepolia_traitBooleanUpdatesArgs, MeshContext>,
   /** null **/
-  ethereum_traitString: InContextSdkMethod<Subscription['ethereum_traitString'], Subscriptionethereum_traitStringArgs, MeshContext>,
+  base_sepolia_traitString: InContextSdkMethod<Subscription['base_sepolia_traitString'], Subscriptionbase_sepolia_traitStringArgs, MeshContext>,
   /** null **/
-  ethereum_traitStrings: InContextSdkMethod<Subscription['ethereum_traitStrings'], Subscriptionethereum_traitStringsArgs, MeshContext>,
+  base_sepolia_traitStrings: InContextSdkMethod<Subscription['base_sepolia_traitStrings'], Subscriptionbase_sepolia_traitStringsArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimal: InContextSdkMethod<Subscription['ethereum_traitDecimal'], Subscriptionethereum_traitDecimalArgs, MeshContext>,
+  base_sepolia_traitDecimal: InContextSdkMethod<Subscription['base_sepolia_traitDecimal'], Subscriptionbase_sepolia_traitDecimalArgs, MeshContext>,
   /** null **/
-  ethereum_traitDecimals: InContextSdkMethod<Subscription['ethereum_traitDecimals'], Subscriptionethereum_traitDecimalsArgs, MeshContext>,
+  base_sepolia_traitDecimals: InContextSdkMethod<Subscription['base_sepolia_traitDecimals'], Subscriptionbase_sepolia_traitDecimalsArgs, MeshContext>,
   /** null **/
-  ethereum_traitBoolean: InContextSdkMethod<Subscription['ethereum_traitBoolean'], Subscriptionethereum_traitBooleanArgs, MeshContext>,
+  base_sepolia_traitBoolean: InContextSdkMethod<Subscription['base_sepolia_traitBoolean'], Subscriptionbase_sepolia_traitBooleanArgs, MeshContext>,
   /** null **/
-  ethereum_traitBooleans: InContextSdkMethod<Subscription['ethereum_traitBooleans'], Subscriptionethereum_traitBooleansArgs, MeshContext>,
+  base_sepolia_traitBooleans: InContextSdkMethod<Subscription['base_sepolia_traitBooleans'], Subscriptionbase_sepolia_traitBooleansArgs, MeshContext>,
   /** null **/
-  ethereum_loan: InContextSdkMethod<Subscription['ethereum_loan'], Subscriptionethereum_loanArgs, MeshContext>,
+  base_sepolia_loan: InContextSdkMethod<Subscription['base_sepolia_loan'], Subscriptionbase_sepolia_loanArgs, MeshContext>,
   /** null **/
-  ethereum_loans: InContextSdkMethod<Subscription['ethereum_loans'], Subscriptionethereum_loansArgs, MeshContext>,
+  base_sepolia_loans: InContextSdkMethod<Subscription['base_sepolia_loans'], Subscriptionbase_sepolia_loansArgs, MeshContext>,
   /** null **/
-  ethereum_loanLiquidatedEvent: InContextSdkMethod<Subscription['ethereum_loanLiquidatedEvent'], Subscriptionethereum_loanLiquidatedEventArgs, MeshContext>,
+  base_sepolia_loanLiquidatedEvent: InContextSdkMethod<Subscription['base_sepolia_loanLiquidatedEvent'], Subscriptionbase_sepolia_loanLiquidatedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanLiquidatedEvents: InContextSdkMethod<Subscription['ethereum_loanLiquidatedEvents'], Subscriptionethereum_loanLiquidatedEventsArgs, MeshContext>,
+  base_sepolia_loanLiquidatedEvents: InContextSdkMethod<Subscription['base_sepolia_loanLiquidatedEvents'], Subscriptionbase_sepolia_loanLiquidatedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanRenegotiatedEvent: InContextSdkMethod<Subscription['ethereum_loanRenegotiatedEvent'], Subscriptionethereum_loanRenegotiatedEventArgs, MeshContext>,
+  base_sepolia_loanRenegotiatedEvent: InContextSdkMethod<Subscription['base_sepolia_loanRenegotiatedEvent'], Subscriptionbase_sepolia_loanRenegotiatedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanRenegotiatedEvents: InContextSdkMethod<Subscription['ethereum_loanRenegotiatedEvents'], Subscriptionethereum_loanRenegotiatedEventsArgs, MeshContext>,
+  base_sepolia_loanRenegotiatedEvents: InContextSdkMethod<Subscription['base_sepolia_loanRenegotiatedEvents'], Subscriptionbase_sepolia_loanRenegotiatedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanRepaidEvent: InContextSdkMethod<Subscription['ethereum_loanRepaidEvent'], Subscriptionethereum_loanRepaidEventArgs, MeshContext>,
+  base_sepolia_loanRepaidEvent: InContextSdkMethod<Subscription['base_sepolia_loanRepaidEvent'], Subscriptionbase_sepolia_loanRepaidEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanRepaidEvents: InContextSdkMethod<Subscription['ethereum_loanRepaidEvents'], Subscriptionethereum_loanRepaidEventsArgs, MeshContext>,
+  base_sepolia_loanRepaidEvents: InContextSdkMethod<Subscription['base_sepolia_loanRepaidEvents'], Subscriptionbase_sepolia_loanRepaidEventsArgs, MeshContext>,
   /** null **/
-  ethereum_loanStartedEvent: InContextSdkMethod<Subscription['ethereum_loanStartedEvent'], Subscriptionethereum_loanStartedEventArgs, MeshContext>,
+  base_sepolia_loanStartedEvent: InContextSdkMethod<Subscription['base_sepolia_loanStartedEvent'], Subscriptionbase_sepolia_loanStartedEventArgs, MeshContext>,
   /** null **/
-  ethereum_loanStartedEvents: InContextSdkMethod<Subscription['ethereum_loanStartedEvents'], Subscriptionethereum_loanStartedEventsArgs, MeshContext>,
+  base_sepolia_loanStartedEvents: InContextSdkMethod<Subscription['base_sepolia_loanStartedEvents'], Subscriptionbase_sepolia_loanStartedEventsArgs, MeshContext>,
   /** null **/
-  ethereum_obligationReceipt: InContextSdkMethod<Subscription['ethereum_obligationReceipt'], Subscriptionethereum_obligationReceiptArgs, MeshContext>,
+  base_sepolia_obligationReceipt: InContextSdkMethod<Subscription['base_sepolia_obligationReceipt'], Subscriptionbase_sepolia_obligationReceiptArgs, MeshContext>,
   /** null **/
-  ethereum_obligationReceipts: InContextSdkMethod<Subscription['ethereum_obligationReceipts'], Subscriptionethereum_obligationReceiptsArgs, MeshContext>,
+  base_sepolia_obligationReceipts: InContextSdkMethod<Subscription['base_sepolia_obligationReceipts'], Subscriptionbase_sepolia_obligationReceiptsArgs, MeshContext>,
   /** null **/
-  ethereum_promissoryNote: InContextSdkMethod<Subscription['ethereum_promissoryNote'], Subscriptionethereum_promissoryNoteArgs, MeshContext>,
+  base_sepolia_promissoryNote: InContextSdkMethod<Subscription['base_sepolia_promissoryNote'], Subscriptionbase_sepolia_promissoryNoteArgs, MeshContext>,
   /** null **/
-  ethereum_promissoryNotes: InContextSdkMethod<Subscription['ethereum_promissoryNotes'], Subscriptionethereum_promissoryNotesArgs, MeshContext>,
+  base_sepolia_promissoryNotes: InContextSdkMethod<Subscription['base_sepolia_promissoryNotes'], Subscriptionbase_sepolia_promissoryNotesArgs, MeshContext>,
   /** Access to subgraph metadata **/
-  ethereum__meta: InContextSdkMethod<Subscription['ethereum__meta'], Subscriptionethereum__metaArgs, MeshContext>
+  base_sepolia__meta: InContextSdkMethod<Subscription['base_sepolia__meta'], Subscriptionbase_sepolia__metaArgs, MeshContext>
   };
 
   export type Context = {
-      ["fabrica-ethereum"]: { Query: QuerySdk, Mutation: MutationSdk, Subscription: SubscriptionSdk },
+      ["fabrica-base-sepolia"]: { Query: QuerySdk, Mutation: MutationSdk, Subscription: SubscriptionSdk },
       
     };
 }

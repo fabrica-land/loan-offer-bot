@@ -1996,7 +1996,7 @@ enum PromissoryNote_orderBy {
 }
 
 type Query {
-  sepolia_token(
+  base_sepolia_token(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2007,7 +2007,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Token
-  sepolia_tokens(
+  base_sepolia_tokens(
     skip: Int = 0
     first: Int = 100
     orderBy: Token_orderBy
@@ -2022,7 +2022,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Token!]!
-  sepolia_balance(
+  base_sepolia_balance(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2033,7 +2033,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Balance
-  sepolia_balances(
+  base_sepolia_balances(
     skip: Int = 0
     first: Int = 100
     orderBy: Balance_orderBy
@@ -2048,7 +2048,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Balance!]!
-  sepolia_user(
+  base_sepolia_user(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2059,7 +2059,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): User
-  sepolia_users(
+  base_sepolia_users(
     skip: Int = 0
     first: Int = 100
     orderBy: User_orderBy
@@ -2074,7 +2074,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [User!]!
-  sepolia_transfer(
+  base_sepolia_transfer(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2085,7 +2085,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Transfer
-  sepolia_transfers(
+  base_sepolia_transfers(
     skip: Int = 0
     first: Int = 100
     orderBy: Transfer_orderBy
@@ -2100,7 +2100,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Transfer!]!
-  sepolia_configurationUpdate(
+  base_sepolia_configurationUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2111,7 +2111,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ConfigurationUpdate
-  sepolia_configurationUpdates(
+  base_sepolia_configurationUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: ConfigurationUpdate_orderBy
@@ -2126,7 +2126,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ConfigurationUpdate!]!
-  sepolia_operatingAgreementUpdate(
+  base_sepolia_operatingAgreementUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2137,7 +2137,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): OperatingAgreementUpdate
-  sepolia_operatingAgreementUpdates(
+  base_sepolia_operatingAgreementUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: OperatingAgreementUpdate_orderBy
@@ -2152,7 +2152,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [OperatingAgreementUpdate!]!
-  sepolia_validatorUpdate(
+  base_sepolia_validatorUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2163,7 +2163,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ValidatorUpdate
-  sepolia_validatorUpdates(
+  base_sepolia_validatorUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: ValidatorUpdate_orderBy
@@ -2178,7 +2178,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ValidatorUpdate!]!
-  sepolia_traitMetadata(
+  base_sepolia_traitMetadata(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2189,7 +2189,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitMetadata
-  sepolia_traitMetadata_collection(
+  base_sepolia_traitMetadata_collection(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitMetadata_orderBy
@@ -2204,7 +2204,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitMetadata!]!
-  sepolia_traitMetadataUriUpdate(
+  base_sepolia_traitMetadataUriUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2215,7 +2215,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitMetadataUriUpdate
-  sepolia_traitMetadataUriUpdates(
+  base_sepolia_traitMetadataUriUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitMetadataUriUpdate_orderBy
@@ -2230,7 +2230,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitMetadataUriUpdate!]!
-  sepolia_traitDefinition(
+  base_sepolia_traitDefinition(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2241,7 +2241,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDefinition
-  sepolia_traitDefinitions(
+  base_sepolia_traitDefinitions(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDefinition_orderBy
@@ -2256,7 +2256,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDefinition!]!
-  sepolia_traitStringUpdate(
+  base_sepolia_traitStringUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2267,7 +2267,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitStringUpdate
-  sepolia_traitStringUpdates(
+  base_sepolia_traitStringUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitStringUpdate_orderBy
@@ -2282,7 +2282,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitStringUpdate!]!
-  sepolia_traitDecimalUpdate(
+  base_sepolia_traitDecimalUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2293,7 +2293,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDecimalUpdate
-  sepolia_traitDecimalUpdates(
+  base_sepolia_traitDecimalUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDecimalUpdate_orderBy
@@ -2308,7 +2308,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDecimalUpdate!]!
-  sepolia_traitBooleanUpdate(
+  base_sepolia_traitBooleanUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2319,7 +2319,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitBooleanUpdate
-  sepolia_traitBooleanUpdates(
+  base_sepolia_traitBooleanUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitBooleanUpdate_orderBy
@@ -2334,7 +2334,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitBooleanUpdate!]!
-  sepolia_traitString(
+  base_sepolia_traitString(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2345,7 +2345,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitString
-  sepolia_traitStrings(
+  base_sepolia_traitStrings(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitString_orderBy
@@ -2360,7 +2360,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitString!]!
-  sepolia_traitDecimal(
+  base_sepolia_traitDecimal(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2371,7 +2371,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDecimal
-  sepolia_traitDecimals(
+  base_sepolia_traitDecimals(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDecimal_orderBy
@@ -2386,7 +2386,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDecimal!]!
-  sepolia_traitBoolean(
+  base_sepolia_traitBoolean(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2397,7 +2397,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitBoolean
-  sepolia_traitBooleans(
+  base_sepolia_traitBooleans(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitBoolean_orderBy
@@ -2412,7 +2412,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitBoolean!]!
-  sepolia_loan(
+  base_sepolia_loan(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2423,7 +2423,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Loan
-  sepolia_loans(
+  base_sepolia_loans(
     skip: Int = 0
     first: Int = 100
     orderBy: Loan_orderBy
@@ -2438,7 +2438,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Loan!]!
-  sepolia_loanLiquidatedEvent(
+  base_sepolia_loanLiquidatedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2449,7 +2449,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanLiquidatedEvent
-  sepolia_loanLiquidatedEvents(
+  base_sepolia_loanLiquidatedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanLiquidatedEvent_orderBy
@@ -2464,7 +2464,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanLiquidatedEvent!]!
-  sepolia_loanRenegotiatedEvent(
+  base_sepolia_loanRenegotiatedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2475,7 +2475,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanRenegotiatedEvent
-  sepolia_loanRenegotiatedEvents(
+  base_sepolia_loanRenegotiatedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanRenegotiatedEvent_orderBy
@@ -2490,7 +2490,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanRenegotiatedEvent!]!
-  sepolia_loanRepaidEvent(
+  base_sepolia_loanRepaidEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2501,7 +2501,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanRepaidEvent
-  sepolia_loanRepaidEvents(
+  base_sepolia_loanRepaidEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanRepaidEvent_orderBy
@@ -2516,7 +2516,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanRepaidEvent!]!
-  sepolia_loanStartedEvent(
+  base_sepolia_loanStartedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2527,7 +2527,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanStartedEvent
-  sepolia_loanStartedEvents(
+  base_sepolia_loanStartedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanStartedEvent_orderBy
@@ -2542,7 +2542,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanStartedEvent!]!
-  sepolia_obligationReceipt(
+  base_sepolia_obligationReceipt(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2553,7 +2553,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ObligationReceipt
-  sepolia_obligationReceipts(
+  base_sepolia_obligationReceipts(
     skip: Int = 0
     first: Int = 100
     orderBy: ObligationReceipt_orderBy
@@ -2568,7 +2568,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ObligationReceipt!]!
-  sepolia_promissoryNote(
+  base_sepolia_promissoryNote(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2579,7 +2579,7 @@ type Query {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): PromissoryNote
-  sepolia_promissoryNotes(
+  base_sepolia_promissoryNotes(
     skip: Int = 0
     first: Int = 100
     orderBy: PromissoryNote_orderBy
@@ -2595,11 +2595,11 @@ type Query {
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [PromissoryNote!]!
   """Access to subgraph metadata"""
-  sepolia__meta(block: Block_height): _Meta_
+  base_sepolia__meta(block: Block_height): _Meta_
 }
 
 type Subscription {
-  sepolia_token(
+  base_sepolia_token(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2610,7 +2610,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Token
-  sepolia_tokens(
+  base_sepolia_tokens(
     skip: Int = 0
     first: Int = 100
     orderBy: Token_orderBy
@@ -2625,7 +2625,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Token!]!
-  sepolia_balance(
+  base_sepolia_balance(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2636,7 +2636,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Balance
-  sepolia_balances(
+  base_sepolia_balances(
     skip: Int = 0
     first: Int = 100
     orderBy: Balance_orderBy
@@ -2651,7 +2651,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Balance!]!
-  sepolia_user(
+  base_sepolia_user(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2662,7 +2662,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): User
-  sepolia_users(
+  base_sepolia_users(
     skip: Int = 0
     first: Int = 100
     orderBy: User_orderBy
@@ -2677,7 +2677,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [User!]!
-  sepolia_transfer(
+  base_sepolia_transfer(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2688,7 +2688,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Transfer
-  sepolia_transfers(
+  base_sepolia_transfers(
     skip: Int = 0
     first: Int = 100
     orderBy: Transfer_orderBy
@@ -2703,7 +2703,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Transfer!]!
-  sepolia_configurationUpdate(
+  base_sepolia_configurationUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2714,7 +2714,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ConfigurationUpdate
-  sepolia_configurationUpdates(
+  base_sepolia_configurationUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: ConfigurationUpdate_orderBy
@@ -2729,7 +2729,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ConfigurationUpdate!]!
-  sepolia_operatingAgreementUpdate(
+  base_sepolia_operatingAgreementUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2740,7 +2740,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): OperatingAgreementUpdate
-  sepolia_operatingAgreementUpdates(
+  base_sepolia_operatingAgreementUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: OperatingAgreementUpdate_orderBy
@@ -2755,7 +2755,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [OperatingAgreementUpdate!]!
-  sepolia_validatorUpdate(
+  base_sepolia_validatorUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2766,7 +2766,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ValidatorUpdate
-  sepolia_validatorUpdates(
+  base_sepolia_validatorUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: ValidatorUpdate_orderBy
@@ -2781,7 +2781,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ValidatorUpdate!]!
-  sepolia_traitMetadata(
+  base_sepolia_traitMetadata(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2792,7 +2792,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitMetadata
-  sepolia_traitMetadata_collection(
+  base_sepolia_traitMetadata_collection(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitMetadata_orderBy
@@ -2807,7 +2807,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitMetadata!]!
-  sepolia_traitMetadataUriUpdate(
+  base_sepolia_traitMetadataUriUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2818,7 +2818,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitMetadataUriUpdate
-  sepolia_traitMetadataUriUpdates(
+  base_sepolia_traitMetadataUriUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitMetadataUriUpdate_orderBy
@@ -2833,7 +2833,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitMetadataUriUpdate!]!
-  sepolia_traitDefinition(
+  base_sepolia_traitDefinition(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2844,7 +2844,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDefinition
-  sepolia_traitDefinitions(
+  base_sepolia_traitDefinitions(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDefinition_orderBy
@@ -2859,7 +2859,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDefinition!]!
-  sepolia_traitStringUpdate(
+  base_sepolia_traitStringUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2870,7 +2870,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitStringUpdate
-  sepolia_traitStringUpdates(
+  base_sepolia_traitStringUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitStringUpdate_orderBy
@@ -2885,7 +2885,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitStringUpdate!]!
-  sepolia_traitDecimalUpdate(
+  base_sepolia_traitDecimalUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2896,7 +2896,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDecimalUpdate
-  sepolia_traitDecimalUpdates(
+  base_sepolia_traitDecimalUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDecimalUpdate_orderBy
@@ -2911,7 +2911,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDecimalUpdate!]!
-  sepolia_traitBooleanUpdate(
+  base_sepolia_traitBooleanUpdate(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2922,7 +2922,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitBooleanUpdate
-  sepolia_traitBooleanUpdates(
+  base_sepolia_traitBooleanUpdates(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitBooleanUpdate_orderBy
@@ -2937,7 +2937,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitBooleanUpdate!]!
-  sepolia_traitString(
+  base_sepolia_traitString(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2948,7 +2948,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitString
-  sepolia_traitStrings(
+  base_sepolia_traitStrings(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitString_orderBy
@@ -2963,7 +2963,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitString!]!
-  sepolia_traitDecimal(
+  base_sepolia_traitDecimal(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -2974,7 +2974,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitDecimal
-  sepolia_traitDecimals(
+  base_sepolia_traitDecimals(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitDecimal_orderBy
@@ -2989,7 +2989,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitDecimal!]!
-  sepolia_traitBoolean(
+  base_sepolia_traitBoolean(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3000,7 +3000,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): TraitBoolean
-  sepolia_traitBooleans(
+  base_sepolia_traitBooleans(
     skip: Int = 0
     first: Int = 100
     orderBy: TraitBoolean_orderBy
@@ -3015,7 +3015,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [TraitBoolean!]!
-  sepolia_loan(
+  base_sepolia_loan(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3026,7 +3026,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): Loan
-  sepolia_loans(
+  base_sepolia_loans(
     skip: Int = 0
     first: Int = 100
     orderBy: Loan_orderBy
@@ -3041,7 +3041,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [Loan!]!
-  sepolia_loanLiquidatedEvent(
+  base_sepolia_loanLiquidatedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3052,7 +3052,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanLiquidatedEvent
-  sepolia_loanLiquidatedEvents(
+  base_sepolia_loanLiquidatedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanLiquidatedEvent_orderBy
@@ -3067,7 +3067,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanLiquidatedEvent!]!
-  sepolia_loanRenegotiatedEvent(
+  base_sepolia_loanRenegotiatedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3078,7 +3078,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanRenegotiatedEvent
-  sepolia_loanRenegotiatedEvents(
+  base_sepolia_loanRenegotiatedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanRenegotiatedEvent_orderBy
@@ -3093,7 +3093,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanRenegotiatedEvent!]!
-  sepolia_loanRepaidEvent(
+  base_sepolia_loanRepaidEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3104,7 +3104,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanRepaidEvent
-  sepolia_loanRepaidEvents(
+  base_sepolia_loanRepaidEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanRepaidEvent_orderBy
@@ -3119,7 +3119,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanRepaidEvent!]!
-  sepolia_loanStartedEvent(
+  base_sepolia_loanStartedEvent(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3130,7 +3130,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): LoanStartedEvent
-  sepolia_loanStartedEvents(
+  base_sepolia_loanStartedEvents(
     skip: Int = 0
     first: Int = 100
     orderBy: LoanStartedEvent_orderBy
@@ -3145,7 +3145,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [LoanStartedEvent!]!
-  sepolia_obligationReceipt(
+  base_sepolia_obligationReceipt(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3156,7 +3156,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): ObligationReceipt
-  sepolia_obligationReceipts(
+  base_sepolia_obligationReceipts(
     skip: Int = 0
     first: Int = 100
     orderBy: ObligationReceipt_orderBy
@@ -3171,7 +3171,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [ObligationReceipt!]!
-  sepolia_promissoryNote(
+  base_sepolia_promissoryNote(
     id: ID!
     """
     The block at which the query should be executed. Can either be a `{ hash: Bytes }` value containing a block hash, a `{ number: Int }` containing the block number, or a `{ number_gte: Int }` containing the minimum block number. In the case of `number_gte`, the query will be executed on the latest block only if the subgraph has progressed to or past the minimum block number. Defaults to the latest block when omitted.
@@ -3182,7 +3182,7 @@ type Subscription {
     """
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): PromissoryNote
-  sepolia_promissoryNotes(
+  base_sepolia_promissoryNotes(
     skip: Int = 0
     first: Int = 100
     orderBy: PromissoryNote_orderBy
@@ -3198,7 +3198,7 @@ type Subscription {
     subgraphError: _SubgraphErrorPolicy_! = deny
   ): [PromissoryNote!]!
   """Access to subgraph metadata"""
-  sepolia__meta(block: Block_height): _Meta_
+  base_sepolia__meta(block: Block_height): _Meta_
 }
 
 """

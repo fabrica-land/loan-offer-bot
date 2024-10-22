@@ -269,6 +269,7 @@ export type ConfigurationUpdate_orderBy =
 
 export type Loan = {
   id: Scalars['Bytes']['output'];
+  loanProvider: Scalars['String']['output'];
   loanContract: Scalars['Bytes']['output'];
   loanId: Scalars['BigInt']['output'];
   loanStatus: LoanStatus;
@@ -294,6 +295,7 @@ export type Loan = {
   amountPaidToLender?: Maybe<Scalars['BigInt']['output']>;
   adminFeePaid?: Maybe<Scalars['BigInt']['output']>;
   revenueSharePaid?: Maybe<Scalars['BigInt']['output']>;
+  encodedLoanReceipt?: Maybe<Scalars['Bytes']['output']>;
   obligationReceipt?: Maybe<ObligationReceipt>;
   promissoryNotes?: Maybe<Array<PromissoryNote>>;
 };
@@ -311,7 +313,7 @@ export type LoanLiquidatedEvent = {
   id: Scalars['Bytes']['output'];
   loan: Loan;
   borrower: User;
-  lender: User;
+  lender?: Maybe<User>;
   loanPrincipalAmount: Scalars['BigInt']['output'];
   nftCollateralId: Scalars['BigInt']['output'];
   loanMaturityDate: Scalars['BigInt']['output'];
@@ -474,6 +476,7 @@ export type LoanLiquidatedEvent_orderBy =
   | 'id'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -497,6 +500,7 @@ export type LoanLiquidatedEvent_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'borrower'
   | 'borrower__id'
   | 'borrower__address'
@@ -518,7 +522,7 @@ export type LoanRenegotiatedEvent = {
   id: Scalars['Bytes']['output'];
   loan: Loan;
   borrower: User;
-  lender: User;
+  lender?: Maybe<User>;
   newLoanDuration: Scalars['BigInt']['output'];
   newMaximumRepaymentAmount: Scalars['BigInt']['output'];
   renegotiationFee: Scalars['BigInt']['output'];
@@ -670,6 +674,7 @@ export type LoanRenegotiatedEvent_orderBy =
   | 'id'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -693,6 +698,7 @@ export type LoanRenegotiatedEvent_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'borrower'
   | 'borrower__id'
   | 'borrower__address'
@@ -713,7 +719,7 @@ export type LoanRepaidEvent = {
   id: Scalars['Bytes']['output'];
   loan: Loan;
   borrower: User;
-  lender: User;
+  lender?: Maybe<User>;
   loanPrincipalAmount: Scalars['BigInt']['output'];
   nftCollateralId: Scalars['BigInt']['output'];
   amountPaidToLender: Scalars['BigInt']['output'];
@@ -907,6 +913,7 @@ export type LoanRepaidEvent_orderBy =
   | 'id'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -930,6 +937,7 @@ export type LoanRepaidEvent_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'borrower'
   | 'borrower__id'
   | 'borrower__address'
@@ -954,7 +962,7 @@ export type LoanStartedEvent = {
   id: Scalars['Bytes']['output'];
   loan: Loan;
   borrower: User;
-  lender: User;
+  lender?: Maybe<User>;
   loanPrincipalAmount: Scalars['BigInt']['output'];
   maximumRepaymentAmount: Scalars['BigInt']['output'];
   nftCollateralId: Scalars['BigInt']['output'];
@@ -1195,6 +1203,7 @@ export type LoanStartedEvent_orderBy =
   | 'id'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -1218,6 +1227,7 @@ export type LoanStartedEvent_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'borrower'
   | 'borrower__id'
   | 'borrower__address'
@@ -1259,6 +1269,26 @@ export type Loan_filter = {
   id_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
   id_contains?: InputMaybe<Scalars['Bytes']['input']>;
   id_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  loanProvider?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_gt?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_lt?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_gte?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_lte?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  loanProvider_not_in?: InputMaybe<Array<Scalars['String']['input']>>;
+  loanProvider_contains?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_contains?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_contains_nocase?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_starts_with?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_starts_with?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_starts_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_ends_with?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_ends_with?: InputMaybe<Scalars['String']['input']>;
+  loanProvider_not_ends_with_nocase?: InputMaybe<Scalars['String']['input']>;
   loanContract?: InputMaybe<Scalars['Bytes']['input']>;
   loanContract_not?: InputMaybe<Scalars['Bytes']['input']>;
   loanContract_gt?: InputMaybe<Scalars['Bytes']['input']>;
@@ -1491,6 +1521,16 @@ export type Loan_filter = {
   revenueSharePaid_lte?: InputMaybe<Scalars['BigInt']['input']>;
   revenueSharePaid_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
   revenueSharePaid_not_in?: InputMaybe<Array<Scalars['BigInt']['input']>>;
+  encodedLoanReceipt?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_not?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_gt?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_lt?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_gte?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_lte?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  encodedLoanReceipt_not_in?: InputMaybe<Array<Scalars['Bytes']['input']>>;
+  encodedLoanReceipt_contains?: InputMaybe<Scalars['Bytes']['input']>;
+  encodedLoanReceipt_not_contains?: InputMaybe<Scalars['Bytes']['input']>;
   obligationReceipt_?: InputMaybe<ObligationReceipt_filter>;
   promissoryNotes_?: InputMaybe<PromissoryNote_filter>;
   /** Filter for the block changed event. */
@@ -1501,6 +1541,7 @@ export type Loan_filter = {
 
 export type Loan_orderBy =
   | 'id'
+  | 'loanProvider'
   | 'loanContract'
   | 'loanId'
   | 'loanStatus'
@@ -1532,6 +1573,7 @@ export type Loan_orderBy =
   | 'amountPaidToLender'
   | 'adminFeePaid'
   | 'revenueSharePaid'
+  | 'encodedLoanReceipt'
   | 'obligationReceipt'
   | 'obligationReceipt__id'
   | 'obligationReceipt__receiptTokenId'
@@ -1660,6 +1702,7 @@ export type ObligationReceipt_orderBy =
   | 'receiptTokenId'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -1683,6 +1726,7 @@ export type ObligationReceipt_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'nftCollateralContract'
   | 'nftCollateralId'
   | 'creator'
@@ -1910,6 +1954,7 @@ export type PromissoryNote_orderBy =
   | 'noteTokenId'
   | 'loan'
   | 'loan__id'
+  | 'loan__loanProvider'
   | 'loan__loanContract'
   | 'loan__loanId'
   | 'loan__loanStatus'
@@ -1933,6 +1978,7 @@ export type PromissoryNote_orderBy =
   | 'loan__amountPaidToLender'
   | 'loan__adminFeePaid'
   | 'loan__revenueSharePaid'
+  | 'loan__encodedLoanReceipt'
   | 'creator'
   | 'creator__id'
   | 'creator__address'
