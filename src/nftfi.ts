@@ -1,7 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import NftfiSdk from '@nftfi/js'
-import Decimal from 'decimal.js'
+import Decimal from 'decimal.js-light'
+import { BigNumber } from 'ethers'
 import { StatusCodes } from 'http-status-codes'
 import stringify from 'json-stringify-safe'
 
@@ -9,12 +10,13 @@ import { Blockchain } from './blockchain'
 import { Config, NetworkName } from './types/config'
 import { ContractIdentity } from './types/contract-identity'
 import { EthereumAddress, ZERO_ADDRESS } from './types/ethereum-address'
-import { FabricaToken } from './types/fabrica-token'
 import { LoanTerms } from './types/loan-terms'
+import { NetworkConfig } from './types/network.config'
 import { NftfiOffer, NftfiOffers } from './types/nftfi-offer'
 import { NonEmptyString } from './types/non-empty-string'
 import { isPlainObject } from './types/plain-object'
 import { PositiveIntegerString } from './types/positive-integer-string'
+import { TokenIdentity } from './types/token-identity'
 
 export class Nftfi {
   constructor(
@@ -49,6 +51,25 @@ export class Nftfi {
         provider: { url: provider.connection.url },
       },
     })
+  }
+
+  public readonly getUsdcBalance = async (
+    network: NetworkConfig,
+    walletAddress: EthereumAddress,
+  ): Promise<PositiveIntegerString> => {
+    const nftfi = await this.getNftfiClient(
+      network.name,
+      network.lending.lendingWalletPrivateKey,
+    )
+    const lenderBalanceResult = await nftfi.erc20.balanceOf({
+      account: { address: walletAddress },
+      token: { address: nftfi.config.erc20.usdc.address },
+    })
+    const lenderBalance = nftfi.utils.formatUnits(
+      BigNumber.from(lenderBalanceResult).toString(),
+      nftfi.config.erc20.usdc.unit,
+    )
+    return lenderBalance
   }
 
   public readonly getOffers = async (
@@ -99,7 +120,7 @@ export class Nftfi {
   }
 
   public readonly createOffer = async (
-    token: FabricaToken,
+    token: TokenIdentity,
     terms: LoanTerms,
     walletPrivateKey: NonEmptyString,
     borrowerAddress: EthereumAddress = ZERO_ADDRESS,
