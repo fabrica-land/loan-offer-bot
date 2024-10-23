@@ -1,9 +1,6 @@
 {
-<<<<<<< Updated upstream
-=======
   "apiBaseUrl": "http://api.lvh.me:8081",
   "metadataBaseUrl": "http://metadata.lvh.me:8081",
->>>>>>> Stashed changes
   "networks": {
     "ethereum": {
       "name": "ethereum",
