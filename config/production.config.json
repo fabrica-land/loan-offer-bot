@@ -1,4 +1,8 @@
 {
+  "apiBaseUrl": "https://api3.fabrica.land",
+  "metadataBaseUrl": "https://metadata.fabrica.land",
+  "lendOnPremints": true,
+  "lendOnTokenMint": false,
   "networks": {
     "ethereum": {
       "name": "ethereum",
