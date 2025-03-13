@@ -35,7 +35,7 @@
     "@graphql-mesh/transform-type-merging": "^0.102.5",
     "@graphql-mesh/types": "^0.102.5",
     "@graphql-mesh/utils": "^0.102.5",
-    "@nftfi/js": "NFTfi-Genesis/nftfi.js#v0.5.5",
+    "@nftfi/js": "NFTfi-Genesis/nftfi.js#v0.6.4",
     "alchemy-sdk": "^3.4.1",
     "async-parallel": "^1.2.3",
     "big.js": "^6.2.2",
@@ -86,9 +86,11 @@
     "typescript-eslint": "^7.13.0"
   },
   "resolutions": {
+    "axios": "^1.8.2",
     "dset": "^3.1.4",
     "elliptic": "^6.6.1",
     "jsonpath-plus": "^10.3.0",
-    "secp256k1": "^4.0.4"
+    "secp256k1": "^4.0.4",
+    "ws": "^5.2.4"
   }
 }
